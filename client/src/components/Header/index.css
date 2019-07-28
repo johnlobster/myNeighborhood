@@ -1,0 +1,26 @@
+/* this is just a placeholder */
+
+.HeaderHeaderBox {
+  background-color: lightgreen;
+  color: black;
+  margin-top: 0;
+  padding: 1rem;
+  display:flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.HeaderReactLogo {
+  animation: React-logo-spin infinite 20s linear;
+  height: 7vmin;
+  pointer-events: none;
+}
+
+@keyframes React-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
