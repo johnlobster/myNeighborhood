@@ -28,5 +28,7 @@ To seed the database
 node scripts/dbSeed
 ```
 
+**Please make sure all changes are done in a branch other than master**
+
 
 
