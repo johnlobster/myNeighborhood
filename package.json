@@ -8,10 +8,15 @@
     "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
-    "install": "cd client && npm install",
+    "install": "cd client && npm ci",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
-    "test": "npx cross-env NODE_ENV=test mocha --exit"
+    "test": "npm run test:server && npm run test:client",
+    "testCI": "npm run test:server && npm run test:clientCI",
+    "test:server": "npx cross-env NODE_ENV=test mocha --exit",
+    "test:client": "cd client && npm run test",
+    "test:clientCI": "cd client && npx cross-env CI=0 npm run test",
+    "lint": "eslint --quiet"
   },
   "author": "",
   "license": "ISC",
