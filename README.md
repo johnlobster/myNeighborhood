@@ -4,7 +4,7 @@
 
 * Rob Ross
 * Eddson Blanco
-* Diego Solario
+* Diego Solorio
 * John Webster
 
 ## Set up development environment
