@@ -7,6 +7,10 @@ const PORT = process.env.PORT || 3001;
 
 
 // set up database
+if (process.env.NODE_ENV === "test") {
+  // for testing, use a different database than development, otherwise may get clashes
+  process.env.MONGODB_URI = "mongodb://localhost/myneighborhood_test";
+}
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/myneighborhood";
 // don't need to load models as the database is not accessed directly from the server
 // added in to check everything is loading and linking properly
@@ -37,3 +41,8 @@ app.use(routes);
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
+
+// export app and db so that they can be used in testing
+// app is used to check that server started, db is used for clearing database,
+// and checking that data was set correctly
+module.exports = { server:app, db:db}
