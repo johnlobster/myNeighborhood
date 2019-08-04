@@ -19,6 +19,8 @@ Start mongodb
 ```
 mongodb
 ```
+Note - mongodb must always be running. If your computer restarts for some reason you must start mongodb again
+
 To run both node/express server and react
 ```bash
 npm run start

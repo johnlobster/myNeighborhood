@@ -1,6 +1,6 @@
 import React from 'react';
 import reactLogo from "../../images/react-logo.svg";
-import "./index.css";
+import "./index.scss";
 
 // this is a placeholder
 
