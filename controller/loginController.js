@@ -25,15 +25,17 @@ module.exports = {
           }
           else {
             // retrieved password, check it and send session key
-            if ( validatePassword(req.body.userName, req.body.password, dbModel[0].password)) {
-              wDebug("Login successful");
-              res.json({ jwt: getJWT()});
-            } 
-            else {
-              // password was incorrect
-              wDebug("bad password for user " + req.body.userName);
-              res.status(204).json("");
-            }
+            validatePassword(dbModel[0].password, req.body.password )
+              .then( (validPassword) => {
+                if (validPassword) {
+                  wDebug("Login successful");
+                  res.json({ jwt: getJWT() });
+                }
+                else {
+                  wDebug("bad password for user " + req.body.userName);
+                  res.status(204).json("");
+                }
+              });  
           }
         })
         .catch((err) => {

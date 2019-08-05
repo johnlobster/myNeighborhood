@@ -10,7 +10,15 @@ let { app, db } = require("../server");
 
 // create a valid password for testing
 const password = "123456"
-const encPassword = auth.createPassword(password);
+let encPassword = "";
+// don't have to wait for completion as server startup has a delay built in
+auth.encodePassword(password)
+  .then( (encPw) => {
+    encPassword = encPw;
+  })
+  .catch( (err) => {
+    throw new Error(err);
+  });
 
 
 describe("t2 login api test, test /api/login route : start server\n", () => {
@@ -117,7 +125,7 @@ describe("Add aTestUser to db and log in", () => {
     db.User
       .create({ 
         userName: "aTestUser",
-        password: password
+        password: encPassword
       })
       .then( (dbResult) => {
         // return a pass to mocha as something was created
@@ -142,9 +150,9 @@ describe("Add aTestUser to db and log in", () => {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res.status).to.equal(200, "http response code");
-        // API returns empty body, using 204 to indicate failure
         // could add further checks that the response object has the right field
-        expect(res.body).to.not.be.empty
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwt).to.not.be.empty;
         done();
       });
   });
