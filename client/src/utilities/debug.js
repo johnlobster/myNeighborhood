@@ -7,30 +7,32 @@
 // use example: import {wError, wInfo, wDebug, wObj} from "./utils/debug.js")("App");
 // the import results are destructured to get the 4 functions
 
-// TODO: use a REACT_APP variable to determine logging level
 export default function(componentName) {
   return {
-    wError: function (...logMessage) {
+    wError: function (inputString, ...otherArgs) {
       // red
-      console.log(`\x1b[31m[${componentName}] Error: `, logMessage);
+      console.log(`\x1b[31m[${componentName}] Error: ${inputString}`, ...otherArgs);
     },
-    wInfo: function (...logMessage) {
-      console.log(`[${componentName}] Info: `, logMessage);
+    wInfo: function (inputString, ...otherArgs) {
+      console.log(`[${componentName}] Info: ${inputString}`, ...otherArgs);
     },
-    wDebug: function (...logMessage) {
-      // magenta
-      console.log(`\x1b[35m[${componentName}] Debug: `, logMessage);
-
+    wDebug: function (inputString, ...otherArgs) {
+      if (process.env.NODE_ENV !== "production") {
+        // magenta
+        console.log(`\x1b[35m[${componentName}] Debug: ${inputString}`, ...otherArgs);
+      }
     },
     wObj: function (obj) {
-      console.log(obj)
+      if (process.env.NODE_ENV !== "production") {
+        console.log(obj)
 
+      }
     }
   }
 }
 // to use:
-// import debug from "./utilities/debug.js";
-// const { wError, wInfo, wDebug, wObj } = debug("App");
+// import dBug from "./utilities/debug.js";
+// const { wError, wInfo, wDebug, wObj } = dBug("App");
 
 // test code
 // wError("An error");

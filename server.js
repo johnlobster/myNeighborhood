@@ -6,7 +6,7 @@ require("dotenv").config(); // add variables in .env file to process.env
 const PORT = process.env.PORT || 3001;
 
 // check NODE_ENV
-console.log(`NODE_ENV ${process.env.NODE_ENV}`);
+console.log(`server: NODE_ENV ${process.env.NODE_ENV}`);
 // debug setup here so if NODE_ENV is undefined, that gets printed out before things start
 // crashing
 let { wError, wInfo, wDebug, wObj } = require("./scripts/debug.js")("server.js");
