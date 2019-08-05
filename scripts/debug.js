@@ -77,3 +77,12 @@ module.exports = function(fileName) {
       }
 }
 
+// to use:
+// const { wError, wInfo, wDebug, wObj } = require ("../scripts/debug")("loginController");
+
+// test code
+// wError("An error");
+// wInfo("some info");
+// wDebug("debug stuff");
+// wObj({ fred: { jim: { eric: "hello" } } });
+
