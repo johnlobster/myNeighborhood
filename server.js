@@ -44,7 +44,7 @@ app.use(routes);
 
 
 app.listen(PORT, () => {
-  wInfo(`🌎 ==> API server listening on port ${PORT}!`);
+  wInfo(`🌎 ==> API server listening on port ${PORT}`);
 });
 
 // export app and db so that they can be used in testing
