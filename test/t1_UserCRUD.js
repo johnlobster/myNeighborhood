@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 //     console.log(chalk.red("\nUNCAUGHT ERROR\n"), err);
 // };
 
-let {server,db} = require("../server");
+let {app,db} = require("../server");
 // db and server starts are asynchronous. Instead of making server.js return a promise
 // which would need to be called somewhere, just use setTimeout in the first test
 
@@ -25,7 +25,7 @@ describe("t1 User CRUD: start server\n", () => {
     // wait for server to start before doing anything
     setTimeout(() => {
       // app should have lots of data in it, just check that it isn't still a blank object
-      expect(typeof (server.settings)).to.equal("object");
+      expect(typeof (app.settings)).to.equal("object");
       done();
     }, 1500);
   });
