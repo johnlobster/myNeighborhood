@@ -7,6 +7,7 @@ import Nav from "./components/nav/Nav";
 import About from "./components/about/About";
 import Login from "./components/login/Login";
 
+import "./styles/globals.scss";
 
 
 function App() {

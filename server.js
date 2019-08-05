@@ -5,6 +5,11 @@ const path = require("path");
 require("dotenv").config(); // add variables in .env file to process.env
 const PORT = process.env.PORT || 3001;
 
+// check NODE_ENV
+console.log(`server: NODE_ENV ${process.env.NODE_ENV}`);
+// debug setup here so if NODE_ENV is undefined, that gets printed out before things start
+// crashing
+let { wError, wInfo, wDebug, wObj } = require("./scripts/debug.js")("server.js");
 
 // set up database
 if (process.env.NODE_ENV === "test") {
@@ -16,9 +21,9 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/myneighborho
 // added in to check everything is loading and linking properly
 const db = require("./models");
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
-  .then(() => console.log("Connected to mongoose/mongodb database"))
+  .then(() => wInfo("Connected to mongoose/mongodb database"))
   .catch(err => {
-    console.log("Problem connecting to mongodb");
+    wError("Problem connecting to mongodb");
     throw new Error(err);
   });
 
@@ -28,7 +33,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Serve up static assets (usually on heroku)
+// Serve up static assets for production (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
@@ -39,10 +44,10 @@ app.use(routes);
 
 
 app.listen(PORT, () => {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
+  wInfo(`🌎 ==> API server listening on port ${PORT}!`);
 });
 
 // export app and db so that they can be used in testing
 // app is used to check that server started, db is used for clearing database,
 // and checking that data was set correctly
-module.exports = { server:app, db:db}
+module.exports = { app:app, db:db}
