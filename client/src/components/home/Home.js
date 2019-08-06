@@ -2,6 +2,7 @@
 import React from 'react';
 import './style.sass';
 import logo from './mnh.gif' 
+import Signup from '../signup/Signup';
 
 
 
@@ -12,6 +13,7 @@ function Home() {
           </div>
           <h1>My Neighborhood</h1>
           <img src ={logo} />
+          <Signup/>
       </div>
     );
   }
