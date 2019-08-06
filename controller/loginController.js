@@ -29,7 +29,11 @@ module.exports = {
               .then( (validPassword) => {
                 if (validPassword) {
                   wDebug("Login successful");
-                  res.json({ jwt: getJWT() });
+                  // JWT payload
+                  getJWT({ userName: req.body.userName})
+                    .then( (jwtToken) => {
+                      res.json({ jwt: jwtToken });
+                    })
                 }
                 else {
                   wDebug("bad password for user " + req.body.userName);

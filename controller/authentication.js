@@ -32,12 +32,41 @@ module.exports = {
         })
     });
   },
-  getJWT: () => {
-    wDebug("get JWT");
-    return "JWT";
+  getJWT: (payload) => {
+    return new Promise( (resolve, reject) => {
+      wDebug("get JWT payload " + JSON.stringify(payload));
+      const signOptions = {
+        expiresIn: "3 days"
+      }
+      jwt.sign(payload, process.env.JWT_KEY, signOptions, function (err, token) {
+        if (err) {
+          wError("Error in JWT generation");
+          reject(err);
+        }
+        else {
+          resolve(token);
+        }
+      });
+    })
   },
-  validateJWT: (jwt) => {
-    wDebug("Validate JWT");
-    return true;
+  validateJWT: (jwtToken) => {
+    return new Promise( (resolve, reject) => {
+      wDebug("Validate JWT");
+      jwt.verify(jwtToken,process.env.JWT_KEY)
+        .then( (payload) => {
+          resolve(payload);
+        })
+        .catch( err => {
+          wError("Error occurred in validateJWT");
+          reject(err);
+        })
+      resolve(true)
+    });
+  },
+  authenticationMiddleware: (req, res, next) => {
+    // dummy for the moment, but would call validateJWT if there is a jwt token in the header,
+    // then create req.jwtVerified to be true or false
+    // ? jwtUserId for checking ?
+    next();
   }
 }

@@ -33,6 +33,13 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// add debug middleware to keep an eye on sessions should this be in routes/api ?
+app.use(function (req, res, next) {
+  if (req.headers.authorization ) {
+    wDebug("http " + req.url + " " + req.method + " ");
+    wObj(req.headers.authorization);  }
+  next();
+});
 // Serve up static assets for production (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
