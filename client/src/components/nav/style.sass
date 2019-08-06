@@ -1,12 +1,47 @@
+$color1: hsla(84%, 51%, 47%, 1);
+$color2: hsla(0%, 0%, 9%, 1);
+$color3: hsla(180%, 2%, 45%, 1);
+$color4: hsla(0%, 0%, 33%, 1);
+$color5: hsla(90%, 23%, 17%, 1);
+
+/* RGB */
+$color1: rgba(133, 183, 59, 1);
+$color2: #282c34
+$color3: #E9E9E9
+$color4: rgba(83, 83, 83, 1);
+$color5: rgba(43, 53, 33, 1);
+        
+        
 nav 
     display: flex
     justify-content: space-around
     align-items: center
-    min-height: 10vh
-    background: #cccccc
+    max-height: 8vh
+    background-color: $color1
+    margin: 0px
+    img 
+        
+        height: 8vh
+        background-color: $color2
     .nav-links
-        width: 50%
+        width: 40%
         display: flex
-        justify-content: space-around
+        justify-content: space-between
         align-items: center
         list-style: none
+        min-height: 8vh
+        li
+                
+                display: flex
+                align-items: center
+                padding: 10px
+                font-size: 12px
+                text-decoration: none
+                color: $color2
+                border-radius: 10%
+                margin-top: 15px
+                &:hover
+                        background-color: $color2
+                        color: #fff
+                        text-decoration: none
+       
