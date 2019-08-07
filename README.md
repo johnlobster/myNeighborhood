@@ -39,8 +39,21 @@ JWT_KEY=12345dsdhfaklkjhgl
 NODE_ENV is not set by default, but is used to drive logging and some other test functions
 It will be automatically set to "test" in test environment, and "production" by `create-react-app` on deployment. If not set, server.js will set it to "production". The .env file is not checked into the git repo to prevent unwanted defaults, so must be created explicitly in the development environment
 
+## Deployment
 
-**Please make sure all changes are done in a branch other than master**
+The app is deployed at <https://shielded-tor-66455.herokuapp.com>
+
+This is on heroku - there may be a 10-20 second delay for the app to restart
+
+To push a development branch to heroku, first set heroku as a git remote
+```bash
+git remote add heroku https://git.heroku.com/shielded-tor-66455.git
+```
+Then can push any branch
+```bash
+git push heroku myBranch:master
+```
+The name "heroku" can be changed to any name you want in the above
 
 ## Sass and css
 

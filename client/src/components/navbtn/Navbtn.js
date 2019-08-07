@@ -12,13 +12,13 @@ function Navbtn() {
       <div id="nav" className="col-3 fixed-bottom ">
           <li className="nav-item  dropdown p-2 ">
             <a className="nav-link   " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-bars" aria-hidden="true"></i>
+            <i className="fa fa-bars" aria-hidden="true"></i>
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <a className="dropdown-item text-center" href="/login">Login</a>
               <a className="dropdown-item text-center" href="/signup">Sign up</a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item text-center" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
+              <a className="dropdown-item text-center" href="/"><i className="fa fa-home" aria-hidden="true"></i></a>
             </div>
           </li>
 
