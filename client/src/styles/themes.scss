@@ -8,9 +8,12 @@ body.lightTheme {
   --bgColor1-d2: #{$color1-d2};
   --bgColor1-l2: #{$color1-l2};
   --textColor1: black;
+  --textColor2: #{$basicTextColor};
+  --bgPopup: #{$color6};
+  --popupBorderColor: rgba(0,0,0,0.5);
   --loginButton-bg: #{$color1-l2};
   --loginButton-text: black;
-  --boxShadowColor : rgb(156, 156, 156);
+  --boxShadowColor : rgb(62, 94, 69);
   --modalShadowColor : rgb(59, 57, 57);
   --bodyBackgroundColor: gray;
   --navButton-bg: #044d04;

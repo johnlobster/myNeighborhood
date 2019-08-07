@@ -37,7 +37,7 @@ module.exports = {
   },
   getJWT: (payload) => {
     return new Promise( (resolve, reject) => {
-      wDebug("get JWT payload " + JSON.stringify(payload));
+      // wDebug("get JWT payload " + JSON.stringify(payload));
       const signOptions = {
         expiresIn: jwtExpirationTime
       }

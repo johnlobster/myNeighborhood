@@ -1,5 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, Link } from 'react-router-dom';
+import {Alert} from "reactstrap";
+
 import styles from "./Login.module.scss";
 import api from "../../api/server";
 import dBug from "../../utilities/debug.js";
@@ -13,7 +15,8 @@ class Login extends React.Component {
         password: "",
         loginState: "input", 
         // values are "input", "inputValid", "loggingIn", "badLogin" Would love enumerated type ....
-        redirect: false // seems to me a hack, but this is what was recommended - Redirect is in render()
+        redirect: false, // seems to me a hack, but this is what was recommended - Redirect is in render()
+        alertVisible: false
     }
 
     // if a user is already logged in, get jwt and userData from localStorage
@@ -23,7 +26,6 @@ class Login extends React.Component {
             wDebug("No stored session information");
         }
         else {
-            console.log(localStorage.getItem("myNeighborhoodUserData"));
             const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
             wDebug("Found stored session information for user " +  userData.userName);
             this.setState( { 
@@ -78,19 +80,24 @@ class Login extends React.Component {
             api.login(this.state.userName, this.state.password)
                 .then( ({ jwt, userData}) => {
                     wInfo(`User ${this.state.userName} logged in successfully`);
-                    console.log(userData);
                     // TODO successful login, store state in localStorage
                     localStorage.setItem("myNeighborhoodJwt", jwt);
                     localStorage.setItem("myNeighborhoodUserData", JSON.stringify(userData));
-
-                    // redirect to home page (maybe pop up a success modal first ?)
+                    // pop up alert
+                    this.setState({alertVisible: true});
+                    // alert dismiss button will redirect to home page
                     // TODO improve UI
-                    // don't need to setState() for password/userId because component gets unmounted on redirect
-                    // this.setState({ userName: "", password: "", loginState: "input" });
-                    this.setState({redirect: true});
+                    // may never reach this
+                    // this.setState({redirect: true});
                 })
-                .catch ( () => {
-                    wError("Login error");
+                .catch ( (response) => {
+                    if ( response.status === 204) {
+                        // response was ok, but password or user name incorrect
+                        // don't log an error
+                    }
+                    else {
+                        wError("Login error");
+                    }
                     // TODO need proper UI feedback for this (modal ?)
                     this.setState({
                         loginState: "badLogin",
@@ -161,13 +168,33 @@ class Login extends React.Component {
                                     }
                                     </div>  
                                 </form>
+                                <div className={styles.alertWrapper}>
+                                    <Alert
+                                        className={styles.alert}
+                                        isOpen={this.state.alertVisible}>
+                                        <div className={"container container-fluid " + styles.alertContainer}>
+                                            <div className={"row " + styles.alertRow}>
+                                                <h2 className={styles.alertH2}>Login successful</h2>
+                                            </div>
+                                            <div className={"row " + styles.alertRow}>
+                                                <Link to="/">
+                                                    <button className={styles.alertButton}>
+                                                        Continue to home page
+                                                        </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </Alert>
+                                </div>
                             </div>
                         </div>
 
                         <div className="row">
                             <div className="col-12, col-md-6">
                                 <div className={styles.LoginSignupBox}>
-                                    <button className="btn">Signup</button>
+                                    <Link to="Newuser">
+                                    <button className={"btn " + styles.signupButton}>Signup</button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -178,3 +205,4 @@ class Login extends React.Component {
 }
 
 export default Login;
+
