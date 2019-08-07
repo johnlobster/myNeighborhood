@@ -8,9 +8,11 @@ import About from "./components/about/About";
 import Login from "./components/login/Login";
 import Newuser from './components/newUser/Newuser';
 
-// themes imported here, but selector attaches them to <body>
+
 import "./styles/themes.scss";
+
 import Navbtn from './components/navbtn/Navbtn';
+
 
 function App() {
   return (

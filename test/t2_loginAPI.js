@@ -20,6 +20,16 @@ auth.encodePassword(password)
     throw new Error(err);
   });
 
+// used to test authentication, not part of the /login route testing
+let jwt ="";
+let testJwt = "";
+auth.getJWT({ userId: "aTestUser"})
+  .then( (token) => {
+    jwt = token;
+  })
+  .catch( (err) => {
+    throw new Error(err);
+  });
 
 describe("t2 login api test, test /api/login route : start server\n", () => {
   it("Server should start", (done) => {
@@ -142,6 +152,7 @@ describe("Add aTestUser to db and log in", () => {
     chai.request(app)
       .post(`/api/login`)
       .type('form')
+      .set("Authorization", `Bearer ${jwt}`)
       .send({
         '_method': 'post',
         userName: "aTestUser",
@@ -153,14 +164,17 @@ describe("Add aTestUser to db and log in", () => {
         // could add further checks that the response object has the right field
         expect(res.body).to.not.be.empty;
         expect(res.body.jwt).to.not.be.empty;
+        // test, validate the jwt
+        testJwt= res.body.jwt;
         done();
       });
   });
 
-  it("login should be rejected with wrong password", function (done) {
+  it("login should be rejected because of wrong password", function (done) {
     chai.request(app)
       .post(`/api/login`)
       .type('form')
+      .set("Authorization", `Bearer ${testJwt}`)
       .send({
         '_method': 'post',
         userName: "aTestUser",
