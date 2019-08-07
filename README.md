@@ -44,13 +44,20 @@ It will be automatically set to "test" in test environment, and "production" by 
 
 ## Sass and css
 
-We are using the Sass preprocessor - it is already integrated into the create-react-app flow. The following must be done for it to work. Sass (`.scss`) accepts all css syntax so there need be no changes to any style files. 
-
+We are using the Sass preprocessor - it is already integrated into the create-react-app flow. Sass (`.scss`) accepts all css syntax so there need be no changes to any existing style files. The `.sass` syntax is slightly different from css, so cannot be mixed in the same file. Note - to pick up the sass color variables, have to import the colors file located in `src/styles` into every scss/sass file that uses `$color` variables.
+```sass
+@import "../../styles/colors";
+```
+To use sass in a project
 * `npm install node-sass` (in client directory) The package.json has been updated, but you may still need to install locally if the package hasn't been installed yet
 * Rename all style files from `.css` to `.scss`. I think that the `client/src/index.css` file has to be kept as is
 * Import the new scss file in the module `.js` file:  `import "./index.scss";`
 
-Please note that sass/css does not support modular class naming. This means that if two classes have the same name, they can overwrite each others' styles. In my last app, I put the module name in front of every class, for instance `HeaderMyAwesomeClassName` to avoid this problem, create-react-app has a built in  option to make the names unique using the `css-modules` package. Requires some very minor changes to component files and scss file names.
+Please note that sass/css does not support modular class naming. This means that if two classes have the same name, they can overwrite each others' styles. `create-react-app` naturally supports a module mechanism. This will make every class name unique so that there can be no name clashes. It's opt in, so regular css or scss files will work exactly as before. To make it work, do the following
+* rename style file from `<name>.scss` to `<name>.module.scss`
+* change the style file import to `import styles from "./<name>.module.scss";`
+* change `className="myStyle"` to `className={styles.myStyle}` wherever you use your own style. Other style names, for instance bootstrap names, are not affected.
+
 
 ## Debug logging
 
