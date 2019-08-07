@@ -10,7 +10,10 @@ import Newuser from './components/newUser/Newuser';
 
 // themes imported here, but selector attaches them to <body>
 import "./styles/themes.scss";
+<<<<<<< HEAD
 import Navbtn from './components/navbtn/Navbtn';
+=======
+>>>>>>> b1d10f8b124674f17d8dcf1c4e312ce1e270f09b
 
 function App() {
   return (
