@@ -9,7 +9,7 @@ class Header extends React.Component {
     return(
       <div>
         <h1 className="HeaderHeaderBox">
-          <span>my Neighborhood</span>
+          <span>my Neighborhood 123456</span>
           <span>
             <img src={reactLogo} className="HeaderReactLogo" alt="React logo" />
           </span>

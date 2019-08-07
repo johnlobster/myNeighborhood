@@ -8,6 +8,10 @@
   display:flex;
   justify-content: space-around;
   align-content: center;
+
+/* font-family: 'Montserrat', sans-serif; */
+/* font-family: 'Permanent Marker', cursive; */
+/* font-family: 'Philosopher', sans-serif; */
 }
 
 .HeaderReactLogo {
