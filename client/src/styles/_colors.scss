@@ -13,6 +13,8 @@ $color2: rgba(22, 22, 22, 1);
 $color3: rgba(113, 117, 117, 1);
 $color4: rgba(83, 83, 83, 1);
 $color5: rgba(43, 53, 33, 1);
+$color6: #f2f2f2;
+
 
 // darken/lighten 
 
@@ -22,3 +24,5 @@ $color1-d3: scale-color($color1, $lightness: -30%);
 
 $color1-l1: scale-color($color1, $lightness: +10%);
 $color1-l2: scale-color($color1, $lightness: +20%);
+
+
