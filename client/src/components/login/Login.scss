@@ -23,3 +23,9 @@
   background-color: var(--loginButton-bg);
   color: var(--loginButton-text);
 }
+
+.LoginSignupBox {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}

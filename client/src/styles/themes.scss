@@ -1,15 +1,6 @@
 /* Theme definitions */
 @import "colors";
 
-// darken/lighten - should probably be in colors.scss
-
-$color1-d1: scale-color($color1, $lightness: -10%);
-$color1-d2: scale-color($color1, $lightness: -20%);
-$color1-d3: scale-color($color1, $lightness: -30%);
-
-$color1-l1: scale-color($color1, $lightness: +10%);
-$color1-l2: scale-color($color1, $lightness: +20%);
-
 /* light theme */
 body.lightTheme {
   --bgColor1 : #{$color1};

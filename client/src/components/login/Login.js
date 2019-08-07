@@ -55,19 +55,22 @@ class Login extends React.Component {
             wDebug(`Form submit user name ${this.state.userName} password ${this.state.password}`);
             this.setState({loginState:"loggingIn"}); // this can remove search button and put it a loader of some kind
             api.login(this.state.userName, this.state.password)
-                .then( () => {
+                .then( ({ jwt, usrData}) => {
                     wInfo(`User ${this.state.userName} logged in successfully`);
-                    // successful login, state stored in localStorage
+                    // TODO successful login, store state in localStorage
                     // redirect to home page (maybe pop up a success modal first ?)
                     // TODO improve UI
                     // don't need to setState() for password/userId because component gets unmounted on redirect
                     // this.setState({ userName: "", password: "", loginState: "input" });
                     this.setState({redirect: true});
                 })
-                .catch ( (loginError) => {
-                    wError("Login error, message = " + loginError);
-                    // TODO need proper UI feedback for this
-                    this.setState({loginState: "inputValid"}); // allows user to re-submit without losing form data
+                .catch ( () => {
+                    wError("Login error");
+                    // TODO need proper UI feedback for this (modal ?)
+                    this.setState({
+                        loginState: "inputValid",
+                        password: ""
+                        }); // allows user to re-submit without losing user name
                 });
             
         }
@@ -129,6 +132,14 @@ class Login extends React.Component {
                                     }
                                     </div>  
                                 </form>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-12, col-md-6">
+                            <div className="LoginSignupBox">
+                                    <button className="btn">Signup</button>
+                                </div>
                             </div>
                         </div>
                     </div>
