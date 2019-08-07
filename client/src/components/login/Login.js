@@ -7,12 +7,32 @@ const { wError, wInfo, wDebug, wObj } = dBug("Login");
 
 class Login extends React.Component {
     state= {
+        jwt: "",
+        userData: {},
         userName: "",
         password: "",
         loginState: "input", // values are "input", "inputValid", "loggingIn" Would love enumerated type ....
         redirect: false // seems to me a hack, but this is what was recommended - Redirect is in render()
     }
 
+    // if a user is already logged in, get jwt and userData from localStorage
+    componentDidMount() {
+        wDebug("Component mounted");
+        if ( localStorage.getItem("myNeighborhoodJwt") === null) {
+            wDebug("No stored session information");
+        }
+        else {
+            console.log(localStorage.getItem("myNeighborhoodUserData"));
+            const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+            // const userData = { userName: "fred"}
+            wDebug("Found stored session information for user " +  userData.userName);
+            this.setState( { 
+                jwt: localStorage.getItem("myNeighborhoodJwt"),
+                userData: userData
+            });
+        }
+
+}
     // need to set loginState
     handleInputChange = event => {
         // Pull the name and value properties off of the event.target (the element which triggered the event)
@@ -55,9 +75,13 @@ class Login extends React.Component {
             wDebug(`Form submit user name ${this.state.userName} password ${this.state.password}`);
             this.setState({loginState:"loggingIn"}); // this can remove search button and put it a loader of some kind
             api.login(this.state.userName, this.state.password)
-                .then( ({ jwt, usrData}) => {
+                .then( ({ jwt, userData}) => {
                     wInfo(`User ${this.state.userName} logged in successfully`);
+                    console.log(userData);
                     // TODO successful login, store state in localStorage
+                    localStorage.setItem("myNeighborhoodJwt", jwt);
+                    localStorage.setItem("myNeighborhoodUserData", JSON.stringify(userData));
+
                     // redirect to home page (maybe pop up a success modal first ?)
                     // TODO improve UI
                     // don't need to setState() for password/userId because component gets unmounted on redirect

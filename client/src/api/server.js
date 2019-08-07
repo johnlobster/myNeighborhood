@@ -11,13 +11,14 @@ export default {
       })
         .then(function (response) {
           if (response.data.jwt) {
+            wDebug("Data received from server");
             console.log(response.data.userData);
-            resolve(response.data);
+            resolve({jwt: response.data.jwt, userData: response.data.userData});
           }
           else {
             // successful request but no data returned
             // not sure that this can happen
-            wDebug.dBug("POST to /api/login failed - request succeeded but no data returned");
+            wDebug("POST to /api/login failed - request succeeded but no data returned");
             // return something to print out as an error
             reject(response.headers);
           }
