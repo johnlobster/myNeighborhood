@@ -1,0 +1,25 @@
+
+@import "../../styles/colors";
+
+.LoginFormBox {
+  background-color: var(--bgColor1);
+  color: var(--textColor1);
+}
+
+// .LoginFormTitle {
+
+// }
+
+// box may contain different elements, so set a fixed height and center element
+.LoginButtonBox {
+  height: 4em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: var(--bgColor1);
+}
+
+.LoginFormButton {
+  background-color: var(--loginButton-bg);
+  color: var(--loginButton-text);
+}

@@ -1,0 +1,37 @@
+/* Theme definitions */
+@import "colors";
+
+// darken/lighten - should probably be in colors.scss
+
+$color1-d1: scale-color($color1, $lightness: -10%);
+$color1-d2: scale-color($color1, $lightness: -20%);
+$color1-d3: scale-color($color1, $lightness: -30%);
+
+$color1-l1: scale-color($color1, $lightness: +10%);
+$color1-l2: scale-color($color1, $lightness: +20%);
+
+/* light theme */
+body.lightTheme {
+  --bgColor1 : #{$color1};
+  --bgColor1-d1: #{$color1-d1};
+  --bgColor1-d2: #{$color1-d2};
+  --bgColor1-l2: #{$color1-l2};
+  --textColor1: black;
+  --loginButton-bg: #{$color1-l2};
+  --loginButton-text: black;
+  --boxShadowColor : rgb(156, 156, 156);
+  --modalShadowColor : rgb(59, 57, 57);
+  --bodyBackgroundColor: gray;
+  --navButton-bg: #044d04;
+  --navButton-text: white;
+}
+
+/* Dark theme */
+body.darkTheme {
+  --bgColor1 : #{$color1};
+  --boxShadowColor : transparent;
+  --modalShadowColor : transparent;
+  --bodyBackgroundColor: rgb(43, 42, 42);
+  --navButton-bg: rgb(0, 68, 255);
+  --navButton-text: white;
+}
