@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import "./Login.scss";
+import styles from "./Login.module.scss";
 import api from "../../api/server";
 import dBug from "../../utilities/debug.js";
 const { wError, wInfo, wDebug, wObj } = dBug("Login");
@@ -11,7 +11,8 @@ class Login extends React.Component {
         userData: {},
         userName: "",
         password: "",
-        loginState: "input", // values are "input", "inputValid", "loggingIn" Would love enumerated type ....
+        loginState: "input", 
+        // values are "input", "inputValid", "loggingIn", "badLogin" Would love enumerated type ....
         redirect: false // seems to me a hack, but this is what was recommended - Redirect is in render()
     }
 
@@ -24,7 +25,6 @@ class Login extends React.Component {
         else {
             console.log(localStorage.getItem("myNeighborhoodUserData"));
             const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-            // const userData = { userName: "fred"}
             wDebug("Found stored session information for user " +  userData.userName);
             this.setState( { 
                 jwt: localStorage.getItem("myNeighborhoodJwt"),
@@ -48,6 +48,7 @@ class Login extends React.Component {
         } 
         if ( newState === this.state.loginState) {
             // if no change in state don't update it because that will cause a re-render
+            // do have change state for the form entry field
             this.setState({
                 [name]: value
             });
@@ -92,7 +93,7 @@ class Login extends React.Component {
                     wError("Login error");
                     // TODO need proper UI feedback for this (modal ?)
                     this.setState({
-                        loginState: "inputValid",
+                        loginState: "badLogin",
                         password: ""
                         }); // allows user to re-submit without losing user name
                 });
@@ -108,10 +109,11 @@ class Login extends React.Component {
         const inputNotValid = this.state.loginState === "input";
         const inputValid = this.state.loginState ==="inputValid";
         const loggingIn = this.state.loginState === "loggingIn";
+        const badLogin = this.state.loginState === "badLogin";
         // console.log( inputNotValid, inputValid, loggingIn);
         return (
-                <div className="LoginFormBox">
-                    <h1 className="LoginFormTitle">Login form</h1>
+                <div className={styles.LoginFormBox}>
+                    <h1 className={styles.LoginFormTitle}>Login form</h1>
                     <div className="container">
                         <div className="row">
                             <div className="col-12, col-md-6">
@@ -140,7 +142,7 @@ class Login extends React.Component {
                                             onChange={this.handleInputChange}
                                         />
                                     </div>
-                                    <div className="LoginButtonBox">
+                                    <div className={styles.LoginButtonBox}>
                                     {/* Select between no entry, login button and logging in loader */}
                                     { inputNotValid &&
                                         <div><h3>Enter user Name and password</h3></div>
@@ -148,11 +150,14 @@ class Login extends React.Component {
                                     { inputValid &&
                                         <button
                                         disabled={this.state.searchDisable}
-                                        className="btn LoginFormButton btn-primary"
+                                        className={"btn " + styles.LoginFormButton + " btn-primary"}
                                         onClick={this.handleFormSubmit}>Login</button>
                                     }
                                     { loggingIn &&
                                         <div><h3>Logging in</h3></div>
+                                    }
+                                    { badLogin &&
+                                        <div><h5>Something went wrong logging in, please try again</h5></div>
                                     }
                                     </div>  
                                 </form>
@@ -161,7 +166,7 @@ class Login extends React.Component {
 
                         <div className="row">
                             <div className="col-12, col-md-6">
-                            <div className="LoginSignupBox">
+                                <div className={styles.LoginSignupBox}>
                                     <button className="btn">Signup</button>
                                 </div>
                             </div>

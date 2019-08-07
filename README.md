@@ -117,7 +117,7 @@ const { wInfo } = dBug("Header");
 
 ### Concepts
 
-A user logs in. If this is successful, the server returns a session token (jwt) and user data information. The client will then send that token back as an Authentication header whenever
+A user logs in. If this is successful, the server returns a session token (for instance jwt) and user data information. The client will then send that token back as an Authentication header whenever
 the user wants to access a server api that is protected. When receiving that request, the server checks that the token is valid, and then allows the api access. The token is stored in `localStorage` along with any relevant user data. This means that when the client links to a new page, the new page component can check the local storage in `ComponentDidMount()` and keep
 the user's session intact. The user's session will also stay intact if they move to a completely different web page. When they return, they will still have the same session information, so don't have to log in again.
 
@@ -131,8 +131,6 @@ Both `bcrypt` and jwt generation take a significant amount of time. The function
 
 There are many different ways to to implement authorization. The session token could be stored by the user as a cookie, as localStorage or as a header that is transmitted automatically with the browser being unable to detect. There are also many options for hashing the password.
 
-I expected to use the `passport` npm module. `passport` requires a specific "strategy", which then controls how it treats passwords and session tokens. There are over 500 different strategies available. Most tutorials use the "local". When I looked at it, the local strategy requires the developer to set up functions to hash and verify passwords and likewise generating and checking jwts. I decided not to use passport. Where passport would add value is in more complex authorization, using standards such as `Oauth 2.0` that allow the user to login into the website using other accounts, such as google or github. 
-
 ### JWT key
 
 For security, the jwt key must be set in the environment variable JWT_KEY. For development
@@ -142,6 +140,9 @@ In development, JWT_KEY can be set in the `.env` file in the server directory, b
 ```bash
 JWT_KEY=12345dsdhfaklkjhgl
 ```
+### passport
+
+I expected to use the `passport` npm module. `passport` requires a specific "strategy", which then controls how it treats passwords and session tokens. There are over 500 different strategies available. Most tutorials use the "local". When I looked at it, the local strategy requires the developer to set up functions to hash and verify passwords and likewise generating and checking jwts. I decided not to use passport. Where passport would add value is in more complex authorization, using standards such as `Oauth 2.0` that allow the user to login into the website using other accounts, such as google or github. 
 
 ### Component and server api testing
 
