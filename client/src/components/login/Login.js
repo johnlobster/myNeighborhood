@@ -34,7 +34,7 @@ class Login extends React.Component {
             });
         }
 
-}
+    }
     // need to set loginState
     handleInputChange = event => {
         // Pull the name and value properties off of the event.target (the element which triggered the event)
