@@ -1,4 +1,4 @@
-/* Coolors Exported Palette - coolors.co/85b73b-161616-717575-535353-2b3521 */
+/* Colors */
 
 /* HSL */
 $color1: hsla(84%, 51%, 47%, 1);
@@ -13,6 +13,23 @@ $color2: rgba(22, 22, 22, 1);
 $color3: rgba(113, 117, 117, 1);
 $color4: rgba(83, 83, 83, 1);
 $color5: rgba(43, 53, 33, 1);
-$color6: #f2f2f2
+$color6: #f2f2f2;
+
+$borderColor: rgba(0,0,0,.15);
+$basicTextColor: #212529;
+
+
+// darken/lighten 
+
+$color1-d1: scale-color($color1, $lightness: -10%);
+$color1-d2: scale-color($color1, $lightness: -20%);
+$color1-d3: scale-color($color1, $lightness: -30%);
+$color1-d4: scale-color($color1, $lightness: -40%);
+$color1-d5: scale-color($color1, $lightness: -50%);
+$color1-d6: scale-color($color1, $lightness: -60%);
+
+
+$color1-l1: scale-color($color1, $lightness: +10%);
+$color1-l2: scale-color($color1, $lightness: +20%);
 
 
