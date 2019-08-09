@@ -2,6 +2,8 @@
 const mongoose = require("mongoose");
 const db = require("../models");
 const auth = require("../controller/authentication");
+require("dotenv").config(); // add variables in .env file to process.env
+// put the heroku mongo URI in the .env file to seed the heroku databasee
 // This file empties the database and inserts the seed data below
 
 const dbName = process.env.MONGODB_URI || "mongodb://localhost/myneighborhood"
@@ -10,6 +12,9 @@ mongoose.connect(dbName, { useNewUrlParser: true });
 // encodePassword returns a promise so have to wait for it .....
 auth.encodePassword("12345")
   .then((jDoePassword) => {
+    return auth.encodePassword("abcde");
+  })
+  .then((janeDoePassword) => {
     const userSeed = [
       {
         userName: "jDoe",
@@ -17,11 +22,20 @@ auth.encodePassword("12345")
         firstName: "John",
         lastName: "Doe",
         email: "jdoe101@hotmail.com",
-        address: "7550 Folsom Auburn Rd",
+        address: "7501 Folsom Auburn Rd",
+        dateJoined: new Date(),
+      },
+      {
+        userName: "janeDoe",
+        password: janeDoePassword,
+        firstName: "Jane",
+        lastName: "Doe",
+        email: "jdoe102@hotmail.com",
+        address: "7501 Folsom Auburn Rd",
         dateJoined: new Date(),
       }
-    ]
-
+    ];
+    console.log(userSeed);
     console.log(`\nClearing and seeding ${dbName}\n`);
 
     // updated syntax for latest mongodb code. remove() deprecated
@@ -40,6 +54,7 @@ auth.encodePassword("12345")
   })
   .catch((err) => {
     console.log("Exit because of bcrypt failure");
+    console.log(err);
   });
 // note for User, have to hash passwords before bulk save
 

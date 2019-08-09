@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {Alert} from "reactstrap";
 
 import styles from "./Login.module.scss";
@@ -108,9 +108,9 @@ class Login extends React.Component {
         }
     }
     render() {
-        if (this.state.redirect) {
-            return <Redirect push to="/" />;
-        }
+        // if (this.state.redirect) {
+        //     return <Redirect push to="/" />;
+        // }
         // create booleans to use for status box as can't use an if statement inside render 
         // "input", "inputValid", "loggingIn"
         const inputNotValid = this.state.loginState === "input";
