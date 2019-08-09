@@ -54,16 +54,20 @@ module.exports = {
   },
   validateJWT: (jwtToken) => {
     return new Promise( (resolve, reject) => {
-      wDebug("Validate JWT");
-      jwt.verify(jwtToken,process.env.JWT_KEY)
-        .then( (payload) => {
-          resolve(payload);
-        })
-        .catch( err => {
-          wError("Error occurred in validateJWT");
+      // wDebug("Validate JWT");
+      jwt.verify(jwtToken,process.env.JWT_KEY, function(err,payload) {
+        if (err) {
+          // get error if crashes or if jwt key is bad, so don't log or throw an error
+          // wError("Error occurred in validateJWT");
+          // wError(err);
           reject(err);
-        })
-      resolve(true)
+        }
+        else {
+          wDebug("valid JWT sent from client");
+          wObj(payload);
+          resolve(payload);
+        }
+      });
     });
   },
   authenticationMiddleware: (req, res, next) => {

@@ -10,15 +10,19 @@ const dbName = process.env.MONGODB_URI || "mongodb://localhost/myneighborhood"
 mongoose.connect(dbName, { useNewUrlParser: true });
 
 // encodePassword returns a promise so have to wait for it .....
+
+let userData = "";
+let password1="";  // temp hack
 auth.encodePassword("12345")
   .then((jDoePassword) => {
+    password1=jDoePassword;
     return auth.encodePassword("abcde");
   })
   .then((janeDoePassword) => {
     const userSeed = [
       {
         userName: "jDoe",
-        password: jDoePassword,
+        password: password1,
         firstName: "John",
         lastName: "Doe",
         email: "jdoe101@hotmail.com",
@@ -35,7 +39,6 @@ auth.encodePassword("12345")
         dateJoined: new Date(),
       }
     ];
-    console.log(userSeed);
     console.log(`\nClearing and seeding ${dbName}\n`);
 
     // updated syntax for latest mongodb code. remove() deprecated
