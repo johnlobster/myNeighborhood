@@ -1,18 +1,40 @@
 import React from 'react';
-import { Redirect } from 'react-router';
-import "./Login.scss";
+import { Link } from 'react-router-dom';
+import {Alert} from "reactstrap";
+
+import styles from "./Login.module.scss";
 import api from "../../api/server";
 import dBug from "../../utilities/debug.js";
 const { wError, wInfo, wDebug, wObj } = dBug("Login");
 
 class Login extends React.Component {
     state= {
+        jwt: "",
+        userData: {},
         userName: "",
         password: "",
-        loginState: "input", // values are "input", "inputValid", "loggingIn" Would love enumerated type ....
-        redirect: false // seems to me a hack, but this is what was recommended - Redirect is in render()
+        loginState: "input", 
+        // values are "input", "inputValid", "loggingIn", "badLogin" Would love enumerated type ....
+        redirect: false, // seems to me a hack, but this is what was recommended - Redirect is in render()
+        alertVisible: false
     }
 
+    // if a user is already logged in, get jwt and userData from localStorage
+    componentDidMount() {
+        wDebug("Component mounted");
+        if ( localStorage.getItem("myNeighborhoodJwt") === null) {
+            wDebug("No stored session information");
+        }
+        else {
+            const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+            wDebug("Found stored session information for user " +  userData.userName);
+            this.setState( { 
+                jwt: localStorage.getItem("myNeighborhoodJwt"),
+                userData: userData
+            });
+        }
+
+}
     // need to set loginState
     handleInputChange = event => {
         // Pull the name and value properties off of the event.target (the element which triggered the event)
@@ -28,6 +50,7 @@ class Login extends React.Component {
         } 
         if ( newState === this.state.loginState) {
             // if no change in state don't update it because that will cause a re-render
+            // do have change state for the form entry field
             this.setState({
                 [name]: value
             });
@@ -55,36 +78,49 @@ class Login extends React.Component {
             wDebug(`Form submit user name ${this.state.userName} password ${this.state.password}`);
             this.setState({loginState:"loggingIn"}); // this can remove search button and put it a loader of some kind
             api.login(this.state.userName, this.state.password)
-                .then( () => {
+                .then( ({ jwt, userData}) => {
                     wInfo(`User ${this.state.userName} logged in successfully`);
-                    // successful login, state stored in localStorage
-                    // redirect to home page (maybe pop up a success modal first ?)
+                    // TODO successful login, store state in localStorage
+                    localStorage.setItem("myNeighborhoodJwt", jwt);
+                    localStorage.setItem("myNeighborhoodUserData", JSON.stringify(userData));
+                    // pop up alert
+                    this.setState({alertVisible: true});
+                    // alert dismiss button will redirect to home page
                     // TODO improve UI
-                    // don't need to setState() for password/userId because component gets unmounted on redirect
-                    // this.setState({ userName: "", password: "", loginState: "input" });
-                    this.setState({redirect: true});
+                    // may never reach this
+                    // this.setState({redirect: true});
                 })
-                .catch ( (loginError) => {
-                    wError("Login error, message = " + loginError);
-                    // TODO need proper UI feedback for this
-                    this.setState({loginState: "inputValid"}); // allows user to re-submit without losing form data
+                .catch ( (response) => {
+                    if ( response.status === 204) {
+                        // response was ok, but password or user name incorrect
+                        // don't log an error
+                    }
+                    else {
+                        wError("Login error");
+                    }
+                    // TODO need proper UI feedback for this (modal ?)
+                    this.setState({
+                        loginState: "badLogin",
+                        password: ""
+                        }); // allows user to re-submit without losing user name
                 });
             
         }
     }
     render() {
-        if (this.state.redirect) {
-            return <Redirect push to="/" />;
-        }
+        // if (this.state.redirect) {
+        //     return <Redirect push to="/" />;
+        // }
         // create booleans to use for status box as can't use an if statement inside render 
         // "input", "inputValid", "loggingIn"
         const inputNotValid = this.state.loginState === "input";
         const inputValid = this.state.loginState ==="inputValid";
         const loggingIn = this.state.loginState === "loggingIn";
+        const badLogin = this.state.loginState === "badLogin";
         // console.log( inputNotValid, inputValid, loggingIn);
         return (
-                <div className="LoginFormBox">
-                    <h1 className="LoginFormTitle">Login form</h1>
+                <div className={styles.LoginFormBox}>
+                    <h1 className={styles.LoginFormTitle}>Login form</h1>
                     <div className="container">
                         <div className="row">
                             <div className="col-12, col-md-6">
@@ -113,7 +149,7 @@ class Login extends React.Component {
                                             onChange={this.handleInputChange}
                                         />
                                     </div>
-                                    <div className="LoginButtonBox">
+                                    <div className={styles.LoginButtonBox}>
                                     {/* Select between no entry, login button and logging in loader */}
                                     { inputNotValid &&
                                         <div><h3>Enter user Name and password</h3></div>
@@ -121,14 +157,45 @@ class Login extends React.Component {
                                     { inputValid &&
                                         <button
                                         disabled={this.state.searchDisable}
-                                        className="btn LoginFormButton btn-primary"
+                                        className={"btn " + styles.LoginFormButton + " btn-primary"}
                                         onClick={this.handleFormSubmit}>Login</button>
                                     }
                                     { loggingIn &&
                                         <div><h3>Logging in</h3></div>
                                     }
+                                    { badLogin &&
+                                        <div><h5>Something went wrong logging in, please try again</h5></div>
+                                    }
                                     </div>  
                                 </form>
+                                <div className={styles.alertWrapper}>
+                                    <Alert
+                                        className={styles.alert}
+                                        isOpen={this.state.alertVisible}>
+                                        <div className={"container container-fluid " + styles.alertContainer}>
+                                            <div className={"row " + styles.alertRow}>
+                                                <h2 className={styles.alertH2}>Login successful</h2>
+                                            </div>
+                                            <div className={"row " + styles.alertRow}>
+                                                <Link to="/">
+                                                    <button className={styles.alertButton}>
+                                                        Continue to home page
+                                                        </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </Alert>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-12, col-md-6">
+                                <div className={styles.LoginSignupBox}>
+                                    <Link to="Newuser">
+                                    <button className={"btn " + styles.signupButton}>Signup</button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,3 +205,4 @@ class Login extends React.Component {
 }
 
 export default Login;
+

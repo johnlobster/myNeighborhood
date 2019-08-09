@@ -32,13 +32,23 @@ module.exports = {
                   // JWT payload
                   getJWT({ userName: req.body.userName})
                     .then( (jwtToken) => {
-                      res.json({ jwt: jwtToken });
+                      // don't return _id or password
+                      let sendData = db.User.returnAllowedUserData(dbModel[0]);
+                      res.json({ jwt: jwtToken, userData: sendData});
+                    })
+                    .catch((err) => {
+                      wError("getJWT failed");
+                      res.status(204).json();
                     })
                 }
                 else {
                   wDebug("bad password for user " + req.body.userName);
                   res.status(204).json("");
                 }
+              })
+              .catch( (err) => {
+                // bcrypt seems to throw .... return something
+                res.status(204).json("");
               });  
           }
         })
