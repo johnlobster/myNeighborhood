@@ -5,6 +5,8 @@ const { wError, wInfo, wDebug, wObj } = require("../scripts/debug")("authenticat
 const saltIterations = 12;
 const jwtExpirationTime = "2 days";
 
+process.env.JWT_KEY = process.env.JWT_KEY || "eiwroweireoirhoeirhoiewthot"
+
 // note promises returned as encryption takes a long time
 module.exports = {
   encodePassword: (password) => {
@@ -35,7 +37,7 @@ module.exports = {
   },
   getJWT: (payload) => {
     return new Promise( (resolve, reject) => {
-      wDebug("get JWT payload " + JSON.stringify(payload));
+      // wDebug("get JWT payload " + JSON.stringify(payload));
       const signOptions = {
         expiresIn: jwtExpirationTime
       }
