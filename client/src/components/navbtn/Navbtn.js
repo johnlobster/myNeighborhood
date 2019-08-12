@@ -8,10 +8,12 @@ import { Link } from 'react-router-dom';
 
 
 function Navbtn() {
+  
+  
   return (
       <div className="row d-flex flex-row-reverse">
       <div id="nav" className="col-3 fixed-bottom ">
-          <li className="nav-item  dropdown p-2 ">
+          <li className="nav-item dropdown p-2 ">
             <Link className="nav-link" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i className="fa fa-bars" aria-hidden="true"></i>
             </Link>
@@ -24,7 +26,7 @@ function Navbtn() {
               <Link className="dropdown-item text-right" to="/Gar">Favorites<i className="fa fa-heart" aria-hidden="true"></i></Link>
               <div className="dropdown-divider"></div>
               <Link className="dropdown-item text-right" to="/login">Login</Link>
-              <Link className="dropdown-item text-right" to="/signup">Sign up</Link>
+              <Link className="dropdown-item text-right" to="/Newuser">Sign up</Link>
               <div className="dropdown-divider"></div>
               <Link className="dropdown-item text-right" to="/">Enter<i className="fa fa-home" aria-hidden="true"></i></Link>
             </div>
@@ -35,5 +37,7 @@ function Navbtn() {
    
   );
 }
+
+
 
 export default Navbtn;

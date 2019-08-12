@@ -1,0 +1,96 @@
+
+@import "../../styles/colors";
+
+.LoginFormBox {
+  background-color: var(--bgColor1);
+  color: var(--textColor1);
+}
+
+.LoginFormTitle{
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 1rem
+  
+}
+
+// box may contain different elements, so set a fixed height and center element
+// .LoginButtonBox {
+//   height: 4em;
+//   display: flex;
+//   justify-content: center;
+//   align-content: center;
+//   background-color: var(--bgColor2);
+// }
+
+.LoginFormButton {
+  background-color: var(--loginButton-bg);
+  color: var(--loginButton-text);
+}
+
+.LoginSignupBox {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+// this is a 0 height div that holds the alert, which is then placed with position absolute
+.alertWrapper {
+  height: 0px;
+  display: flex;
+  justify-content: center;
+
+}
+.alert {
+  background-color: var(--bgPopup);
+  color: var(--textColor2);
+  border-style: solid;
+  border-radius: 15px;
+  border-color:var(--popupBorderColor);
+  border-width:2px;
+  box-shadow: 6px 6px 3px var(--boxShadowColor);
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 15%;
+}
+.alert:hover {
+  text-decoration: none;
+}
+// need these to fix the * rule earlier, can't seem to override bootstrap styles,
+// as css-modules uniquifies every class
+.alertH2 {
+  background-color: var(--bgPopup);
+}
+.alertContainer {
+  background-color: var(--bgPopup);
+  min-height: auto;
+}
+.alertRow {
+  background-color: var(--bgPopup);
+  display: flex;
+  justify-content: center;
+}
+
+.alertButton {
+  background-color: var(--bgColor1);
+  color: var(--textColor1);
+  border-style: solid;
+  border-radius: 7px;
+  border-color:var(--bgColor1-d6);
+  border-width: 2px;
+  box-shadow: 3px 3px 3px var(--boxShadowColor);
+  margin-bottom: 0.5rem;
+
+}
+
+.signupButton {
+  font-size: 1.5rem;
+  background-color: var(--bgColor1-l2);
+  color: var(--textColor1);
+  border-style: solid;
+  border-radius: 7px;
+  
+  border-width: 2px;
+  margin-top: 1rem;
+
+}

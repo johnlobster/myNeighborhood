@@ -29,6 +29,7 @@ function App() {
             <Route path='/Events' component={Events} />
             <Route path='/Phonebook' component={Phonebook} />
             <Route path='/LocalInfo' component={LocalInfo} />
+             <Route path='/LocalInfo' component={LocalInfo} />
           <Footer />
         </Switch>
         <Navbtn/>
