@@ -17,10 +17,10 @@ if (process.env.NODE_ENV === "test") {
   // for testing, use a different database than development, otherwise may get clashes
   process.env.MONGODB_URI = "mongodb://localhost/myneighborhood_test";
 }
-MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/myneighborhood";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/myneighborhood";
 // don't need to load models as the database is not accessed directly from the server
 // added in to check everything is loading and linking properly
-wDebug("Connecting to mongodb " + MONGODB_URI);
+// wDebug("Connecting to mongodb " + MONGODB_URI);
 const db = require("./models");
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
   .then(() => wInfo("Connected to mongoose/mongodb database"))
