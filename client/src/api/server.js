@@ -36,5 +36,14 @@ export default {
           reject(error);
         });
     });
+
+  },
+
+  scrape: ()=>{
+    console.log('hello from front end server')
+    axios.get('/scrape').then(function(res){
+      console.log(res.data)
+      console.log('hi')
+    })
   }
 }
