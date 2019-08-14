@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function Navbtn() {
+function Navbtn(props) {
   return (
       <div className="row d-flex flex-row-reverse">
       <div id="nav" className="col-3 fixed-bottom ">

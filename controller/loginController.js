@@ -12,6 +12,13 @@ module.exports = {
     // wDebug("verifyUser: User " + req.body.userName + " Password " + req.body.password);
 
     // check inputs and reject login if field empty or missing
+    // for testing, check if verified session
+    if ( req.authorized) {
+      wDebug("valid session token");
+    }
+    else {
+      wDebug("no session token");
+    }
     if ((req.body.userName === "") || (req.body.password === "")) {
       wDebug(" verify user, bad input field");
       res.status(204).json("");
