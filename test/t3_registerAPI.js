@@ -81,6 +81,23 @@ describe("Register user - should pass", () => {
         expect(res.body.jwt).to.not.be.empty;
         expect(res.body.userData).to.not.be.empty;
         expect(res.body.userData.userName).to.equal("jDoe");
+        expect(res.body.message).to.equal("success");
+        done();
+      });
+  });
+});
+
+describe("Register duplicate user - should fail", () => {
+  it("register user jDoe (again)", function (done) {
+    chai.request(app)
+      .post(`/api/register`)
+      .type('form')
+      .send(userSeed[0])
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(401, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.message).to.equal("User name already exists");
         done();
       });
   });

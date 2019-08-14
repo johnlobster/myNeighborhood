@@ -22,7 +22,7 @@ module.exports = function (req, res) {
         .then((dbModel) => {
           if ( dbModel.length !== 0) {
             wDebug("user " + req.body.userName + " already in user database");
-            res.status(204).json({ message: "User name already exists", jwt: ""});
+            res.status(401).json({ message: "User name already exists", jwt: ""});
           }
           else {
             // encrypt password
@@ -30,8 +30,8 @@ module.exports = function (req, res) {
               .then( (hashedPassword) => {
                 req.body.password = hashedPassword;
                 req.body.dateJoined = new Date();
-                wDebug("mongoose create()");
-                wObj(req.body);
+                // wDebug("mongoose create()");
+                // wObj(req.body);
                 return db.User.create(req.body);
               })
               .then( (dbResult) => {
