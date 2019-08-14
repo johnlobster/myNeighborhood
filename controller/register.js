@@ -30,16 +30,24 @@ module.exports = function (req, res) {
               .then( (hashedPassword) => {
                 req.body.password = hashedPassword;
                 req.body.dateJoined = new Date();
+                wDebug("mongoose create()");
                 wObj(req.body);
-                db.User.create([req.body]);
+                return db.User.create(req.body);
               })
               .then( (dbResult) => {
+                wObj(dbResult);
                 // successful database write so generate jwt
-                getJWT({ userName: req.body.userName });
+                return getJWT({ userName: req.body.userName });
               })
               .then( (jwtToken) => {
+                wDebug("Generated jwt Token");
+                wObj(jwtToken);
                 wInfo("Successful registration");
-                res.json({ message: success, jwt: jwtToken, userData: sendData });
+                res.json( {
+                  message: "success", 
+                  jwt: jwtToken, 
+                  userData: db.User.returnAllowedUserData(req.body) 
+                });
 
               })
               .catch((err) => {

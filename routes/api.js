@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { wError, wInfo, wDebug, wObj } = require("../scripts/debug")("server API");
+const { wError, wInfo, wDebug, wObj } = require("../scripts/debug")("routes/api");
 const login = require("../controller/loginController");
 const register = require("../controller/register");
 const { validateJWT } = require("../controller/authentication");

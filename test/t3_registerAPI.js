@@ -31,6 +31,17 @@ auth.getJWT({ userId: "aTestUser"})
     throw new Error(err);
   });
 
+const userSeed = [
+  {
+    userName: "jDoe",
+    password: "123456",
+    firstName: "John",
+    lastName: "Doe",
+    email: "jdoe101@hotmail.com",
+    address: "7501 Folsom Auburn Rd",
+  }
+]
+
 describe("t3 register api test, test /api/register route : start server\n", () => {
   it("Server should start", (done) => {
     // wait for server to start before doing anything
@@ -57,176 +68,23 @@ describe("t3 register api test, test /api/register route : start server\n", () =
   });
 });
 
-describe("Login user - should reject because user database is empty", () => {
-  it("login user badUser", function (done) {
+describe("Register user - should pass", () => {
+  it("register user jDoe", function (done) {
     chai.request(app)
-      .post(`/api/login`)
+      .post(`/api/register`)
       .type('form')
-      .send({
-        '_method': 'post',
-        userName: "badUser",
-        password: "anyPassword"
-      })
-      .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res.status).to.equal(204, "http response code");
-        // API returns empty body, using 204 to indicate failure
-        expect(res.body).to.be.empty
-        done();
-      });
-  });
-});
-
-describe("Login with empty password or userName", () => {
-  it("login no password", function (done) {
-    chai.request(app)
-      .post(`/api/login`)
-      .type('form')
-      .send({
-        '_method': 'post',
-        userName: "badUser",
-        password: ""
-      })
-      .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res.status).to.equal(204, "http response code");
-        // API returns empty body, using 204 to indicate failure
-        expect(res.body).to.be.empty
-        done();
-      });
-  });
-  it("login no user name", function (done) {
-    chai.request(app)
-      .post(`/api/login`)
-      .type('form')
-      .send({
-        '_method': 'post',
-        userName: "",
-        password: "aPassword"
-      })
-      .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res.status).to.equal(204, "http response code");
-        // API returns empty body, using 204 to indicate failure
-        expect(res.body).to.be.empty
-        done();
-      });
-  });
-  it("login missing password field", function (done) {
-    chai.request(app)
-      .post(`/api/login`)
-      .type('form')
-      .send({
-        '_method': 'post',
-        userName: "badUser"
-      })
-      .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res.status).to.equal(204, "http response code");
-        // API returns empty body, using 204 to indicate failure
-        expect(res.body).to.be.empty
-        done();
-      });
-  });
-});
-
-describe("Add aTestUser to db and log in", () => {
-  it("Add `'aTestUser' to User database", function (done) {
-    db.User
-      .create({ 
-        userName: "aTestUser",
-        password: encPassword
-      })
-      .then( (dbResult) => {
-        // return a pass to mocha as something was created
-        expect(true).to.be.true;
-        done();
-      })
-      .catch( (err) => {
-        console.log("Error occurred whilst adding user aTestUser to database");
-        throw new Error(err);
-      })
-  });
-
-  it("login should pass, returning JWT", function (done) {
-    chai.request(app)
-      .post(`/api/login`)
-      .type('form')
-      .set("Authorization", `Bearer ${jwt}`)
-      .send({
-        '_method': 'post',
-        userName: "aTestUser",
-        password: password
-      })
+      .send(userSeed[0])
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res.status).to.equal(200, "http response code");
-        // could add further checks that the response object has the right field
         expect(res.body).to.not.be.empty;
         expect(res.body.jwt).to.not.be.empty;
         expect(res.body.userData).to.not.be.empty;
-        expect(res.body.userData.userName).to.equal("aTestUser");
-        // test, grab a valid jwt to use later
-        testJwt= res.body.jwt;
-        done();
-      });
-  });
-
-  it("login should be rejected because of wrong password, no JWT", function (done) {
-    chai.request(app)
-      .post(`/api/login`)
-      .type('form')
-      .set("Authorization", `Bearer ${testJwt}`)
-      .send({
-        '_method': 'post',
-        userName: "aTestUser",
-        password: "theWrongPassword"
-      })
-      .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res.status).to.equal(204, "http response code");
-        // API returns empty body, using 204 to indicate failure
-        expect(res.body).to.be.empty
+        expect(res.body.userData.userName).to.equal("jDoe");
         done();
       });
   });
 });
 
-describe("Check valid and invalid JWT sent from client", () => {
-  // login route is used because it was the only one implemented so far.
-  // Only visual checking, no real checking - will do it properly when there is another
-  // API route finished
-  it("login with valid JWT", function (done) {
-    chai.request(app)
-    .post(`/api/login`)
-    .type('form')
-    .set("Authorization", `Bearer ${testJwt}`)
-    .send({
-      '_method': 'post',
-      userName: "aTestUser",
-      password: password
-    })
-    .end((err, res) => {
-      expect(err).to.be.null;
-      expect(res.status).to.equal(200, "http response code");
-      done();
-    });
-  });
-  it("login with invalid JWT", function (done) {
-    chai.request(app)
-    .post(`/api/login`)
-    .type('form')
-    .set("Authorization", `Bearer zsjaadhieuhfbebvicubifubiubfiabaudsb`)
-    .send({
-      '_method': 'post',
-      userName: "aTestUser",
-      password: password
-    })
-    .end((err, res) => {
-      expect(err).to.be.null;
-      expect(res.status).to.equal(200, "http response code");
-      done();
-    });
-  });
-});
+
 
