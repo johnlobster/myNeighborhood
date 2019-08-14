@@ -13,16 +13,21 @@ module.exports = function (req, res) {
 
     // check inputs and reject register if userName/password empty or missing
     
-    if ((req.body.userName === "") || (req.body.password === "")) {
-      wDebug("user name or password missing, return 204");
-      res.status(204).json({ message: "Missing password or user name", jwt: ""});
+    if (
+      (req.body.userName === "") || 
+      (req.body.password === "")|| 
+      !req.body.userName ||
+      !req.body.password
+      ) {
+        wDebug("user name or password missing, return 401");
+        res.status(401).json({ message: "Missing password or user name", jwt: ""});
     } else {
       db.User
         .find({userName: req.body.userName})
         .then((dbModel) => {
           if ( dbModel.length !== 0) {
             wDebug("user " + req.body.userName + " already in user database");
-            res.status(401).json({ message: "User name already exists", jwt: ""});
+            res.status(401).json({ message: "User name " + req.body.userName + " already exists", jwt: ""});
           }
           else {
             // encrypt password
@@ -35,14 +40,14 @@ module.exports = function (req, res) {
                 return db.User.create(req.body);
               })
               .then( (dbResult) => {
-                wObj(dbResult);
+                // wObj(dbResult);
                 // successful database write so generate jwt
                 return getJWT({ userName: req.body.userName });
               })
               .then( (jwtToken) => {
-                wDebug("Generated jwt Token");
-                wObj(jwtToken);
-                wInfo("Successful registration");
+                // wDebug("Generated jwt Token");
+                // wObj(jwtToken);
+                // wInfo("Successful registration");
                 res.json( {
                   message: "success", 
                   jwt: jwtToken, 
@@ -52,7 +57,7 @@ module.exports = function (req, res) {
               })
               .catch((err) => {
                 wError("registration generated error");
-                res.status(500).json({message: "server error", jwt: ""});
+                res.status(500).json({message: "server error", jwt: "", error: err});
                 wObj(err);
               })
               
