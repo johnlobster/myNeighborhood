@@ -47,7 +47,8 @@ UserSchema.statics.returnAllowedUserData = function(userObject) {
     userName: userObject.userName,
     firstName: userObject.firstName,
     lastName: userObject.lastName,
-    email: userObject.email
+    email: userObject.email,
+    address: userObject.address
   }
 };
 

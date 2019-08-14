@@ -34,30 +34,6 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// add debug middleware to keep an eye on sessions should this be in routes/api ?
-// session token analysis should probably be in routes/api
-app.use(function (req, res, next) {
-  wDebug("http " + req.url + " " + req.method + " ");
-  if (req.headers.authorization ) {
-    // Header has "Bearer <key>"
-    auth.validateJWT(req.headers.authorization.split(" ")[1])
-      .then( (payload) => {
-        // valid JWT, pass on to rest of flow
-        req.authorized = true;
-        next();
-      }) 
-      .catch( (err) => {
-        // jwt code returns error for invalid jwt, so don't print out these errors
-        // wError("Invalid JWT (should this be an error ?)");
-        // wError(err);
-        next();
-      })
-  }
-  else {
-    wDebug("No authentication header found");
-    next();
-  }
-});
 // Serve up static assets for production (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
