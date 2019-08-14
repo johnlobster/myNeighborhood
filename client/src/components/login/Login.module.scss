@@ -8,7 +8,7 @@
 
 // box may contain different elements, so set a fixed height and center element
 .LoginButtonBox {
-  height: 4em;
+height: 4em;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -27,6 +27,7 @@
 }
 
 // this is a 0 height div that holds the alert, which is then placed with position absolute
+// don't really need to set height, as has no content that takes up space
 .alertWrapper {
   height: 0px;
   display: flex;

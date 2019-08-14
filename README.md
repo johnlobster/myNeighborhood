@@ -17,7 +17,7 @@ npm install
 ```
 Start mongodb
 ```
-mongodb
+mongod
 ```
 Note - mongodb must always be running. If your computer restarts for some reason you must start mongodb again
 
@@ -69,7 +69,36 @@ To use sass in a project
 Please note that sass/css does not support modular class naming. This means that if two classes have the same name, they can overwrite each others' styles. `create-react-app` naturally supports a module mechanism. This will make every class name unique so that there can be no name clashes. It's opt in, so regular css or scss files will work exactly as before. To make it work, do the following
 * rename style file from `<name>.scss` to `<name>.module.scss`
 * change the style file import to `import styles from "./<name>.module.scss";`
-* change `className="myStyle"` to `className={styles.myStyle}` wherever you use your own style. Other style names, for instance bootstrap names, are not affected.
+* change `className="myStyle"` to `className={styles.myStyle}` wherever you use your own style. Other style names, for instance bootstrap names, are not affected and must not be changed.
+
+example of component instance using a combination of bootstrap and custom classes
+```js
+className={"btn " + styles.LoginFormButton + " btn-primary"}
+```
+
+Tag names are not expanded by css-modules, so
+```css
+.LoginFormBox h1 {
+  ...
+}
+```
+appears in the client html as
+```css
+.Login_LoginFormBox__1kU2W h1
+```
+The `__1kU2W` is what css-modules adds to guarantee that the class name is unique. It will be different from run to run
+
+class names can be prevented from expanding by prefixing with `:global `. For instance
+```css 
+.LoginFormBox :global .container {
+  ...
+}
+```
+appears as
+```css
+.Login_LoginFormBox__1kU2W .container 
+```
+
 
 
 ## Debug logging

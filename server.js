@@ -1,6 +1,7 @@
 const express = require("express");
 const routes = require("./routes");
 const mongoose = require("mongoose");
+const auth = require("./controller/authentication");
 const path = require("path");
 require("dotenv").config(); // add variables in .env file to process.env
 const PORT = process.env.PORT || 3001;
@@ -19,6 +20,7 @@ if (process.env.NODE_ENV === "test") {
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/myneighborhood";
 // don't need to load models as the database is not accessed directly from the server
 // added in to check everything is loading and linking properly
+// wDebug("Connecting to mongodb " + MONGODB_URI);
 const db = require("./models");
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
   .then(() => wInfo("Connected to mongoose/mongodb database"))
@@ -33,13 +35,6 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// add debug middleware to keep an eye on sessions should this be in routes/api ?
-app.use(function (req, res, next) {
-  if (req.headers.authorization ) {
-    wDebug("http " + req.url + " " + req.method + " ");
-    wObj(req.headers.authorization);  }
-  next();
-});
 // Serve up static assets for production (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
