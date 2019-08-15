@@ -37,8 +37,12 @@ class  App extends React.Component {
         authorizedUser: true
       });
     }
-
   }
+
+  validUser = (jwt, userData) => {
+
+  } 
+
   render() {
     return (
       <Router>
@@ -46,7 +50,10 @@ class  App extends React.Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/About' component={About} />
-          <Route path='/Login' component={Login} />
+          <Route 
+            path='/Login' 
+            render={(props) => <Login {...props} authUser={this.validUser} />}
+          />
           <Route path='/Newuser' component={Newuser} />
           <Route path='/Recomendations' component={Recomendations} />
           <Route path='/Events' component={Events} />
