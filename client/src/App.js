@@ -16,24 +16,48 @@ import LocalInfo from './components/localinfo/LocalInfo';
 import "./styles/themes.scss";
 import Navbtn from './components/navbtn/Navbtn';
 
-function App() {
-  return (
-    <Router>
-          <Nav/>
-          <Switch>
-            <Route exact path='/'  component={Home} />
-            <Route path='/About'  component={About} />
-            <Route path='/Login' component={Login} />
-            <Route path='/Newuser' component={Newuser} />
-            <Route path='/Recomendations' component={Recomendations} />
-            <Route path='/Events' component={Events} />
-            <Route path='/Phonebook' component={Phonebook} />
-            <Route path='/LocalInfo' component={LocalInfo} />
+class  App extends React.Component {
+  state = {
+    jwt: "",
+    userData: {},
+    authorizedUser: false
+  }
+
+  // if a user is already logged in, get jwt and userData from localStorage
+  componentDidMount() {
+    if (localStorage.getItem("myNeighborhoodJwt") === null) {
+      console.log("No stored session information");
+    }
+    else {
+      const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+      console.log("Found stored session information for user " + userData.userName);
+      this.setState({
+        jwt: localStorage.getItem("myNeighborhoodJwt"),
+        userData: userData,
+        authorizedUser: true
+      });
+    }
+
+  }
+  render() {
+    return (
+      <Router>
+        <Nav />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/About' component={About} />
+          <Route path='/Login' component={Login} />
+          <Route path='/Newuser' component={Newuser} />
+          <Route path='/Recomendations' component={Recomendations} />
+          <Route path='/Events' component={Events} />
+          <Route path='/Phonebook' component={Phonebook} />
+          <Route path='/LocalInfo' component={LocalInfo} />
           <Footer />
         </Switch>
-        <Navbtn/>
-    </Router>
-  );
+        <Navbtn authorizedUser={this.state.authorizedUser} />
+      </Router>
+    );
+  }
 }
 
 export default App;

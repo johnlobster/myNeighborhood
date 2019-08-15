@@ -164,13 +164,15 @@ describe("Add aTestUser to db and log in", () => {
         // could add further checks that the response object has the right field
         expect(res.body).to.not.be.empty;
         expect(res.body.jwt).to.not.be.empty;
-        // test, validate the jwt
+        expect(res.body.userData).to.not.be.empty;
+        expect(res.body.userData.userName).to.equal("aTestUser");
+        // test, grab a valid jwt to use later
         testJwt= res.body.jwt;
         done();
       });
   });
 
-  it("login should be rejected because of wrong password", function (done) {
+  it("login should be rejected because of wrong password, no JWT", function (done) {
     chai.request(app)
       .post(`/api/login`)
       .type('form')
@@ -188,5 +190,43 @@ describe("Add aTestUser to db and log in", () => {
         done();
       });
   });
-  
 });
+
+describe("Check valid and invalid JWT sent from client", () => {
+  // login route is used because it was the only one implemented so far.
+  // Only visual checking, no real checking - will do it properly when there is another
+  // API route finished
+  it("login with valid JWT", function (done) {
+    chai.request(app)
+    .post(`/api/login`)
+    .type('form')
+    .set("Authorization", `Bearer ${testJwt}`)
+    .send({
+      '_method': 'post',
+      userName: "aTestUser",
+      password: password
+    })
+    .end((err, res) => {
+      expect(err).to.be.null;
+      expect(res.status).to.equal(200, "http response code");
+      done();
+    });
+  });
+  it("login with invalid JWT", function (done) {
+    chai.request(app)
+    .post(`/api/login`)
+    .type('form')
+    .set("Authorization", `Bearer zsjaadhieuhfbebvicubifubiubfiabaudsb`)
+    .send({
+      '_method': 'post',
+      userName: "aTestUser",
+      password: password
+    })
+    .end((err, res) => {
+      expect(err).to.be.null;
+      expect(res.status).to.equal(200, "http response code");
+      done();
+    });
+  });
+});
+
