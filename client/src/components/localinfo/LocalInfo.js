@@ -3,40 +3,54 @@ import React from 'react';
 // import { Link } from 'react-router-dom'
 import axios from "axios";
 import cheerio from "cheerio";
-import API from '../../api/server'
+import API from '../../api/server';
+import  "./news.css";
 
 
-function LocalInfo() {
+class LocalInfo extends React.Component {
+    // try getting server to scrape to avoid CORS issues
 
-let scrape = () => {
-    axios.get("https://www.kcra.com/local-news/").then(function(response){
-        var $ = cheerio.load(response.data);
-        $("li a").each(function(i, element){
-            var result = []
-            console.log(this);
-            // result.push(this);
+    state = {
+        news: []
+    }
+
+    componentDidMount(){
+        axios.get("/api/scrape")
+        .then( (response) => {
+            console.log("scraped data returned");
+            console.log(response.data);
+            this.setState({
+                news: response.data
+            })
         })
-    })
-}    
+        .catch( (err) => {
+            console.log("Error in http access");
+            console.log(err);
+        })
 
-    // function scrape(){
-    //     axios.get("https://www.kcra.com/local-news/").then(function(response){
-    //         var $ = cheerio.load(response.data);
-    //         $("li a").each(function(i, element){
-    //             var result = []
-    //             console.log(this);
-    //             // result.push(this);
-    //         })
-    //     })
-    // }
+    }
 
+    handleclick = () => {
+        console.log("click")
+        console.log(this)
+    }
 
-scrape();
-    return (
-        <div className="">
-            <input type='button' onClick={API.scrape} value="Scrape" />
-        </div>
-    );
+    render() {
+
+        return (
+            <div>
+        
+            {this.state.news.map(item => 
+    
+            // <a className="news" href={item.anchor}>{item.head}</a>
+             <p key={item.head} data-value="1" onClick={this.handleclick}>{item.head}</p>
+    
+            )}
+        
+            </div>
+
+        );
+    }
 }
                 
 export default LocalInfo;
