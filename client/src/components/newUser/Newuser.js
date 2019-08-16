@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import './styles.sass';
 import { Link } from 'react-router-dom';
+import api from "../../api/server";
+
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
@@ -51,11 +53,31 @@ class Newuser extends Component {
         --SUBMITTING--
         First Name: ${this.state.firstName}
         Last Name: ${this.state.lastName}
-        Username: ${this.state.usetName}
+        Username: ${this.state.userName}
         Address: ${this.state.address}
         Email: ${this.state.email}
         Password: ${this.state.password}
       `);
+      const userData = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        userName: this.state.userName,
+        password: this.state.password,
+        email: this.state.email,
+        address: this.state.address
+      }
+      api.register( userData )
+      .then( (registerResult) => {
+        console.log(registerResult);
+        // sends register data to App
+        this.props.authUser(
+          registerResult.jwt,
+          registerResult.userData
+        );
+      })
+      .catch( (err) => {
+        console.log(err);
+      });
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
@@ -95,8 +117,9 @@ class Newuser extends Component {
       default:
         break;
     }
+    this.setState({ formErrors, [name]: value });
 
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+    // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
 
   render() {

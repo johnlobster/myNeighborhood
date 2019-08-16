@@ -47,7 +47,7 @@ module.exports = function (req, res) {
               .then( (jwtToken) => {
                 // wDebug("Generated jwt Token");
                 // wObj(jwtToken);
-                // wInfo("Successful registration");
+                wInfo("Successful registration for user " + req.body.userName);
                 res.json( {
                   message: "success", 
                   jwt: jwtToken, 
