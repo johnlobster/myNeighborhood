@@ -84,7 +84,7 @@ class Login extends React.Component {
                     // TODO successful login, store state in localStorage
                     localStorage.setItem("myNeighborhoodJwt", jwt);
                     localStorage.setItem("myNeighborhoodUserData", JSON.stringify(userData));
-                    this.props.validUser(jwt, userData); // changes state in App
+                    this.props.authUser(jwt, userData); // changes state in App
                     // pop up alert
                     this.setState({alertVisible: true});
                     // alert dismiss button will redirect to home page
