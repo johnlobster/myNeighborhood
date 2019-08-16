@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import axios from "axios";
 
 import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
@@ -23,7 +24,7 @@ class  App extends React.Component {
     authorizedUser: false
   }
 
-  // if a user is already logged in, get jwt and userData from localStorage
+  // if a user is already logged in, get jwt and userData from localStorage, check that token is still valid
   componentDidMount() {
     if (localStorage.getItem("myNeighborhoodJwt") === null) {
       console.log("No stored session information");
@@ -39,8 +40,9 @@ class  App extends React.Component {
     }
   }
 
+  // this is called by login and register routes so that state in App can be updated
   validUser = (jwt, userData) => {
-
+    console.log("App: Changed user data");
   } 
 
   render() {
