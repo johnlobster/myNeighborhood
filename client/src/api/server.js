@@ -6,7 +6,7 @@ const { wError, wInfo, wDebug, wObj } = dBug("server API");
 export default {
   login: (userName, password) =>{
     return new Promise( (resolve, reject) => {
-      axios.post("/api/login",{
+    axios.post("/api/login",{
           userName: userName,
           password: password
       })
@@ -36,14 +36,43 @@ export default {
           reject(error);
         });
     });
-
   },
-
-  // scrape: ()=>{
-  //   console.log('hello from front end server')
-  //   axios.get('/scrape').then(function(res){
-  //     console.log(res.data)
-  //     console.log('hi')
-  //   })
-  // }
+  registrer: (userName, password, firstName, lastName, email, address ) =>{
+    return new Promise( (resolve, reject) => {
+    axios.post("/api/register",{
+          userName: userName,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          address: address
+      })
+        .then(function (response) {
+          if (response.data.jwt) {
+            // wDebug("Data received from server");
+            resolve({jwt: response.data.jwt, userData: response.data.userData});
+          }
+          else {
+            // successful request but no data returned
+            // this happens when the password or user name was wrong
+            wDebug("POST to /api/registrer failed - request succeeded (" + response.status + ") but no data returned");
+            // return something to print out as an error
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            wError("POST to /api/registrer failed with http error code " + error.response.status);
+          }
+          else {
+            // The request was made but no response was received
+            wError("POST to /api/registrer timed out, nothing received");
+          }
+          reject(error);
+        });
+    });
+  }
+  
 }

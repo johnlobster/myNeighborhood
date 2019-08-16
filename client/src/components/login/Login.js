@@ -66,6 +66,7 @@ class Login extends React.Component {
 
     // When the form is submitted, prevent the default event and call /api/login (returns promise)
     // this function may need to be passed down from a higher level
+    // on successful login, call this.props.validUser, which is passed down from App
     handleFormSubmit = event => {
         event.preventDefault();
         if ((this.state.userName.length === 0) || (this.state.password.length === 0)) {
@@ -83,6 +84,7 @@ class Login extends React.Component {
                     // TODO successful login, store state in localStorage
                     localStorage.setItem("myNeighborhoodJwt", jwt);
                     localStorage.setItem("myNeighborhoodUserData", JSON.stringify(userData));
+                    this.props.validUser(jwt, userData); // changes state in App
                     // pop up alert
                     this.setState({alertVisible: true});
                     // alert dismiss button will redirect to home page

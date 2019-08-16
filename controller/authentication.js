@@ -63,8 +63,8 @@ module.exports = {
           reject(err);
         }
         else {
-          wDebug("valid JWT sent from client");
-          wObj(payload);
+          // wDebug("valid JWT sent from client");
+          // wObj(payload);
           resolve(payload);
         }
       });

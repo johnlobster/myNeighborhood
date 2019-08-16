@@ -1,0 +1,111 @@
+@import "../../styles/colors"
+
+.wrapper 
+  height: 100vh
+  width: 100%
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  background-color: $color1
+  .form-wrapper 
+    width: 400px
+    display: flex
+    flex-direction: column
+    padding: 20px 40px
+    border-radius: 10px
+    form 
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        label
+            font-size: 1em
+            margin-bottom: 0.25em
+            color: #222
+            font-weight: lighter
+        input 
+            padding: 10px 10px
+            border-radius: 5px
+            outline: none
+            border: 1px solid #cfcfcf
+            background-color: #fff
+        input::placeholder 
+            font-size: 1em
+            font-weight: lighter
+            color: $color4
+        input.error 
+            border: 1px solid red
+
+
+
+
+.errorMessage 
+  color: red
+  background-color: #eeeeee
+  font-size: 0.9em
+  display: relative
+  
+  text-align: center
+  margin: auto
+
+
+.firstName 
+  margin-right: 1%
+
+
+.lastName
+    margin-left: 1%
+
+
+.firstName,
+.lastName,
+.userName,
+.email,
+.address,
+.password 
+  display: flex
+  flex-direction: column
+  margin-bottom: 15px
+
+
+.firstName,
+.lastName 
+  width: 49%
+
+
+.email,
+.password, 
+.userName,
+.address,
+  width: 100%
+
+
+.createAccount
+  width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+
+
+.createAccount button 
+  background-color: #519e8a
+  color: #fff
+  border: 2px solid #fff
+  width: 100%
+  margin-top: 1em
+  padding: 8px 0px
+  font-size: 1em
+  font-weight: lighter
+  letter-spacing: 1px
+  margin-bottom: 0.25em
+
+
+.createAccount button:hover 
+  color: #519e8a
+  background-color: #fff
+  border: 2px solid #519e8a
+
+
+#already-account
+  color: #000
+  font-weight: lighter
