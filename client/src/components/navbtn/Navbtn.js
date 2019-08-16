@@ -8,8 +8,8 @@ function Navbtn(props) {
   return (
       <div id="wrapper-btnnav" className="row d-flex flex-row-reverse">
       <div id="nav" className="col-3 fixed-bottom ">
-          <li className="nav-item dropdown p-2 ">
-            <Link className="nav-link" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li className="nav-item dropdown">
+            <Link className="nav-link" to="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i id="bars-menu" className="fa fa-bars" aria-hidden="true"></i>
             </Link>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
