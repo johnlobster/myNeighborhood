@@ -7,6 +7,7 @@
   flex-direction: column
   justify-content: center
   align-items: center
+  background-color: $color1
   .form-wrapper 
     width: 400px
     display: flex
@@ -27,10 +28,11 @@
             border-radius: 5px
             outline: none
             border: 1px solid #cfcfcf
+            background-color: #fff
         input::placeholder 
             font-size: 1em
             font-weight: lighter
-            color: #999
+            color: $color4
         input.error 
             border: 1px solid red
 
@@ -39,8 +41,12 @@
 
 .errorMessage 
   color: red
-  font-size: 0.75em
+  background-color: #eeeeee
+  font-size: 0.9em
   display: relative
+  
+  text-align: center
+  margin: auto
 
 
 .firstName 
@@ -53,7 +59,9 @@
 
 .firstName,
 .lastName,
+.userName,
 .email,
+.address,
 .password 
   display: flex
   flex-direction: column
@@ -66,7 +74,9 @@
 
 
 .email,
-.password 
+.password, 
+.userName,
+.address,
   width: 100%
 
 
@@ -96,6 +106,6 @@
   border: 2px solid #519e8a
 
 
-.createAccount small 
+#already-account
   color: #000
   font-weight: lighter

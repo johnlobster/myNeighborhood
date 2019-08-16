@@ -28,13 +28,17 @@ class Newuser extends Component {
     this.state = {
       firstName: null,
       lastName: null,
+      userName: null,
+      address: null,
       email: null,
       password: null,
       formErrors: {
         firstName: "",
         lastName: "",
+        userName: "",
         email: "",
-        password: ""
+        password: "",
+        address:""
       }
     };
   }
@@ -47,6 +51,8 @@ class Newuser extends Component {
         --SUBMITTING--
         First Name: ${this.state.firstName}
         Last Name: ${this.state.lastName}
+        Username: ${this.state.usetName}
+        Address: ${this.state.address}
         Email: ${this.state.email}
         Password: ${this.state.password}
       `);
@@ -69,6 +75,14 @@ class Newuser extends Component {
         formErrors.lastName =
           value.length < 3 ? "minimum 3 characaters required" : "";
         break;
+      case "userName":
+        formErrors.userName =
+          value.length < 5 ? "minimum 5 characaters required" : "";
+        break;
+      case "address":
+        formErrors.address =
+          value.length < 10 ? "minimum 10 characaters required" : "";
+        break;       
       case "email":
         formErrors.email = emailRegex.test(value)
           ? ""
@@ -107,6 +121,7 @@ class Newuser extends Component {
                 <span className="errorMessage">{formErrors.firstName}</span>
               )}
             </div>
+
             <div className="lastName">
               <label htmlFor="lastName">Last Name</label>
               <input
@@ -121,6 +136,42 @@ class Newuser extends Component {
                 <span className="errorMessage">{formErrors.lastName}</span>
               )}
             </div>
+
+            <div className="userName">
+              <label htmlFor="userName">Username</label>
+              <input
+                className={formErrors.userName.length > 0 ? "error" : null}
+                placeholder="Username"
+                type="text"
+                name="userName"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.userName.length > 0 && (
+                <span className="errorMessage">{formErrors.userName}</span>
+              )}
+            </div>
+
+
+            <div className="address">
+              <label htmlFor="address">address</label>
+              <input
+                className={formErrors.address.length > 0 ? "error" : null}
+                placeholder="Address"
+                type="text"
+                name="address"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.address.length > 0 && (
+                <span className="errorMessage">{formErrors.address}</span>
+              )}
+            </div>
+
+           
+
+            
+            
             <div className="email">
               <label htmlFor="email">Email</label>
               <input
@@ -151,7 +202,7 @@ class Newuser extends Component {
             </div>
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <small>Already Have an Account?</small>
+              <Link id="already-account" to="/login" >Already Have an Account?</Link>
             </div>
           </form>
         </div>
