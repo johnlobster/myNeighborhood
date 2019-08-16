@@ -6,37 +6,46 @@ import cheerio from "cheerio";
 import API from '../../api/server'
 
 
-function LocalInfo() {
+class LocalInfo extends React.Component {
 
-// let scrape = () => {
-//     axios.get("https://www.kcra.com/local-news/").then(function(response){
-//         var $ = cheerio.load(response.data);
-//         $("li a").each(function(i, element){
-//             var result = []
-//             console.log(this);
-//             // result.push(this);
-//         })
-//     })
-// }    
+    // newScrape = () => {
+    //     let result = [];
 
-    // function scrape(){
-    //     axios.get("https://www.kcra.com/local-news/").then(function(response){
-    //         var $ = cheerio.load(response.data);
+    //     axios.get("https://www.kcra.com/local-news/")
+    //     .then(function(response){
+    //         let $ = cheerio.load(response.data);
     //         $("li a").each(function(i, element){
-    //             var result = []
-    //             console.log(this);
+    //             console.log(element);
     //             // result.push(this);
     //         })
     //     })
-    // }
+    //     .catch( (err) => {
+    //         console.log("Error in http access");
+    //         console.log(err);
+    //     });
+    // }    
 
+    // try getting server to scrape to avoid CORS issues
+    newScrape = () => {
+        axios.get("/api/scrape")
+        .then( (response) => {
+            console.log("scraped data returned");
+            console.log(response.data);
+        })
+        .catch( (err) => {
+            console.log("Error in http access");
+            console.log(err);
+        })
+    }
 
+    render() {
 
-    // return (
-    //     <div className="">
-    //         <input type='button' onClick={API.scrape} value="Scrape" />
-    //     </div>
-    // );
+        return (
+            <div className="">
+                <input type='button' onClick={this.newScrape} value="Scrape" />
+            </div>
+        );
+    }
 }
                 
 export default LocalInfo;
