@@ -8,28 +8,9 @@ const auth = require("../controller/authentication.js")
 
 let { app, db } = require("../server");
 
-// create a valid password for testing
-const password = "123456"
-let encPassword = "";
-// don't have to wait for completion as server startup has a delay built in
-auth.encodePassword(password)
-  .then( (encPw) => {
-    encPassword = encPw;
-  })
-  .catch( (err) => {
-    throw new Error(err);
-  });
-
-// used to test authentication, not part of the /login route testing
-let jwt ="";
+// used to test /api/pingtoken
+oldJWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImpEb2UiLCJpYXQiOjE1NjUzMzE3NTUsImV4cCI6MTU2NTUwNDU1NX0.4yZhUAD6Y707syKOqiKSuhabtAB9GYxPXyyCZTTNvAI"
 let testJwt = "";
-auth.getJWT({ userId: "aTestUser"})
-  .then( (token) => {
-    jwt = token;
-  })
-  .catch( (err) => {
-    throw new Error(err);
-  });
 
 const userSeed = [
   {
@@ -42,7 +23,7 @@ const userSeed = [
   }
 ]
 
-describe("t3 register api test, test /api/register route : start server\n", () => {
+describe("t3 register api test, test /api/register route and /api/pingtoken: start server\n", () => {
   it("Server should start", (done) => {
     // wait for server to start before doing anything
     setTimeout(() => {
@@ -81,6 +62,132 @@ describe("Register user - should pass", () => {
         expect(res.body.jwt).to.not.be.empty;
         expect(res.body.userData).to.not.be.empty;
         expect(res.body.userData.userName).to.equal("jDoe");
+        expect(res.body.message).to.equal("success");
+        testJwt = res.body.jwt; // save to use in /api/pingtoken tests
+        done();
+      });
+  });
+});
+
+describe("Register duplicate user - should fail", () => {
+  it("register user jDoe (again)", function (done) {
+    chai.request(app)
+      .post(`/api/register`)
+      .type('form')
+      .send(userSeed[0])
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(401, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwt).to.be.empty;
+        expect(res.body.message).to.not.be.empty;
+        done();
+      });
+  });
+});
+
+describe("Register with bad inputs", () => {
+  it("register without userName", function (done) {
+    let newData = Object.assign({}, userSeed[0]);
+    delete newData.userName;
+    chai.request(app)
+      .post(`/api/register`)
+      .type('form')
+      .send(newData)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(401, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwt).to.be.empty;
+        expect(res.body.message).to.not.be.empty;
+        done();
+      });
+  });
+  it("register without password", function (done) {
+    let newData = Object.assign({}, userSeed[0]);
+    delete newData.password;
+    chai.request(app)
+      .post(`/api/register`)
+      .type('form')
+      .send(newData)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(401, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwt).to.be.empty;
+        expect(res.body.message).to.not.be.empty;
+        done();
+      });
+  });
+  it("register with empty userName", function (done) {
+    let newData = Object.assign({}, userSeed[0]);
+    newData.userName = "";
+    chai.request(app)
+      .post(`/api/register`)
+      .type('form')
+      .send(newData)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(401, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwt).to.be.empty;
+        expect(res.body.message).to.not.be.empty;
+        done();
+      });
+  });
+  it("register with empty password", function (done) {
+    let newData = Object.assign({}, userSeed[0]);
+    newData.password = "";
+    chai.request(app)
+      .post(`/api/register`)
+      .type('form')
+      .send(newData)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(401, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwt).to.be.empty;
+        expect(res.body.message).to.not.be.empty;
+        done();
+      });
+  });
+});
+
+describe("Test /api/pingtoken route", () => {
+  it("ping with no token", function (done) {
+    chai.request(app)
+      .get(`/api/pingtoken`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(200, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwtValid).to.equal(false);
+        done();
+      });
+  });
+  it("ping with token", function (done) {
+    // token obtained from login
+    chai.request(app)
+      .get(`/api/pingtoken`)
+      .set("Authorization", `Bearer ${testJwt}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(200, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwtValid).to.equal(true);
+        done();
+      });
+  });
+  it("ping with old token", function (done) {
+    // token obtained from login
+    chai.request(app)
+      .get(`/api/pingtoken`)
+      .set("Authorization", `Bearer ${oldJWT}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.status).to.equal(200, "http response code");
+        expect(res.body).to.not.be.empty;
+        expect(res.body.jwtValid).to.equal(false);
         done();
       });
   });
