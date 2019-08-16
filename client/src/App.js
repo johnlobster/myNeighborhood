@@ -30,13 +30,27 @@ class  App extends React.Component {
       console.log("No stored session information");
     }
     else {
-      const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-      console.log("Found stored session information for user " + userData.userName);
-      this.setState({
-        jwt: localStorage.getItem("myNeighborhoodJwt"),
-        userData: userData,
-        authorizedUser: true
-      });
+      axios.get("/api/pingtoken",
+        {
+          headers: {
+            "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
+          }
+        }
+      )
+      .then( (result) => {
+        console.log(result.data);
+        const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+        console.log("Found stored session information for user " + userData.userName);
+        this.setState({
+          jwt: localStorage.getItem("myNeighborhoodJwt"),
+          userData: userData,
+          authorizedUser: true
+        });
+      })
+      .catch( (err) => {
+        console.log("App: Error accessing /api/pingtemplate");
+        console.log(err);
+      })
     }
   }
 

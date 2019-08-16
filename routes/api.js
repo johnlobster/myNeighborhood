@@ -40,10 +40,11 @@ router.use(function (req, res, next) {
 router.route("/api/pingtoken")
   .get( (req, res) => {
     if (req.authorized) {
-      res.json({ jwtValid: true })
+      res.json({ jwtValid: true });
     }
     else {
-      res.json({ jwtValid: false })
+      wDebug("/api/pingtoken bad token");
+      res.json({ jwtValid: false });
     }
   });
 
