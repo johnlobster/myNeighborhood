@@ -4,6 +4,9 @@ const { wError, wInfo, wDebug, wObj } = dBug("server API");
 
 // this is the API that connects to the server. Maybe server.js isn't the best name ...
 export default {
+  register: (userData) => {
+    //
+  },
   login: (userName, password) =>{
     return new Promise( (resolve, reject) => {
     axios.post("/api/login",{
