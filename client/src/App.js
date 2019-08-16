@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import axios from "axios";
 
 import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
@@ -23,22 +24,41 @@ class  App extends React.Component {
     authorizedUser: false
   }
 
-  // if a user is already logged in, get jwt and userData from localStorage
+  // if a user is already logged in, get jwt and userData from localStorage, check that token is still valid
   componentDidMount() {
     if (localStorage.getItem("myNeighborhoodJwt") === null) {
       console.log("No stored session information");
     }
     else {
-      const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-      console.log("Found stored session information for user " + userData.userName);
-      this.setState({
-        jwt: localStorage.getItem("myNeighborhoodJwt"),
-        userData: userData,
-        authorizedUser: true
-      });
+      axios.get("/api/pingtoken",
+        {
+          headers: {
+            "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
+          }
+        }
+      )
+      .then( (result) => {
+        console.log(result.data);
+        const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+        console.log("Found stored session information for user " + userData.userName);
+        this.setState({
+          jwt: localStorage.getItem("myNeighborhoodJwt"),
+          userData: userData,
+          authorizedUser: true
+        });
+      })
+      .catch( (err) => {
+        console.log("App: Error accessing /api/pingtemplate");
+        console.log(err);
+      })
     }
-
   }
+
+  // this is called by login and register routes so that state in App can be updated
+  validUser = (jwt, userData) => {
+    console.log("App: Changed user data");
+  } 
+
   render() {
     return (
       <Router>
@@ -46,7 +66,10 @@ class  App extends React.Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/About' component={About} />
-          <Route path='/Login' component={Login} />
+          <Route 
+            path='/Login' 
+            render={(props) => <Login {...props} authUser={this.validUser} />}
+          />
           <Route path='/Newuser' component={Newuser} />
           <Route path='/Recomendations' component={Recomendations} />
           <Route path='/Events' component={Events} />
