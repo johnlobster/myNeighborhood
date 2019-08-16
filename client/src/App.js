@@ -73,7 +73,7 @@ class  App extends React.Component {
           <Route 
             path='/Newuser'
             render={(props) => <Newuser {...props} authUser={this.validUser} />}
-          />path='/Newuser' component={Newuser} />
+          />
           <Route path='/Recomendations' component={Recomendations} />
           <Route path='/Events' component={Events} />
           <Route path='/Phonebook' component={Phonebook} />
