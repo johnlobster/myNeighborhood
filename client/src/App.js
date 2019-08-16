@@ -60,9 +60,12 @@ class  App extends React.Component {
   } 
 
   render() {
+    
     return (
       <Router>
-        <Nav />
+        <Nav 
+          authorizedUser={this.state.authorizedUser} 
+          userName={`${this.state.userData.firstName} ${this.state.userData.lastName}`}/>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/About' component={About} />
