@@ -41,7 +41,8 @@ class Newuser extends Component {
         email: "",
         password: "",
         address:""
-      }
+      },
+      registerError: ""
     };
   }
 
@@ -58,6 +59,8 @@ class Newuser extends Component {
         Email: ${this.state.email}
         Password: ${this.state.password}
       `);
+      // remove error message - re-submitting
+      this.setState( {registerError: ""});
       const userData = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -68,18 +71,17 @@ class Newuser extends Component {
       }
       api.register( userData )
       .then( (registerResult) => {
-        console.log(registerResult);
         // sends register data to App
         this.props.authUser(
           registerResult.jwt,
           registerResult.userData
         );
       })
-      .catch( (err) => {
-        console.log(err);
+      .catch( (message) => {
+        this.setState({ registerError: message});
       });
     } else {
-      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+      this.setState({ registerError: "Form invalid - try again"});
     }
   };
 
@@ -91,19 +93,19 @@ class Newuser extends Component {
     switch (name) {
       case "firstName":
         formErrors.firstName =
-          value.length < 3 ? "minimum 3 characaters required" : "";
+          value.length < 3 ? "minimum 3 characters required" : "";
         break;
       case "lastName":
         formErrors.lastName =
-          value.length < 3 ? "minimum 3 characaters required" : "";
+          value.length < 3 ? "minimum 3 characters required" : "";
         break;
       case "userName":
         formErrors.userName =
-          value.length < 5 ? "minimum 5 characaters required" : "";
+          value.length < 5 ? "minimum 5 characters required" : "";
         break;
       case "address":
         formErrors.address =
-          value.length < 10 ? "minimum 10 characaters required" : "";
+          value.length < 10 ? "minimum 10 characters required" : "";
         break;       
       case "email":
         formErrors.email = emailRegex.test(value)
@@ -112,7 +114,7 @@ class Newuser extends Component {
         break;
       case "password":
         formErrors.password =
-          value.length < 6 ? "minimum 6 characaters required" : "";
+          value.length < 6 ? "minimum 6 characters required" : "";
         break;
       default:
         break;
@@ -129,6 +131,10 @@ class Newuser extends Component {
       <div className="wrapper">
         <div className="form-wrapper">
           <h1>Create Account</h1>
+          {/* Notify user of form error */}
+          { (this.state.registerError !== "") &&
+          <h5 style={{color: "red" }}>{this.state.registerError}</h5>
+          }
           <form onSubmit={this.handleSubmit} noValidate>
             <div className="firstName">
               <label htmlFor="firstName">First Name</label>
@@ -191,10 +197,6 @@ class Newuser extends Component {
               )}
             </div>
 
-           
-
-            
-            
             <div className="email">
               <label htmlFor="email">Email</label>
               <input
