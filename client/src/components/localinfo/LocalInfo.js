@@ -4,7 +4,7 @@ import React from 'react';
 import axios from "axios";
 import cheerio from "cheerio";
 import API from '../../api/server';
-import  "./news.css";
+import  "./news.scss";
 
 
 class LocalInfo extends React.Component {
