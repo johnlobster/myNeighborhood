@@ -1,6 +1,5 @@
 import React from 'react';
 import './style.sass';
-import { Link } from 'react-router-dom'
 import logo from './mnlogo.png' 
 
 function Nav() {

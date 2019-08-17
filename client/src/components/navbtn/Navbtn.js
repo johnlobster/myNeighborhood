@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 function Navbtn(props) {
   return (
-      <div id="wrapper-btnnav" className="row d-flex flex-row-reverse">
-      <div id="nav" className="col-3 fixed-bottom ">
+      
+      <div id="nav" className="col fixed-bottom ">
           <li className="nav-item dropdown">
             <Link className="nav-link" to="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i id="bars-menu" className="fa fa-bars" aria-hidden="true"></i>
@@ -28,7 +28,7 @@ function Navbtn(props) {
           </li>
 
         </div>
-      </div>
+
    
   );
 }
