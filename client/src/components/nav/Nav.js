@@ -1,20 +1,24 @@
 import React from 'react';
 import './style.sass';
-import logo from './mnlogo.png' 
+import { Link } from 'react-router-dom'
+import logo from '../../images/mnlogo.png' 
 
-function Nav() {
+function Nav(props) {
     return (
-        <nav>
+        <nav className="NavHeaderBox">
             <img alt="LOGO" src ={logo} />
-            {/* <ul className="nav-links">
-                <Link to="/login"><li>Login</li></Link>
-                <Link to="/about"><li>About</li></Link>
-                <Link to="/info"><li>Info</li></Link>
-            </ul> */}
+            {/* Display either user name or a login button */}
+            {props.authorizedUser ? (
+                <span>{props.userName}</span>
+            ) : (
+                <Link className="NavLink" to="/login">
+                    <button>Login</button> 
+                </Link>
+            )}
         </nav>
 
-      
+
     );
-  }
+}
 
 export default Nav;

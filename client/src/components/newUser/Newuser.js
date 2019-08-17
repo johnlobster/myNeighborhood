@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import './styles.sass';
 import { Link } from 'react-router-dom';
+import api from "../../api/server";
+
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
@@ -39,7 +41,8 @@ class Newuser extends Component {
         email: "",
         password: "",
         address:""
-      }
+      },
+      registerError: ""
     };
   }
 
@@ -51,13 +54,34 @@ class Newuser extends Component {
         --SUBMITTING--
         First Name: ${this.state.firstName}
         Last Name: ${this.state.lastName}
-        Username: ${this.state.usetName}
+        Username: ${this.state.userName}
         Address: ${this.state.address}
         Email: ${this.state.email}
         Password: ${this.state.password}
       `);
+      // remove error message - re-submitting
+      this.setState( {registerError: ""});
+      const userData = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        userName: this.state.userName,
+        password: this.state.password,
+        email: this.state.email,
+        address: this.state.address
+      }
+      api.register( userData )
+      .then( (registerResult) => {
+        // sends register data to App
+        this.props.authUser(
+          registerResult.jwt,
+          registerResult.userData
+        );
+      })
+      .catch( (message) => {
+        this.setState({ registerError: message});
+      });
     } else {
-      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+      this.setState({ registerError: "Form invalid - try again"});
     }
   };
 
@@ -69,19 +93,19 @@ class Newuser extends Component {
     switch (name) {
       case "firstName":
         formErrors.firstName =
-          value.length < 3 ? "minimum 3 characaters required" : "";
+          value.length < 3 ? "minimum 3 characters required" : "";
         break;
       case "lastName":
         formErrors.lastName =
-          value.length < 3 ? "minimum 3 characaters required" : "";
+          value.length < 3 ? "minimum 3 characters required" : "";
         break;
       case "userName":
         formErrors.userName =
-          value.length < 5 ? "minimum 5 characaters required" : "";
+          value.length < 5 ? "minimum 5 characters required" : "";
         break;
       case "address":
         formErrors.address =
-          value.length < 10 ? "minimum 10 characaters required" : "";
+          value.length < 10 ? "minimum 10 characters required" : "";
         break;       
       case "email":
         formErrors.email = emailRegex.test(value)
@@ -90,13 +114,14 @@ class Newuser extends Component {
         break;
       case "password":
         formErrors.password =
-          value.length < 6 ? "minimum 6 characaters required" : "";
+          value.length < 6 ? "minimum 6 characters required" : "";
         break;
       default:
         break;
     }
+    this.setState({ formErrors, [name]: value });
 
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+    // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
 
   render() {
@@ -106,6 +131,10 @@ class Newuser extends Component {
       <div className="wrapper">
         <div className="form-wrapper">
           <h1 id="createAccount" >Create Account</h1>
+          {/* Notify user of form error */}
+          { (this.state.registerError !== "") &&
+          <h5 style={{color: "red" }}>{this.state.registerError}</h5>
+          }
           <form onSubmit={this.handleSubmit} noValidate>
             <div className="firstName">
               <label htmlFor="firstName">First Name</label>
@@ -168,10 +197,6 @@ class Newuser extends Component {
               )}
             </div>
 
-           
-
-            
-            
             <div className="email">
               <label htmlFor="email">Email</label>
               <input

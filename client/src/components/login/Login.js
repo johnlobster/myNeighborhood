@@ -8,9 +8,7 @@ import dBug from "../../utilities/debug.js";
 const { wError, wInfo, wDebug, wObj } = dBug("Login");
 
 class Login extends React.Component {
-    state = {
-        jwt: "",
-        userData: {},
+    state= {
         userName: "",
         password: "",
         loginState: "input",
@@ -19,23 +17,8 @@ class Login extends React.Component {
         alertVisible: false
     }
 
-    // if a user is already logged in, get jwt and userData from localStorage
-    componentDidMount() {
-        wDebug("Component mounted");
-        if (localStorage.getItem("myNeighborhoodJwt") === null) {
-            wDebug("No stored session information");
-        }
-        else {
-            const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-            wDebug("Found stored session information for user " + userData.userName);
-            this.setState({
-                jwt: localStorage.getItem("myNeighborhoodJwt"),
-                userData: userData
-            });
-        }
-
-    }
-    // need to set loginState
+    
+    // form input handling
     handleInputChange = event => {
         // Pull the name and value properties off of the event.target (the element which triggered the event)
         const { name, value } = event.target;
@@ -65,8 +48,7 @@ class Login extends React.Component {
 
 
     // When the form is submitted, prevent the default event and call /api/login (returns promise)
-    // this function may need to be passed down from a higher level
-    // on successful login, call this.props.validUser, which is passed down from App
+    // on successful login, call this.props.validUser, which is passed down from App component
     handleFormSubmit = event => {
         event.preventDefault();
         if ((this.state.userName.length === 0) || (this.state.password.length === 0)) {
@@ -81,16 +63,10 @@ class Login extends React.Component {
             api.login(this.state.userName, this.state.password)
                 .then(({ jwt, userData }) => {
                     wInfo(`User ${this.state.userName} logged in successfully`);
-                    // TODO successful login, store state in localStorage
-                    localStorage.setItem("myNeighborhoodJwt", jwt);
-                    localStorage.setItem("myNeighborhoodUserData", JSON.stringify(userData));
-                    this.props.validUser(jwt, userData); // changes state in App
-                    // pop up alert
-                    this.setState({ alertVisible: true });
+                    this.props.authUser(jwt, userData); // changes state in App parent component
+                    // pop up alert - successful login
+                    this.setState({alertVisible: true});
                     // alert dismiss button will redirect to home page
-                    // TODO improve UI
-                    // may never reach this
-                    // this.setState({redirect: true});
                 })
                 .catch((response) => {
                     if (response.status === 204) {
@@ -110,16 +86,13 @@ class Login extends React.Component {
         }
     }
     render() {
-        // if (this.state.redirect) {
-        //     return <Redirect push to="/" />;
-        // }
+        
         // create booleans to use for status box as can't use an if statement inside render 
         // "input", "inputValid", "loggingIn"
         const inputNotValid = this.state.loginState === "input";
         const inputValid = this.state.loginState === "inputValid";
         const loggingIn = this.state.loginState === "loggingIn";
         const badLogin = this.state.loginState === "badLogin";
-        // console.log( inputNotValid, inputValid, loggingIn);
         return (
             <div className="">
                 <div className="container">
