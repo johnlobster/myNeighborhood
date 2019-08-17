@@ -11,16 +11,16 @@ module.exports = function (req, res) {
       let results = [];
       let $ = cheerio.load(response.data);
       $(".grid-content-inner").each(function (i, element) {
-        let head = $(this)
+        let title = $(this)
           .find("a").text().trim();
          
 
 
-        let anchor = $(this)
+        let site = $(this)
           .find("a").attr("href");
-          console.log(anchor);
+          console.log(site);
         
-        results.push({head: head, anchor: "https:\\kcra.com" + anchor})
+        results.push({title: title, site: "https://www.kcra.com"+ site})
       });
       res.json(results);
     })
