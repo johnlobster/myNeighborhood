@@ -13,7 +13,7 @@ import Events from './components/events/Events';
 import Phonebook from './components/phonebook/Phonebook';
 import LocalInfo from './components/localinfo/LocalInfo';
 
-
+// global scss file - import here then available to all sass files
 import "./styles/themes.scss";
 import Navbtn from './components/navbtn/Navbtn';
 
