@@ -39,13 +39,22 @@ class  App extends React.Component {
       )
       .then( (result) => {
         console.log(result.data);
-        const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-        console.log("Found stored session information for user " + userData.userName);
-        this.setState({
-          jwt: localStorage.getItem("myNeighborhoodJwt"),
-          userData: userData,
-          authorizedUser: true
-        });
+        if ( result.data.jwValid) {
+          const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+          console.log("Found stored session information for user " + userData.userName);
+          this.setState({
+            jwt: localStorage.getItem("myNeighborhoodJwt"),
+            userData: userData,
+            authorizedUser: true
+          });
+        }
+        else {
+          // saved token was invalid, delete from localStorage
+          localStorage.removeItem("myNeighborhoodUserData");
+          localStorage.removeItem("myNeighborhoodJwt");
+          console.log("Removed expired authentication token");
+        }
+        
       })
       .catch( (err) => {
         console.log("App: Error accessing /api/pingtemplate");
@@ -56,6 +65,13 @@ class  App extends React.Component {
 
   // this is called by login and register routes so that state in App can be updated
   validUser = (jwt, userData) => {
+    localStorage.setItem("myNeighborhoodUserData", userData);
+    localStorage.setItem("myNeighborhoodJwt", jwt);
+    this.setState({
+      jwt: jwt,
+      userData: userData,
+      authorizedUser: true
+    });
     console.log("App: Changed user data");
   } 
 
