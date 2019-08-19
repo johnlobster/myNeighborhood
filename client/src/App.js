@@ -12,6 +12,7 @@ import Recomendations from './components/recomendations/Recomendations';
 import Events from './components/events/Events';
 import Phonebook from './components/phonebook/Phonebook';
 import LocalInfo from './components/localinfo/LocalInfo';
+import Alerts from "./components/alerts/Alerts";
 
 // global scss file - import here then available to all sass files
 import "./styles/themes.scss";
@@ -21,7 +22,10 @@ class  App extends React.Component {
   state = {
     jwt: "",
     userData: {},
-    authorizedUser: false
+    authorizedUser: false,
+    activeAlert: false,
+    activeAlerts: [],
+    oldAlerts: []
   }
 
   // if a user is already logged in, get jwt and userData from localStorage, check that token is still valid
@@ -79,8 +83,10 @@ class  App extends React.Component {
     
     return (
       <Router>
+        {/* Nav displays current user (or login button) and alerts flag */}
         <Nav 
           authorizedUser={this.state.authorizedUser} 
+          activeAlert={this.state.activeAlert}
           userName={`${this.state.userData.firstName} ${this.state.userData.lastName}`}/>
         <Switch>
           <Route exact path='/' component={Home} />
@@ -92,6 +98,14 @@ class  App extends React.Component {
           <Route 
             path='/Newuser'
             render={(props) => <Newuser {...props} authUser={this.validUser} />}
+          />
+          <Route
+            path="/Alerts"
+            render={(props) => <Alerts {...props} 
+              authorizedUser={this.state.authorizedUser}
+              currentAlerts={this.state.activeAlerts} 
+              previousAlerts={this.state.oldAlerts}
+              />}
           />
           <Route path='/Recomendations' component={Recomendations} />
           <Route path='/Events' component={Events} />
