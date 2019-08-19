@@ -64,6 +64,33 @@ export default {
           reject(error);
         });
     });
+  },
+  newAlert: (alertData) => {
+    return new Promise((resolve, reject) => {
+      axios.post("/api/alerts",
+        {
+          data: alertData,
+          headers: {
+            "authorization": `Bearer ${alertData.jwt}`
+          }
+        }
+      )
+      .then( (dbResult) => {
+        resolve(dbResult);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          wError("POST to /api/login failed with http error code " + error.response.status);
+        }
+        else {
+          // The request was made but no response was received
+          wError("POST to /api/login timed out, nothing received");
+          error.response.body.message = "Server timed out, try again";
+        }
+        reject(error);
+      }); 
+    });
   }
-    
 }
