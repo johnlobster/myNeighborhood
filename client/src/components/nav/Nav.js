@@ -11,7 +11,7 @@ function Nav(props) {
             {props.authorizedUser ? (
                 <span>{props.userName}</span>
             ) : (
-                <Link className="NavLink" to="/login">
+                <Link className="NavLink login-home" to="/login">
                     <button>Login</button> 
                 </Link>
             )}
