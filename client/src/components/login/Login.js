@@ -95,10 +95,10 @@ class Login extends React.Component {
         const badLogin = this.state.loginState === "badLogin";
         return (
             <div className="">
-                <div className="container">
-                    <h1 id="createAccount" className="text-center" >Login form</h1>
+                <div className="container d-flex flex-column align-items-center ">
+                    <h1 className="text-center font-weight-light" >Login</h1>
                     <div className="row">
-                        <div className="col-12, col-md-6">
+                        <div className="col ">
                             <form>
                                 <div className="form-group">
                                     <label htmlFor="userName">User name</label>
@@ -165,9 +165,9 @@ class Login extends React.Component {
                     </div>
 
                     <div className="row">
-                        <div className="col-6, col-md-6 signupButton ">
+                        <div className="col signupButton ">
                             <Link to="/Newuser"  className="createAccount">
-                                <h3>New Account?</h3>
+                                <h6 >New Account?</h6>
                             </Link>
                         </div>
                     </div>

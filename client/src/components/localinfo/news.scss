@@ -1,7 +1,6 @@
-#article-wrapper{
-    background-color: #85b73b;
-}
+@import "../../styles/colors";
 
-// #articles {
-//     color: white;
-// }
+#article-wrapper{
+    background-color: $color1;
+    margin-top: 1rem
+}

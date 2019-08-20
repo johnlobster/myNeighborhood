@@ -7,6 +7,9 @@
 .dropdown-menu.show
   width: 100%
   color: $color1
+  @media screen and (min-width: 650px) 
+    margin-left: 75%
+    max-width: 500px
   
 
 
@@ -14,16 +17,14 @@ li
     list-style-type: none
     
     a
-      font-size: 2rem
+      font-size: 1.5rem
       font-weight: 900
       text-align: right
-      margin-bottom: 3%
-      
       
       i
         color: $color1
         margin-left: 5px
-        padding: 5px
+        padding: 0.5rem
         background-color: #fff
 #bars-menu
   background-color: $color1

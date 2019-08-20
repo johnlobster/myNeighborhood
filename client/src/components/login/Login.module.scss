@@ -72,25 +72,13 @@
 }
 
 
-#createAccount{
-  margin-top: 4rem;
-  font-size: 2.5rem
-}
 
 
-
-#userName,
-#passwordInput{
-  width: 100%
-}
-
-
-
-form{
-    width: 90%;
-    margin: auto;
+// form{
+//     width: 90%;
+//     margin: auto;
     
-}
+// }
 
 label{
   font-size: 1em;
@@ -99,14 +87,21 @@ label{
   font-weight: lighter;
   padding: 10px 10px;
   border-radius: 5px;
+  
 }
         
-input{ 
-    padding: 10px 10px;
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #cfcfcf;
-    background-color: #fff;
+// input{ 
+//     
+//   }
+
+  input {
+    
+    &[type=text], &[type=password], &[type=email] {
+      &:focus {
+        border: 3px solid $color6;
+        transition: 100ms linear;
+      }
+    }
   }
 
   

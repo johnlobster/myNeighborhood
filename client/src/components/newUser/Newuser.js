@@ -128,9 +128,9 @@ class Newuser extends Component {
     const { formErrors } = this.state;
 
     return (
-      <div className="wrapper">
-        <div className="form-wrapper">
-          <h1 id="createAccount" >Create Account</h1>
+      <div className="wrapper ">
+        <div className="form-wrapper ">
+          <h1 id="createAccount-title" >Create Account</h1>
           {/* Notify user of form error */}
           { (this.state.registerError !== "") &&
           <h5 style={{color: "red" }}>{this.state.registerError}</h5>
@@ -140,7 +140,7 @@ class Newuser extends Component {
               <label htmlFor="firstName">First Name</label>
               <input
                 className={formErrors.firstName.length > 0 ? "error" : null}
-                placeholder="First Name"
+                placeholder=""
                 type="text"
                 name="firstName"
                 noValidate
@@ -155,7 +155,7 @@ class Newuser extends Component {
               <label htmlFor="lastName">Last Name</label>
               <input
                 className={formErrors.lastName.length > 0 ? "error" : null}
-                placeholder="Last Name"
+                placeholder=""
                 type="text"
                 name="lastName"
                 noValidate
@@ -170,7 +170,7 @@ class Newuser extends Component {
               <label htmlFor="userName">Username</label>
               <input
                 className={formErrors.userName.length > 0 ? "error" : null}
-                placeholder="Username"
+                placeholder=""
                 type="text"
                 name="userName"
                 noValidate
@@ -183,10 +183,10 @@ class Newuser extends Component {
 
 
             <div className="address">
-              <label htmlFor="address">address</label>
+              <label htmlFor="Address">Address</label>
               <input
                 className={formErrors.address.length > 0 ? "error" : null}
-                placeholder="Address"
+                placeholder=""
                 type="text"
                 name="address"
                 noValidate
@@ -201,7 +201,7 @@ class Newuser extends Component {
               <label htmlFor="email">Email</label>
               <input
                 className={formErrors.email.length > 0 ? "error" : null}
-                placeholder="Email"
+                placeholder=""
                 type="email"
                 name="email"
                 noValidate
@@ -215,7 +215,7 @@ class Newuser extends Component {
               <label htmlFor="password">Password</label>
               <input
                 className={formErrors.password.length > 0 ? "error" : null}
-                placeholder="Password"
+                placeholder=""
                 type="password"
                 name="password"
                 noValidate
@@ -225,7 +225,7 @@ class Newuser extends Component {
                 <span className="errorMessage">{formErrors.password}</span>
               )}
             </div>
-            <div className="createAccount">
+            <div className="createAccount text-center">
               <button type="submit">Create Account</button>
               <Link id="already-account" to="/login" >Already Have an Account?</Link>
             </div>
