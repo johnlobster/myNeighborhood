@@ -13,6 +13,7 @@ import Events from './components/events/Events';
 import Phonebook from './components/phonebook/Phonebook';
 import LocalInfo from './components/localinfo/LocalInfo';
 import Alerts from "./components/alerts/Alerts";
+import API from "./api/alertsAPI";
 
 // global scss file - import here then available to all sass files
 import "./styles/themes.scss";
@@ -28,43 +29,67 @@ class  App extends React.Component {
     oldAlerts: []
   }
 
+  // get alerts, create boolean "activeAlert", save to state
   // if a user is already logged in, get jwt and userData from localStorage, check that token is still valid
-  componentDidMount() {
-    if (localStorage.getItem("myNeighborhoodJwt") === null) {
-      console.log("No stored session information");
-    }
-    else {
-      axios.get("/api/pingtoken",
-        {
-          headers: {
-            "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
-          }
+  componentDidMount() { 
+    // get alert data
+    API.getAll()
+      .then(({ activeAlerts, oldAlerts }) => {
+        let active = false;
+        if (activeAlerts.length !== 0) {
+          active = true;
         }
-      )
-      .then( (result) => {
-        console.log(result.data);
-        if ( result.data.jwValid) {
-          const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-          console.log("Found stored session information for user " + userData.userName);
-          this.setState({
-            jwt: localStorage.getItem("myNeighborhoodJwt"),
-            userData: userData,
-            authorizedUser: true
+        this.setState(
+          {
+            activeAlert: active,
+            activeAlerts: activeAlerts,
+            oldAlerts: oldAlerts
           });
-        }
-        else {
-          // saved token was invalid, delete from localStorage
-          localStorage.removeItem("myNeighborhoodUserData");
-          localStorage.removeItem("myNeighborhoodJwt");
-          console.log("Removed expired authentication token");
-        }
-        
       })
-      .catch( (err) => {
-        console.log("App: Error accessing /api/pingtemplate");
+      .catch((err) => {
+        console.log("App: Error accessing /api/alerts");
         console.log(err);
       })
-    }
+      .finally ( () => {
+        // whether the alert data get succeeds or fails, check out authorization
+        if (localStorage.getItem("myNeighborhoodJwt") === null) {
+          console.log("No stored session information");
+        }
+        else {
+          axios.get("/api/pingtoken",
+            {
+              headers: {
+                "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
+              }
+            }
+          )
+            .then((result) => {
+              console.log(result.data);
+              if (result.data.jwValid) {
+                const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+                console.log("Found stored session information for user " + userData.userName);
+                this.setState({
+                  jwt: localStorage.getItem("myNeighborhoodJwt"),
+                  userData: userData,
+                  authorizedUser: true
+                });
+              }
+              else {
+                // saved token was invalid, delete from localStorage
+                localStorage.removeItem("myNeighborhoodUserData");
+                localStorage.removeItem("myNeighborhoodJwt");
+                console.log("Removed expired authentication token");
+              }
+
+
+            })
+            .catch((err) => {
+              console.log("App: Error accessing /api/pingtemplate");
+              console.log(err);
+            })
+        }
+      })
+    
   }
 
   // this is called by login and register routes so that state in App can be updated
