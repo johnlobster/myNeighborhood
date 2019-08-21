@@ -12,6 +12,7 @@ import Recomendations from './components/recomendations/Recomendations';
 import Events from './components/events/Events';
 import Phonebook from './components/phonebook/Phonebook';
 import LocalInfo from './components/localinfo/LocalInfo';
+import Pets from "./components/Pets/Pets";
 
 // global scss file - import here then available to all sass files
 import "./styles/themes.scss";
@@ -97,6 +98,8 @@ class  App extends React.Component {
           <Route path='/Events' component={Events} />
           <Route path='/Phonebook' component={Phonebook} />
           <Route path='/LocalInfo' component={LocalInfo} />
+          <Route path='/Pets' component={Pets} />
+
           <Footer />
         </Switch>
         <Navbtn authorizedUser={this.state.authorizedUser} />
