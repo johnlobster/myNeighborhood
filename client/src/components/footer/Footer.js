@@ -8,7 +8,7 @@ class Footer extends React.Component {
     return(
       <div>
         <h1 className="">
-          Footer  here
+          Under Construccion
         </h1>
       </div>
     );

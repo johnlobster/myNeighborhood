@@ -167,7 +167,7 @@ class Login extends React.Component {
                     <div className="row">
                         <div className="col signupButton ">
                             <Link to="/Newuser"  className="createAccount">
-                                <h6 >New Account?</h6>
+                                <h6 style={{color:'black'}} >New Account?</h6>
                             </Link>
                         </div>
                     </div>
