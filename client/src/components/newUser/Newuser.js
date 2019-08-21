@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import './styles.sass';
-import { Link } from 'react-router-dom';
+import { Link, Redirect  } from 'react-router-dom';
 import api from "../../api/server";
+import { } from 'react-router-dom';
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -58,6 +59,8 @@ class Newuser extends Component {
         Address: ${this.state.address}
         Email: ${this.state.email}
         Password: ${this.state.password}
+        
+
       `);
       // remove error message - re-submitting
       this.setState( {registerError: ""});
@@ -74,7 +77,8 @@ class Newuser extends Component {
         // sends register data to App
         this.props.authUser(
           registerResult.jwt,
-          registerResult.userData
+          registerResult.userData,
+          this.props.history.push('/')
         );
       })
       .catch( (message) => {
