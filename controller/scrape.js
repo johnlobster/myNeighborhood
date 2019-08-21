@@ -13,14 +13,14 @@ module.exports = function (req, res) {
       $(".grid-content-inner").each(function (i, element) {
         let title = $(this)
           .find("a").text().trim();
-         
-
-
+           
         let site = $(this)
           .find("a").attr("href");
-          console.log(site);
-        
-        results.push({title: title, site: "https://www.kcra.com"+ site})
+           console.log(site);
+        if (title && site) {
+          results.push({title: title, site: "https://www.kcra.com"+ site})
+        }
+        // results.push({title: title, site: "https://www.kcra.com"+ site})
       });
       res.json(results);
     })
