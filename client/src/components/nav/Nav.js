@@ -9,9 +9,9 @@ function Nav(props) {
             <img alt="LOGO" src ={logo} />
             {/* Display either user name or a login button */}
             {props.authorizedUser ? (
-                <span>Welcome {props.userName}</span>
+                <span style={{color:"black",fontWeight:'bold' }}>Welcome {props.userName}</span>
             ) : (
-                <Link style={{color:"black"}} className="NavLink " to="/login">
+                <Link style={{color:"black" }} className="NavLink " to="/login">
                     Please login
                 </Link>
             )}
