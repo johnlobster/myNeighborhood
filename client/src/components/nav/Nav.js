@@ -15,6 +15,13 @@ function Nav(props) {
                     <button>Login</button> 
                 </Link>
             )}
+            {props.activeAlert && 
+            <div className="navAlertBox">
+                <Link to="/Alerts">
+                    <i className="fas fa-exclamation-triangle fa-2x" />
+                </Link>
+            </div>
+        }
         </nav>
 
 

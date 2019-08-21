@@ -19,6 +19,9 @@ import API from "./api/alertsAPI";
 import "./styles/themes.scss";
 import Navbtn from './components/navbtn/Navbtn';
 
+import dBug from "./utilities/debug.js";
+const { wError, wInfo, wDebug, wObj } = dBug("App");
+
 class  App extends React.Component {
   state = {
     jwt: "",
@@ -104,12 +107,26 @@ class  App extends React.Component {
     console.log("App: Changed user data");
   } 
 
+  // remove localStorage for user and change state
+  logout = () => {
+    localStorage.removeItem("myNeighborhoodUserData");
+    localStorage.removeItem("myNeighborhoodJwt");
+    wDebug("Log out user");
+    this.setState({
+      jwt: "",
+      userData: {},
+      authorizedUser: false
+    });
+
+  }
+
   render() {
     
     return (
       <Router>
         {/* Nav displays current user (or login button) and alerts flag */}
         <Nav 
+          logoutFn={this.logout}
           authorizedUser={this.state.authorizedUser} 
           activeAlert={this.state.activeAlert}
           userName={`${this.state.userData.firstName} ${this.state.userData.lastName}`}/>
