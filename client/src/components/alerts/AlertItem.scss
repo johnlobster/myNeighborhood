@@ -1,0 +1,39 @@
+
+.alertItemBox {
+  display: flex;
+  background-color: white;
+
+}
+
+.alertItemNotifier {
+  width: 12%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.alertItemActive {
+  background-color: red;
+  min-width: 90%;
+  min-height: 90%;
+}
+
+.alertItemEntryBox {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-around;
+  width: 88%;
+}
+
+.alertItemTitle {
+
+}
+
+.alertItemUserName {
+
+}
+
+.alertItemMsgBox {
+  width: 100%;
+}

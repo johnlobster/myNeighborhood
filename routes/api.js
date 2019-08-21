@@ -6,7 +6,7 @@ const login = require("../controller/loginController");
 const register = require("../controller/register");
 const { validateJWT } = require("../controller/authentication");
 const scrape = require("../controller/scrape");
-
+const {getAlerts, newAlert} = require ("../controller/alerts");
 
 // Middleware to check incoming jwt token and pass on a req.authorized field 
 router.use(function (req, res, next) {
@@ -60,15 +60,11 @@ router.route("/api/login")
 
 router.route('/api/scrape')
   .get(scrape)
-  // axios.get("https://www.kcra.com/local-news/")
-  // .then((response) => {
-  //     let $ = cheerio.load(response.data);
-  //     $(".listing-page-grid").each(function(i,element) {
-  //       // let title = $(element).children('item-info-wrap')
-  //       //             .children('item-info')
-  //       //             .find('h2.title').text();
-  //       console.log(element);
-  //     });
-  // })
+  
+router.route("/api/alerts")
+  .get(getAlerts);
+
+router.route("/api/alerts")
+  .post(newAlert);
 
 module.exports = router;
