@@ -139,9 +139,8 @@ class  App extends React.Component {
           <Route path='/Phonebook' component={Phonebook} />
           <Route path='/LocalInfo' component={LocalInfo} />
           <Route path='/Pets' component={Pets} />
-
-          <Footer />
           <Route path='/Services' component={Services} />
+       
           
         </Switch>
         <Navbtn authorizedUser={this.state.authorizedUser} />
