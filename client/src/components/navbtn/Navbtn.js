@@ -22,6 +22,7 @@ function Navbtn(props) {
               <div className="dropdown-divider"></div>
               <Link className="dropdown-item text-right" to="/login">Login</Link>
               <Link className="dropdown-item text-right" to="/Newuser">Sign up</Link>
+              <Link className="dropdown-item text-right" to="/About">Our Team</Link>
               <div className="dropdown-divider"></div>
               <Link className="dropdown-item text-right" to="/">Enter<i className="fa fa-home" aria-hidden="true"></i></Link>
             </div>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import './styles.sass';
-import { Link } from 'react-router-dom';
+import { Link, Redirect  } from 'react-router-dom';
 import api from "../../api/server";
+import { } from 'react-router-dom';
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
