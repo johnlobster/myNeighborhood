@@ -11,7 +11,6 @@ export default {
       axios.get("/api/alerts")
       .then((dbResult) => {
         wDebug("getAll: data returned from server")
-        console.log(dbResult);
         // separate into active and old
         let active = [];
         let old = [];
@@ -23,8 +22,6 @@ export default {
             old.push(alert);
           }
         });
-        console.log(active);
-        console.log(old);
         resolve({activeAlerts: active, oldAlerts: old});
       })
       .catch((error) => {

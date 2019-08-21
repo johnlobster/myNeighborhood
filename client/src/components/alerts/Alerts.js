@@ -19,7 +19,7 @@ class Alerts extends React.Component {
         title: "",
         message: "",
         expiresDate: "",
-        inputState: "input" 
+        inputState: "hidden" 
         // values are "hidden", "input", "inputValid", "newAlert", "badAlert" Would love enumerated type ....
     }
 
@@ -85,7 +85,8 @@ class Alerts extends React.Component {
         const inputNotValid = this.state.inputState === "input";
         const inputValid = this.state.inputState ==="inputValid";
         const newAlert = this.state.inputState === "newAlert";
-        const badAlert = this.state.inputState === "badAlert";
+        const badAlert = this.state.inputState === "badAlert";(
+        wDebug("");
         return (
                 <div> 
                     {/* Active alerts */}
@@ -94,7 +95,7 @@ class Alerts extends React.Component {
                             return (
                             <AlertItem 
                                 activeAlert={true}
-                                keys={`active_${index}`}
+                                key={`active_${index}`}
                                 alertTitle={activeAlert.title}
                                 alertMessage={activeAlert.message}
                                 alertUser={activeAlert.userName}
@@ -115,7 +116,7 @@ class Alerts extends React.Component {
                         this.props.previousAlerts.map((oldAlert, index) => {
                             return (
                                 <AlertItem
-                                    keys={`old_${index}`}
+                                    key={`old_${index}`}
                                     alertTitle={oldAlert.title}
                                     alertMessage={oldAlert.message}
                                     alertUser={oldAlert.userName}
