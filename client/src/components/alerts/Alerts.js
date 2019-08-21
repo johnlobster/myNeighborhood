@@ -94,7 +94,7 @@ class Alerts extends React.Component {
                             return (
                             <AlertItem 
                                 activeAlert={true}
-                                keys={index}
+                                keys={`active_${index}`}
                                 alertTitle={activeAlert.title}
                                 alertMessage={activeAlert.message}
                                 alertUser={activeAlert.userName}
@@ -115,7 +115,7 @@ class Alerts extends React.Component {
                         this.props.previousAlerts.map((oldAlert, index) => {
                             return (
                                 <AlertItem
-                                    keys={index}
+                                    keys={`old_${index}`}
                                     alertTitle={oldAlert.title}
                                     alertMessage={oldAlert.message}
                                     alertUser={oldAlert.userName}
