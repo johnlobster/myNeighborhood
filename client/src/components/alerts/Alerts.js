@@ -85,7 +85,7 @@ class Alerts extends React.Component {
         const inputNotValid = this.state.inputState === "input";
         const inputValid = this.state.inputState ==="inputValid";
         const newAlert = this.state.inputState === "newAlert";
-        const badAlert = this.state.inputState === "badAlert";(
+        const badAlert = this.state.inputState === "badAlert";
         wDebug("");
         return (
                 <div> 
