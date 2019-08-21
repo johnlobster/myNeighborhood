@@ -67,6 +67,7 @@ class Login extends React.Component {
                     // pop up alert - successful login
                     this.setState({alertVisible: true});
                     // alert dismiss button will redirect to home page
+                    this.props.history.push('/')
                 })
                 .catch((response) => {
                     if (response.status === 204) {
@@ -143,7 +144,7 @@ class Login extends React.Component {
                                     }
                                 </div>
                             </form>
-                            <div className={styles.alertWrapper}>
+                            {/* <div className={styles.alertWrapper}>
                                 <Alert
                                     className={styles.alert}
                                     isOpen={this.state.alertVisible}>
@@ -160,7 +161,7 @@ class Login extends React.Component {
                                         </div>
                                     </div>
                                 </Alert>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
