@@ -86,9 +86,8 @@ class Alerts extends React.Component {
         const inputValid = this.state.inputState ==="inputValid";
         const newAlert = this.state.inputState === "newAlert";
         const badAlert = this.state.inputState === "badAlert";
-        wDebug("active length " + this.props.currentAlerts.length);
         return (
-                <div> 
+                <div className="alertsWrapper"> 
                     <h2 className="alertsHeader">Alerts</h2>
                     {/* Active alerts */}
                     {(this.props.currentAlerts.length !== 0) && 
@@ -106,7 +105,7 @@ class Alerts extends React.Component {
                     }
                     {/* Create new alert */}
                     {hidden ? (
-                        <button onClick={this.newAlert}>Create new alert</button>
+                        <button onClick={this.newAlert} className="alertsNewAlertButton">Create new alert</button>
                     ) : (
                         <div className="AlertsFormBox">
 

@@ -1,37 +1,50 @@
+@import "../../styles/colors";
 
 .alertItemBox {
   display: flex;
   background-color: white;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 
 }
 
 .alertItemNotifier {
-  width: 12%;
-  height: 100%;
+  width: 3%;
+  height: auto;
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
+// red stripe if alert is active
 .alertItemActive {
   background-color: red;
-  min-width: 90%;
-  min-height: 90%;
+  width: 0.2em;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .alertItemEntryBox {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-content: space-around;
-  width: 88%;
+  width: 97%;
 }
 
+.alertItemBox1 {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-around;
+  width: 100%;
+}
 .alertItemTitle {
-
+  font-weight: bold;
+  width: 75%;
 }
 
 .alertItemUserName {
-
+  width:25%
 }
 
 .alertItemMsgBox {
