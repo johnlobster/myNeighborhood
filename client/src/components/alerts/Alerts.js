@@ -89,6 +89,7 @@ class Alerts extends React.Component {
         wDebug("active length " + this.props.currentAlerts.length);
         return (
                 <div> 
+                    <h2 className="alertsHeader">Alerts</h2>
                     {/* Active alerts */}
                     {(this.props.currentAlerts.length !== 0) && 
                         this.props.currentAlerts.map((activeAlert,index) => {

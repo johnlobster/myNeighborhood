@@ -3,25 +3,41 @@ import './style.sass';
 import { Link } from 'react-router-dom'
 import logo from '../../images/mnlogo.png' 
 
+
 function Nav(props) {
+
+    function clickMe() {
+        console.log("I got clicked");
+    }
+
     return (
-        <nav className="NavHeaderBox">
-            <img alt="LOGO" src ={logo} />
+        <nav >
+            <div className="NavHeaderBox">
+                <img alt="LOGO" src={logo} />
             {/* Display either user name or a login button */}
             {props.authorizedUser ? (
-                <span style={{color:"black",fontWeight:'bold' }}>Welcome {props.userName}</span>
+                <span>Welcome {props.userName}</span>
             ) : (
-                <Link style={{color:"black" }} className="NavLink " to="/login">
-                    Please login
-                </Link>
+                <span>
+                    <Link className="NavLink" to="/login">
+                        Please login
+                    </Link>
+                </span>
             )}
-            {props.activeAlert && 
+            </div>
+        {/* If alert is active, show red triangle */}
+        {props.activeAlert &&
             <div className="navAlertBox">
-                <Link to="/Alerts">
-                    <i className="fas fa-exclamation-triangle fa-2x" />
-                </Link>
+                <span>
+                    <Link to="Alerts" onClick={clickMe} >
+                        <div className="navAlertLink">
+                            <i className="fas fa-exclamation-triangle fa-2x" />
+                        </div>
+                    </Link>
+                </span>  
             </div>
         }
+            
         </nav>
 
 
@@ -29,3 +45,7 @@ function Nav(props) {
 }
 
 export default Nav;
+
+//<Link to="/Alerts">
+//    <i className="fas fa-exclamation-triangle fa-2x" onClick={clickMe} />
+//</Link>
