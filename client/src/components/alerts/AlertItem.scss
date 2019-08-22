@@ -5,6 +5,9 @@
   background-color: white;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  border-radius: 2px;
+  box-shadow: 3px 3px 4px rgba(#000, 0.3);
+
 
 }
 
@@ -40,13 +43,24 @@
 }
 .alertItemTitle {
   font-weight: bold;
-  width: 75%;
+  width: 100%;
 }
 
 .alertItemUserName {
-  width:25%
+  width:50%;
 }
 
 .alertItemMsgBox {
   width: 100%;
+}
+
+.alertItemTimeRemaining {
+  width: 50%;
+  color: red;
+}
+.alertItemActiveBox{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
 }

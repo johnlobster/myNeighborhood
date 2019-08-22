@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import moment from "moment";
+
 import AlertItem from "./AlertItem";
 
 import "./alerts.scss";
@@ -15,10 +18,9 @@ alert displays
 
 class Alerts extends React.Component {
     state= {
-        userName: "",
         title: "",
         message: "",
-        expiresDate: "",
+        expires: "",
         inputState: "hidden" 
         // values are "hidden", "input", "inputValid", "newAlert", "badAlert" Would love enumerated type ....
     }
@@ -38,51 +40,19 @@ class Alerts extends React.Component {
     // When the form is submitted, prevent the default event and POST to /api/alerts (returns promise)
     handleFormSubmit = event => {
         event.preventDefault();
-        if ((this.state.userName.length === 0) || (this.state.password.length === 0)) {
-            // respond to user about invalid search
-            wError("Pressed submit without userName or password filled in");
-            // TODO - need to show proper user feedback on this
-            // I think handleInput change should prevent this so would never be reached
-        }
-        else {
-            wDebug(`Form submit user name ${this.state.userName} password ${this.state.password}`);
-            this.setState({loginState:"loggingIn"}); // this can remove search button and put it a loader of some kind
-            api.login(this.state.userName, this.state.password)
-                .then( ({ jwt, userData}) => {
-                    wInfo(`User ${this.state.userName} logged in successfully`);
-                    this.props.authUser(jwt, userData); // changes state in App parent component
-                    // pop up alert - successful login
-                    this.setState({alertVisible: true});
-                    // alert dismiss button will redirect to home page
-                })
-                .catch ( (response) => {
-                    if ( response.status === 204) {
-                        // response was ok, but password or user name incorrect
-                        // don't log an error
-                    }
-                    else {
-                        wError("Login error");
-                    }
-                    // TODO need proper UI feedback for this (modal ?)
-                    this.setState({
-                        loginState: "badLogin",
-                        password: ""
-                        }); // allows user to re-submit without losing user name
-                });
-            
-        }
     }
 
     // set up alert form
     newAlert = () => {
-
+        // check that user is valid (i.e. has jwt in localStorage) 
+        this.setState({inputState: "input"});
     }
     render() {
         
         // create booleans to use for status box as can't use an if statement inside render 
         // "input", "inputValid", "loggingIn"
         const hidden = this.state.inputState === "hidden" ;
-        const inputNotValid = this.state.inputState === "input";
+        const input = this.state.inputState === "input";
         const inputValid = this.state.inputState ==="inputValid";
         const newAlert = this.state.inputState === "newAlert";
         const badAlert = this.state.inputState === "badAlert";
@@ -99,16 +69,74 @@ class Alerts extends React.Component {
                                 alertTitle={activeAlert.title}
                                 alertMessage={activeAlert.message}
                                 alertUser={activeAlert.userName}
-                                alertExpires={activeAlert.expiryDate}
+                                alertExpires={moment(activeAlert.expiryDate).format("H:mm")}
                             />
                         )})
                     }
-                    {/* Create new alert */}
+                    {/* Create new alert if logged in */}
                     {hidden ? (
-                        <button onClick={this.newAlert} className="alertsNewAlertButton">Create new alert</button>
+                        <div>
+                        {this.props.authorizedUser ? (
+                            <button onClick={this.newAlert} className="alertsNewAlertButton">Create new alert</button>
+                        ) : (
+                            <h4 className="alertsNotAuthorized">
+                                Must be logged in to create a new alert
+                                <span>
+                                    <Link to="/Login">
+                                        <button className="alertsNewAlertButton alertsLoginButtonMod">
+                                            Login
+                                        </button>
+                                    </Link>
+                                </span>
+                            </h4>
+                        )}
+                        </div>
+                        
                     ) : (
                         <div className="AlertsFormBox">
-
+                            <form>
+                                <div className="form-group">
+                                    <label htmlFor="title">Title</label>
+                                    <input
+                                        className="form-control"
+                                        id="title"
+                                        type="text"
+                                        placeholder="Title for new alert"
+                                        name="title"
+                                        value={this.state.title}
+                                        onChange={this.handleInputChange}
+                                    />
+                                    <label htmlFor="message">Message</label>
+                                    <input
+                                        className="form-control"
+                                        id="message"
+                                        type="text"
+                                        placeholder="Message for new alert"
+                                        name="message"
+                                        value={this.state.message}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="expires">Expires</label>
+                                    <input
+                                        className="form-control"
+                                        id="expires"
+                                        type="text"
+                                        placeholder="Expiry time in hours"
+                                        name="expires"
+                                        value={this.state.expires}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </div>
+                                <div className="createAccount">
+                                    <button 
+                                        className="alertsNewAlertButton"
+                                        onClick={this.handleFormSubmit}>
+                                        New alert
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     )}
                     {/* Previous alerts */}

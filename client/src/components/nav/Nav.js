@@ -25,13 +25,13 @@ function Nav(props) {
                 </span>
             )}
             </div>
-        {/* If alert is active, show red triangle */}
+        {/* If alert is active, show red triangle. This uses a relative position */}
         {props.activeAlert &&
             <div className="navAlertBox">
                 <span>
                     <Link to="Alerts" onClick={clickMe} >
                         <div className="navAlertLink">
-                            <i className="fas fa-exclamation-triangle fa-2x" />
+                            <i className="fas fa-exclamation-triangle fa-2x navAlertIcon" />
                         </div>
                     </Link>
                 </span>  

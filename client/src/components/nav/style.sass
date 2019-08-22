@@ -35,6 +35,14 @@
 
 .NavLink
         color: black
+        text-decoration-line: none
+
+        &:visited
+                color: black
+                text-decoration-line: none
+        &:focus
+                text-decoration-line: none
+
 
 .navAlertBox
         background-color: transparent
@@ -49,14 +57,18 @@
         top: 0.5rem
         left: 0.5rem
         color: red
+        & :focus
+                outline: none;
 
 .navAlertBox i
         color: red
         animation-timing-function: linear
-        // animation-name: alertFlasher
+        animation-name: alertFlasher
         animation-duration: 1.5s
         animation-iteration-count: infinite
         // animation-fill-mode: both;\
+        // pointer-events: none
+        
         
 
 
