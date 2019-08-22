@@ -8,7 +8,6 @@ import Login from "./components/login/Login";
 import Newuser from './components/newUser/Newuser';
 import Recomendations from './components/recomendations/Recomendations';
 import Events from './components/events/Events';
-import Phonebook from './components/phonebook/Phonebook';
 import LocalInfo from './components/localinfo/LocalInfo';
 import Pets from "./components/Pets/Pets";
 import Services from './components/Services/Services.js';
@@ -151,7 +150,6 @@ class  App extends React.Component {
           />
           <Route path='/Recomendations' component={Recomendations} />
           <Route path='/Events' component={Events} />
-          <Route path='/Phonebook' component={Phonebook} />
           <Route path='/LocalInfo' component={LocalInfo} />
           <Route path='/Pets' component={Pets} />
           <Route path='/Services' component={Services} />

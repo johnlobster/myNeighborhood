@@ -9,8 +9,15 @@ import john from '../../images/john.jpg';
 
 function About() {
     return (
+          
+
         <div style={{ display: 'flex', flexDirection:'column',  }}>
-            <h1 style={{textAlign:'center', marginTop:'3rem', marginBottom:'3rem'}}> Our Team</h1>
+            <h1 style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '1rem' }}> Our Team</h1>
+            <div style={{ display: 'flex', textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', width: '80%', margin: 'auto', fontSize: '0.8rem'}}>
+                <p>We are a diverse group of students from UC Davis with different backgrounds going into this project.
+                 We all had weakenesses, but they were outweighed by individual strengths. The friends we made from this was a surprise and the best part about this app.
+                 This is our final project towards our goal of becoming a Full Stack developer; we hope you enjoy the app as much as we did creating it.</p>
+            </div>
         <Card  style={{ width: '20rem', margin:'auto',marginBottom:'1rem' }}>
             <Card.Img variant="top" src={eddson} />
             <Card.Body>
