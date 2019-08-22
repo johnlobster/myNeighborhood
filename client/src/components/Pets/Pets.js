@@ -1,56 +1,56 @@
 import React from 'react';
-import './style.sass';
+import './style.scss';
 import { Card } from 'react-bootstrap';
  
 function Pets() {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', }}>
+        <div className="pet-wrapper" style={{ display: 'flex', flexDirection: 'column', }}>
             <h1 style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '1rem' }}>Pets in the neighborhood</h1>
             <div style={{ display: 'flex', textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', width: '80%', margin: 'auto', fontSize: '0.8rem'}}>
                 <p>Have you seen me? Please contact my owner.</p>
             </div>
             <div className="petcard-wrapper" style={{ display: 'flex', flexWrap: 'wrap'}}>
-            <Card style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+            <Card id="pet-one" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
                 <Card.Img variant="top" src="https://images.unsplash.com/photo-1517423568366-8b83523034fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
                 <Card.Body>
                     <Card.Title>Spunky</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: Diego
-                        Phone: (530)555-5555
-                        Caution: Very dangerous
+                        Owner: Eddson
+                        (530)555-5555
+                        Approach with caution
                 </Card.Text>
                 </Card.Body>
             </Card>
-            <Card style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
-                <Card.Img variant="top" src="https://images.unsplash.com/photo-1453227588063-bb302b62f50b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
+            <Card id="pet-two" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+                <Card.Img variant="top" src="https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
                 <Card.Body>
                     <Card.Title>Coscu</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
                         Owner: Jo
-                        Phone: (530)555-5555
-                        Caution: Very dangerous
+                        (530)555-5555
+                        Responds to Kitty
                 </Card.Text>
                 </Card.Body>
             </Card>
-            <Card style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+            <Card id="pet-three" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
                 <Card.Img variant="top" src="https://images.unsplash.com/photo-1506755855567-92ff770e8d00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
                 <Card.Body>
                     <Card.Title>Scrappy</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: Eddson
+                        Owner: Shane
                         Phone: (530)555-5555
-                        Caution: Very dangerous
+                        Caution: Very cute
                 </Card.Text>
                 </Card.Body>
             </Card>
-            <Card style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
-                <Card.Img variant="top" src="https://images.unsplash.com/photo-1562362336-65efec5a264a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
+            <Card id="pet-four" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+                <Card.Img variant="top" src="https://images.unsplash.com/photo-1562362336-65efec5a264a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80" />
                 <Card.Body>
-                    <Card.Title>Bill</Card.Title>
+                    <Card.Title>Tim</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: Shane
-                        Phone: (530)555-5555
-                        Caution: Very dangerous
+                        Owner: Austin
+                        (530)555-5555
+                        Loves kisses
                 </Card.Text>
                 </Card.Body>
             </Card>
