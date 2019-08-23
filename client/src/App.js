@@ -16,6 +16,7 @@ import Pets from "./components/Pets/Pets";
 import Services from './components/Services/Services.js';
 import Alerts from "./components/alerts/Alerts";
 import API from "./api/alertsAPI";
+import Photos from "./components/Photos/Photos";
 
 // global scss file - import here then available to all sass files
 import "./styles/themes.scss";
@@ -140,6 +141,7 @@ class  App extends React.Component {
           <Route path='/LocalInfo' component={LocalInfo} />
           <Route path='/Pets' component={Pets} />
           <Route path='/Services' component={Services} />
+          <Route Path='/Photos' component={Photos} />
        
           
         </Switch>
