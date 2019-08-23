@@ -59,6 +59,8 @@ class Newuser extends Component {
         Address: ${this.state.address}
         Email: ${this.state.email}
         Password: ${this.state.password}
+        
+
       `);
       // remove error message - re-submitting
       this.setState( {registerError: ""});
@@ -75,7 +77,8 @@ class Newuser extends Component {
         // sends register data to App
         this.props.authUser(
           registerResult.jwt,
-          registerResult.userData
+          registerResult.userData,
+          this.props.history.push('/')
         );
       })
       .catch( (message) => {

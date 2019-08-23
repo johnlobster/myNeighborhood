@@ -60,7 +60,7 @@ export default {
           else {
             // The request was made but no response was received
             wError("POST to /api/alerts timed out, nothing received");
-            error.response.body.message = "Server timed out, try again";
+            // error.response.body.message = "Server timed out, try again";
           }
           reject(error);
         });

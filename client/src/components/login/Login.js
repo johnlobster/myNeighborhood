@@ -67,6 +67,7 @@ class Login extends React.Component {
                     // pop up alert - successful login
                     this.setState({alertVisible: true});
                     // alert dismiss button will redirect to home page
+                    this.props.history.push('/')
                 })
                 .catch((response) => {
                     if (response.status === 204) {
@@ -124,7 +125,7 @@ class Login extends React.Component {
                                         onChange={this.handleInputChange}
                                     />
                                 </div>
-                                <div className="createAccount">
+                                <div className={styles.createAccount}>
                                     {/* Select between no entry, login button and logging in loader */}
                                     {inputNotValid &&
                                         <div><h3></h3></div>
@@ -132,7 +133,7 @@ class Login extends React.Component {
                                     {inputValid &&
                                         <button
                                             disabled={this.state.searchDisable}
-                                            className={  styles.LoginFormButton  }
+                                            className={  styles.loginButton  }
                                             onClick={this.handleFormSubmit}>Login</button>
                                     }
                                     {loggingIn &&
@@ -143,7 +144,7 @@ class Login extends React.Component {
                                     }
                                 </div>
                             </form>
-                            <div className={styles.alertWrapper}>
+                            {/* <div className={styles.alertWrapper}>
                                 <Alert
                                     className={styles.alert}
                                     isOpen={this.state.alertVisible}>
@@ -160,16 +161,14 @@ class Login extends React.Component {
                                         </div>
                                     </div>
                                 </Alert>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
-                    <div className="row">
-                        <div className="col signupButton ">
-                            <Link to="/Newuser"  className="createAccount">
-                                <h6 style={{color:'black'}} >New Account?</h6>
+                    <div className={styles.newAccountBox} >
+                            <Link to="/Newuser" className={styles.newAccountLink}>
+                                <button className={styles.loginButton}>New Account?</button>
                             </Link>
-                        </div>
                     </div>
                 </div>
             </div>

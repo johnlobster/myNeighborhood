@@ -7,23 +7,35 @@ function AlertItem (props) {
   return (
     <div className="alertItemBox">
       <div className="alertItemNotifier">
-        {props.ActiveAlert && 
+        {props.activeAlert && 
           <div className="alertItemActive">
           </div>
         }
       </div>
+      {/* Extra line in table, showing  alert time remaining*/}
       <div className="alertItemEntryBox" >
-        <div className="alertItemTitle">
-          {props.title}
+        {props.activeAlert &&
+          <div className="alertItemActiveBox">
+            <div className="alertItemUserName">
+              Created by  {props.alertUser}
+            </div>
+            <div className="alertItemTimeRemaining">
+              Time left {props.alertExpires}
+            </div>
+          </div>
+        }
+        <div className="alertItemBox1">
+          <div className="alertItemTitle">
+            {props.alertTitle}
+          </div>
+          
         </div>
-        <div className="alertItemUserName">
-          From {props.user}
+        
+        <div className="alertItemMsgBox">
+          {props.alertMessage}
         </div>
-      <div className="alertItemMsgBox">
-        {props.alertMessage}
       </div>
-      </div>
-      {props.alertTitle}
+
     </div> 
   );
 }

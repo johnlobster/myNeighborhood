@@ -1,8 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from "axios";
-
-import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import Nav from "./components/nav/Nav";
 import About from "./components/about/About";
@@ -10,7 +8,6 @@ import Login from "./components/login/Login";
 import Newuser from './components/newUser/Newuser';
 import Recomendations from './components/recomendations/Recomendations';
 import Events from './components/events/Events';
-import Phonebook from './components/phonebook/Phonebook';
 import LocalInfo from './components/localinfo/LocalInfo';
 import Pets from "./components/Pets/Pets";
 import Services from './components/Services/Services.js';
@@ -21,6 +18,9 @@ import Photos from "./components/Photos/Photos";
 // global scss file - import here then available to all sass files
 import "./styles/themes.scss";
 import Navbtn from './components/navbtn/Navbtn';
+
+import dBug from "./utilities/debug.js";
+const { wError, wInfo, wDebug, wObj } = dBug("App");
 
 class  App extends React.Component {
   state = {
@@ -50,13 +50,13 @@ class  App extends React.Component {
           });
       })
       .catch((err) => {
-        console.log("App: Error accessing /api/alerts");
-        console.log(err);
+        wError("App: Error accessing /api/alerts");
+        wError(err);
       })
       .finally ( () => {
         // whether the alert data get succeeds or fails, check out authorization
         if (localStorage.getItem("myNeighborhoodJwt") === null) {
-          console.log("No stored session information");
+          wDebug("No stored session information");
         }
         else {
           axios.get("/api/pingtoken",
@@ -67,10 +67,10 @@ class  App extends React.Component {
             }
           )
             .then((result) => {
-              console.log(result.data);
+              wDebug(result.data);
               if (result.data.jwValid) {
                 const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-                console.log("Found stored session information for user " + userData.userName);
+                wDebug("Found stored session information for user " + userData.userName);
                 this.setState({
                   jwt: localStorage.getItem("myNeighborhoodJwt"),
                   userData: userData,
@@ -81,14 +81,14 @@ class  App extends React.Component {
                 // saved token was invalid, delete from localStorage
                 localStorage.removeItem("myNeighborhoodUserData");
                 localStorage.removeItem("myNeighborhoodJwt");
-                console.log("Removed expired authentication token");
+                wDebug("Removed expired authentication token");
               }
 
 
             })
             .catch((err) => {
-              console.log("App: Error accessing /api/pingtemplate");
-              console.log(err);
+              wError("App: Error accessing /api/pingtemplate");
+              wError(err);
             })
         }
       })
@@ -107,12 +107,26 @@ class  App extends React.Component {
     console.log("App: Changed user data");
   } 
 
+  // remove localStorage for user and change state
+  logout = () => {
+    localStorage.removeItem("myNeighborhoodUserData");
+    localStorage.removeItem("myNeighborhoodJwt");
+    wDebug("Log out user");
+    this.setState({
+      jwt: "",
+      userData: {},
+      authorizedUser: false
+    });
+
+  }
+
   render() {
     
     return (
       <Router>
         {/* Nav displays current user (or login button) and alerts flag */}
         <Nav 
+          logoutFn={this.logout}
           authorizedUser={this.state.authorizedUser} 
           activeAlert={this.state.activeAlert}
           userName={`${this.state.userData.firstName} ${this.state.userData.lastName}`}/>
@@ -137,7 +151,6 @@ class  App extends React.Component {
           />
           <Route path='/Recomendations' component={Recomendations} />
           <Route path='/Events' component={Events} />
-          <Route path='/Phonebook' component={Phonebook} />
           <Route path='/LocalInfo' component={LocalInfo} />
           <Route path='/Pets' component={Pets} />
           <Route path='/Services' component={Services} />
