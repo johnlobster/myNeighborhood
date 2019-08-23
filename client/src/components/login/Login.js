@@ -125,7 +125,7 @@ class Login extends React.Component {
                                         onChange={this.handleInputChange}
                                     />
                                 </div>
-                                <div className="createAccount">
+                                <div className={styles.createAccount}>
                                     {/* Select between no entry, login button and logging in loader */}
                                     {inputNotValid &&
                                         <div><h3></h3></div>
@@ -133,7 +133,7 @@ class Login extends React.Component {
                                     {inputValid &&
                                         <button
                                             disabled={this.state.searchDisable}
-                                            className={  styles.LoginFormButton  }
+                                            className={  styles.loginButton  }
                                             onClick={this.handleFormSubmit}>Login</button>
                                     }
                                     {loggingIn &&
@@ -165,12 +165,10 @@ class Login extends React.Component {
                         </div>
                     </div>
 
-                    <div className="row">
-                        <div className="col signupButton ">
-                            <Link to="/Newuser"  className="createAccount">
-                                <h6 style={{color:'black'}} >New Account?</h6>
+                    <div className={styles.newAccountBox} >
+                            <Link to="/Newuser" className={styles.newAccountLink}>
+                                <button className={styles.loginButton}>New Account?</button>
                             </Link>
-                        </div>
                     </div>
                 </div>
             </div>

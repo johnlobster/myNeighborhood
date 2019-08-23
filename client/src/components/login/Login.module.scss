@@ -6,6 +6,25 @@
   color: var(--textColor1);
 }
 
+// button pasted from elsewhere
+.loginButton {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: $aquamarine;
+  color: $white;
+  border: 2px solid $white;
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  font-size: 1.2rem;
+  font-weight: lighter;
+  letter-spacing: 1px;
+}
+
+.loginButton:hover  {
+  color: $aquamarine;
+  background-color: $white;
+  border: 2px solid $aquamarine;
+}
 // box may contain different elements, so set a fixed height and center element
 
 
@@ -71,8 +90,15 @@
 
 }
 
-
-
+.newAccountBox {
+  margin-top:5rem;
+  width:100%;
+  display: flex;
+  justify-items: center;
+}
+.newAccountLink {
+  width: 100%;
+}
 
 // form{
 //     width: 90%;
@@ -90,25 +116,13 @@ label{
   
 }
         
-// input{ 
-//     
-//   }
 
-  input {
-    
-    &[type=text], &[type=password], &[type=email] {
-      &:focus {
-        border: 3px solid $color6;
-        transition: 100ms linear;
-      }
+input {
+  
+  &[type=text], &[type=password], &[type=email] {
+    &:focus {
+      border: 3px solid $color6;
+      transition: 100ms linear;
     }
   }
-
-  
-
-        // input::placeholder 
-        //     font-size: 1em
-        //     font-weight: lighter
-        //     color: $color4
-        // input.error 
-        //     border: 1px solid red
+}
