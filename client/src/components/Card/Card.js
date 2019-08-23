@@ -1,9 +1,5 @@
 import React from 'react';
 import './style.scss';
-import { Link } from 'react-router-dom';
-
-
-
 
 function Card(props) {
   return(
@@ -14,7 +10,4 @@ function Card(props) {
   )
 }
         
-
-
-
 export default Card;

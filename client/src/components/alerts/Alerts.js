@@ -7,7 +7,7 @@ import AlertItem from "./AlertItem";
 import "./alerts.scss";
 import api from "../../api/alertsAPI";
 import dBug from "../../utilities/debug.js";
-const { wError, wInfo, wDebug, wObj } = dBug("Alerts component");
+const { wError } = dBug("Alerts component");
 
 /* 
 alert displays

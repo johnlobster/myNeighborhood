@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 
 import dBug from "../utilities/debug.js";
-const { wError, wInfo, wDebug, wObj } = dBug("alerts API");
+const { wError, wDebug } = dBug("alerts API");
 
 export default {
   // on success returns {activeAlerts:[],oldAlerts:[]}

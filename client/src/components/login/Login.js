@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Alert } from "reactstrap";
 
 import styles from "./Login.module.scss";
 import api from "../../api/server";
 import dBug from "../../utilities/debug.js";
-const { wError, wInfo, wDebug, wObj } = dBug("Login");
+const { wError, wInfo, wDebug } = dBug("Login");
 
 class Login extends React.Component {
     state= {
@@ -128,7 +127,7 @@ class Login extends React.Component {
                                 <div className={styles.createAccount}>
                                     {/* Select between no entry, login button and logging in loader */}
                                     {inputNotValid &&
-                                        <div><h3></h3></div>
+                                        <div><h3>Password and user name must not be blank</h3></div>
                                     }
                                     {inputValid &&
                                         <button

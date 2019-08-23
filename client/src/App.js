@@ -20,7 +20,7 @@ import "./styles/themes.scss";
 import Navbtn from './components/navbtn/Navbtn';
 
 import dBug from "./utilities/debug.js";
-const { wError, wInfo, wDebug, wObj } = dBug("App");
+const { wError, wDebug } = dBug("App");
 
 class  App extends React.Component {
   state = {
@@ -104,7 +104,7 @@ class  App extends React.Component {
       userData: userData,
       authorizedUser: true
     });
-    console.log("App: Changed user data");
+    wDebug("App: Changed user data");
   } 
 
   // remove localStorage for user and change state
