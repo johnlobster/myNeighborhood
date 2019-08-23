@@ -5,7 +5,7 @@ import moment from "moment";
 import AlertItem from "./AlertItem";
 
 import "./alerts.scss";
-import api from "../../api/server";
+import api from "../../api/alertsAPI";
 import dBug from "../../utilities/debug.js";
 const { wError, wInfo, wDebug, wObj } = dBug("Alerts component");
 
@@ -40,11 +40,33 @@ class Alerts extends React.Component {
     // When the form is submitted, prevent the default event and POST to /api/alerts (returns promise)
     handleFormSubmit = event => {
         event.preventDefault();
+        if ((this.state.title.length === 0) || (this.state.expires.length === 0)) {
+            // respond to user about invalid search
+            wError("Pressed submit without title or expiry date filled in");
+            // TODO - need to show proper user feedback on this
+        }
+        else {
+            const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+            let alertData = {
+                userName: userData.userName,
+                jwt: localStorage.getItem("myNeighborhoodJwt"),
+                title: this.state.title,
+                message: this.state.message,
+                expiresDate: moment().add(parseFloat(this.state.expires), "hours").toDate()
+            }   
+            api.newAlert(alertData)
+            .then( (result) => {
+                //
+            })
+            .catch( (error) => {
+                //
+            })
+        }
     }
 
-    // set up alert form
+
+    // show alert form
     newAlert = () => {
-        // check that user is valid (i.e. has jwt in localStorage) 
         this.setState({inputState: "input"});
     }
     render() {
@@ -54,7 +76,7 @@ class Alerts extends React.Component {
         const hidden = this.state.inputState === "hidden" ;
         const input = this.state.inputState === "input";
         const inputValid = this.state.inputState ==="inputValid";
-        const newAlert = this.state.inputState === "newAlert";
+        // const newAlert = this.state.inputState === "newAlert";
         const badAlert = this.state.inputState === "badAlert";
         return (
                 <div className="alertsWrapper"> 
@@ -73,7 +95,7 @@ class Alerts extends React.Component {
                             />
                         )})
                     }
-                    {/* Create new alert if logged in */}
+                    {/* Create new alert only if logged in */}
                     {hidden ? (
                         <div>
                         {this.props.authorizedUser ? (

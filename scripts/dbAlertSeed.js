@@ -17,19 +17,20 @@ const moment = require("moment");
 const alertSeed = [
   // active alert
   {
-    userName: "jDoe",
-    title: "accident at Folsom Auburn/Greenback",
-    expiresDate: moment().add(4, "hours").toDate(),
-    createdDate: moment().toDate(),
-    message: "PD says will be cleared in 4 hours"
-  },
-  {
     userName: "janeDoe",
     title: "Suspicious character",
-    expiresDate: moment().add(2, "hours").toDate(),
+    expiresDate: moment().add(4, "hours").toDate(),
     createdDate: moment().toDate(),
     message: "Climbed over my fence, PD called"
   },
+  {
+    userName: "jDoe",
+    title: "accident at Folsom Auburn/Greenback",
+    expiresDate: moment().add(2, "hours").toDate(),
+    createdDate: moment().toDate(),
+    message: "PD says will be cleared in 4 hours"
+  },
+  
   // old alert
   {
     userName: "jDoe",

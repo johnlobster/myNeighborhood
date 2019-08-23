@@ -49,13 +49,13 @@ class  App extends React.Component {
           });
       })
       .catch((err) => {
-        console.log("App: Error accessing /api/alerts");
-        console.log(err);
+        wError("App: Error accessing /api/alerts");
+        wError(err);
       })
       .finally ( () => {
         // whether the alert data get succeeds or fails, check out authorization
         if (localStorage.getItem("myNeighborhoodJwt") === null) {
-          console.log("No stored session information");
+          wDebug("No stored session information");
         }
         else {
           axios.get("/api/pingtoken",
@@ -66,10 +66,10 @@ class  App extends React.Component {
             }
           )
             .then((result) => {
-              console.log(result.data);
+              wDebug(result.data);
               if (result.data.jwValid) {
                 const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-                console.log("Found stored session information for user " + userData.userName);
+                wDebug("Found stored session information for user " + userData.userName);
                 this.setState({
                   jwt: localStorage.getItem("myNeighborhoodJwt"),
                   userData: userData,
@@ -80,14 +80,14 @@ class  App extends React.Component {
                 // saved token was invalid, delete from localStorage
                 localStorage.removeItem("myNeighborhoodUserData");
                 localStorage.removeItem("myNeighborhoodJwt");
-                console.log("Removed expired authentication token");
+                wDebug("Removed expired authentication token");
               }
 
 
             })
             .catch((err) => {
-              console.log("App: Error accessing /api/pingtemplate");
-              console.log(err);
+              wError("App: Error accessing /api/pingtemplate");
+              wError(err);
             })
         }
       })
