@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import './style.sass';
 import eddson from '../../images/eddson2.jpg';
-import diego from '../../images/cat.jpg';
+import diego from '../../images/diego.jpg';
 import john from '../../images/john.jpg';
 
 
@@ -51,7 +51,7 @@ function About() {
             <Card.Body>
                 <Card.Title>Diego Solorio</Card.Title>
                 <Card.Text>
-                After years of doubt, I finally took a shot at coding. It's been a tremendous struggle and journey, but I wouldn't change it one bit.
+                It's insane when you always think of things you want to accomplish that it's hard to believe when you're actually doing it. For 10+ years I've always wanted to code and it only took me 6 months to finally see it through. Goes to show - you want something? Get it.
                 </Card.Text>
                 <div style={{display:'flex',  }}>
                 <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://www.linkedin.com/in/diego-solorio-236374177/"><i className="fab fa-linkedin"></i> </a>

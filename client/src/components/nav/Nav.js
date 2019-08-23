@@ -13,14 +13,14 @@ function Nav(props) {
     return (
         <nav >
             <div className="NavHeaderBox">
-                <img alt="LOGO" src={logo} />
+                <a href='/'> <img alt="LOGO" src={logo} /></a>
             {/* Display either user name or a login button */}
             {props.authorizedUser ? (
-                <span>Welcome {props.userName}</span>
+                <span>Welcome: {props.userName}</span>
             ) : (
                 <span>
                     <Link className="NavLink" to="/login">
-                        Please login
+                        Login
                     </Link>
                 </span>
             )}
