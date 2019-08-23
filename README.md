@@ -27,7 +27,9 @@ npm run start
 ```
 To seed the database
 ```bash
-node scripts/dbSeed
+node scripts/dbUserSeed
+node scripts/dbAlertsSeed
+
 ```
 
 **important**
