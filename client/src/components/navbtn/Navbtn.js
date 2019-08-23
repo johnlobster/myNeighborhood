@@ -18,7 +18,7 @@ function Navbtn(props) {
               <Link className="dropdown-item text-right" to="/Pets">Pets <i className="fa fa-paw" aria-hidden="true"></i></Link>
               <Link className="dropdown-item text-right" to="/Alerts">Alerts<i className="fa fa-exclamation-triangle" aria-hidden="true"></i></Link>
               <Link className="dropdown-item text-right" to="/LocalInfo">News<i className="fa fa-newspaper-o" aria-hidden="true"></i></Link>
-              <Link className="dropdown-item text-right" to="/Gar">Favorites<i className="fa fa-heart" aria-hidden="true"></i></Link>
+              <Link className="dropdown-item text-right" to="">Favorites<i className="fa fa-heart" aria-hidden="true"></i></Link>
               <div className="dropdown-divider"></div>
               <Link className="dropdown-item text-right" to="/login">Login</Link>
               <Link className="dropdown-item text-right" to="/Newuser">Sign up</Link>
