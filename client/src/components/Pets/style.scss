@@ -6,11 +6,16 @@
     .petcard-wrapper {
         margin-bottom: 2rem;
     }
+        .pet-title {
+            text-align: center;
+        }
         p {
             font-size: 1rem;
             margin-bottom: 2rem;
 
         }
+            
+            
             #pet-one {
                 color: $color3;
                 background-color: $color6;

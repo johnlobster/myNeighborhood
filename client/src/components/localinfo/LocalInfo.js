@@ -47,7 +47,7 @@ class LocalInfo extends React.Component {
 
         return (
             <div className=" text-center " id="article-wrapper">
-            <h1>Latest News</h1>
+            <h1>Local News</h1>
             {this.state.news.map((item, id) => {
                 return <div><Card item_info={item} key={id}/></div>
             }
