@@ -3,18 +3,24 @@ import './style.sass';
 import { Link } from 'react-router-dom'
 import logo from '../../images/mnlogo.png' 
 
+
 function Nav(props) {
+
     return (
-        <nav className="NavHeaderBox">
-            <img alt="LOGO" src ={logo} />
+        <nav >
+            <div className="NavHeaderBox">
+                <a href='/'> <img alt="LOGO" src={logo} /></a>
             {/* Display either user name or a login button */}
             {props.authorizedUser ? (
-                <span style={{color:"black",fontWeight:'bold' }}>Welcome {props.userName}</span>
+                <span>Welcome: {props.userName}</span>
             ) : (
-                <Link style={{color:"black" }} className="NavLink " to="/login">
-                    Please login
-                </Link>
+                <span>
+                    <Link className="NavLink" to="/login">
+                        Login
+                    </Link>
+                </span>
             )}
+            </div>
         </nav>
 
 
@@ -22,3 +28,7 @@ function Nav(props) {
 }
 
 export default Nav;
+
+//<Link to="/Alerts">
+//    <i className="fas fa-exclamation-triangle fa-2x" onClick={clickMe} />
+//</Link>

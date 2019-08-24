@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import './style.sass';
 import eddson from '../../images/eddson2.jpg';
-import diego from '../../images/cat.jpg';
+import diego from '../../images/diego.jpg';
 import john from '../../images/john.jpg';
 
 
@@ -23,7 +23,7 @@ function About() {
             <Card.Body>
                 <Card.Title>Eddson Blanco</Card.Title>
                 <Card.Text>
-                I'm from Caracas, Venezuela and I immigrated to the US 4 years ago. I consider myself a creative, driven and very social person.<p>In my spare time, you can catch me on the dance floor dancing Salsa, traveling or playing video games</p>  
+                I'm from Caracas, Venezuela and I immigrated to the US 2015. I consider myself a creative, driven and very social person.<p>In my spare time, you can catch me on the dance floor dancing Salsa, traveling or playing video games</p>  
                 </Card.Text>
                 <div style={{display:'flex',  }}>
                 <a   style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://linkedin.com/in/eddson-blanco-94a919168/"><i className="fab fa-linkedin"></i> </a>
@@ -34,14 +34,14 @@ function About() {
         <Card  style={{ width: '20rem', margin:'auto',marginBottom:'1rem' }}>
             <Card.Img variant="top" src={john} />
             <Card.Body>
-                <Card.Title>John Lobster</Card.Title>
+                <Card.Title>John Webster</Card.Title>
                 <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    I am from England, but have lived in the US for over 20 years. I have mostly worked as an electronic engineer, specializing in semiconductors. The web is a whole brave new world for me.
+                    
                 </Card.Text>
                 <div style={{display:'flex',  }}>
-                <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://linkedin.com/in/eddson-blanco-94a919168/"><i className="fab fa-linkedin"></i> </a>
-                <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://github.com/Eddsonblanco"><i className="fab fa-github-square"></i></a>
+                <a target="_blank" style={{ fontSize: '2rem', color: 'rgba(133, 183, 59, 1)', marginRight: '1rem' }} href="https://linkedin.com/in/john-webster-3444851/"><i className="fab fa-linkedin"></i> </a>
+                <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://github.com/johnlobster"><i className="fab fa-github-square"></i></a>
                 </div>
             </Card.Body>
         </Card>
@@ -51,7 +51,7 @@ function About() {
             <Card.Body>
                 <Card.Title>Diego Solorio</Card.Title>
                 <Card.Text>
-                After years of doubt, I finally took a shot at coding. It's been a tremendous struggle and journey, but I wouldn't change it one bit.
+                It's insane when you always think of things you want to accomplish that it's hard to believe when you're actually doing it. For 10+ years I've always wanted to code and it only took me 6 months to finally see it through. Goes to show - you want something? Get it.
                 </Card.Text>
                 <div style={{display:'flex',  }}>
                 <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://www.linkedin.com/in/diego-solorio-236374177/"><i className="fab fa-linkedin"></i> </a>
@@ -60,7 +60,7 @@ function About() {
             </Card.Body>
         </Card>
 
-        <Card  style={{ width: '20rem', margin:'auto',marginBottom:'2rem' }}>
+        <Card  style={{ width: '20rem', margin:'auto',marginBottom:'4rem' }}>
             <Card.Img variant="top" src="https://files.slack.com/files-pri/TEMR3PG85-FMCJFLBQR/039x.jpg" />
             <Card.Body>
                 <Card.Title>Rob Ross</Card.Title>

@@ -17,12 +17,20 @@ const moment = require("moment");
 const alertSeed = [
   // active alert
   {
+    userName: "janeDoe",
+    title: "Suspicious character",
+    expiresDate: moment().add(4, "hours").toDate(),
+    createdDate: moment().toDate(),
+    message: "Climbed over my fence, PD called"
+  },
+  {
     userName: "jDoe",
     title: "accident at Folsom Auburn/Greenback",
-    expiresDate: moment().add(4, "hours").toDate(),
+    expiresDate: moment().add(2, "hours").toDate(),
     createdDate: moment().toDate(),
     message: "PD says will be cleared in 4 hours"
   },
+  
   // old alert
   {
     userName: "jDoe",
@@ -30,6 +38,13 @@ const alertSeed = [
     expiresDate: moment().subtract(20, "hours").toDate(),
     createdDate: moment().subtract(24,"hours").toDate(),
     message: "Evenings only"
+  },
+  {
+    userName: "janeDoe",
+    title: "Lost dog",
+    expiresDate: moment().subtract(20, "hours").toDate(),
+    createdDate: moment().subtract(24, "hours").toDate(),
+    message: "My black lab, Nicky has gone missing - my phone No. is on her collar"
   }
 ];
 console.log(`\nClearing and seeding ${dbName}\n`);

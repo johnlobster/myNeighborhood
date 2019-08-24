@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Alert } from "reactstrap";
-
-import styles from "./Login.module.scss";
+import styles from "./style.scss";
 import api from "../../api/server";
 import dBug from "../../utilities/debug.js";
-const { wError, wInfo, wDebug, wObj } = dBug("Login");
+const { wError, wDebug } = dBug("Login");
 
 class Login extends React.Component {
     state= {
@@ -58,16 +56,18 @@ class Login extends React.Component {
             // I think handleInput change should prevent this so would never be reached
         }
         else {
-            wDebug(`Form submit user name ${this.state.userName} password ${this.state.password}`);
+            wDebug(`Form submit user name ${this.state.userName}`);
             this.setState({ loginState: "loggingIn" }); // this can remove search button and put it a loader of some kind
             api.login(this.state.userName, this.state.password)
                 .then(({ jwt, userData }) => {
-                    wInfo(`User ${this.state.userName} logged in successfully`);
+                    wDebug(`User ${this.state.userName} logged in successfully`);
+                    console.log(userData);
                     this.props.authUser(jwt, userData); // changes state in App parent component
                     // pop up alert - successful login
-                    this.setState({alertVisible: true});
+                    // this.setState({alertVisible: true});
                     // alert dismiss button will redirect to home page
                     this.props.history.push('/')
+                    
                 })
                 .catch((response) => {
                     if (response.status === 204) {
@@ -94,20 +94,18 @@ class Login extends React.Component {
         const inputValid = this.state.loginState === "inputValid";
         const loggingIn = this.state.loginState === "loggingIn";
         const badLogin = this.state.loginState === "badLogin";
-        return (
-            <div className="">
-                <div className="container d-flex flex-column align-items-center ">
+        return ( 
+                <div className="loginWrapper d-flex flex-column  align-items-center ">
                     <h1 className="text-center font-weight-light" >Login</h1>
-                    <div className="row">
-                        <div className="col ">
-                            <form>
+                    <div className="formWrapper">
+                            <form className=' d-flex flex-column '>
                                 <div className="form-group">
                                     <label htmlFor="userName">User name</label>
                                     <input
                                         className="form-control"
                                         id="userName"
                                         type="text"
-                                        placeholder="user name"
+                                        placeholder=""
                                         name="userName"
                                         value={this.state.userName}
                                         onChange={this.handleInputChange}
@@ -119,61 +117,39 @@ class Login extends React.Component {
                                         className="form-control"
                                         id="passwordInput"
                                         type="password"
-                                        placeholder="password"
+                                        placeholder=""
                                         name="password"
                                         value={this.state.password}
                                         onChange={this.handleInputChange}
                                     />
                                 </div>
-                                <div className="createAccount">
+                                <div className="alerts">
                                     {/* Select between no entry, login button and logging in loader */}
                                     {inputNotValid &&
-                                        <div><h3></h3></div>
+                                        <div  className="wrong" >Username and/or password can't be blank</div>
                                     }
                                     {inputValid &&
                                         <button
                                             disabled={this.state.searchDisable}
-                                            className={  styles.LoginFormButton  }
+                                            className="loginButton"
                                             onClick={this.handleFormSubmit}>Login</button>
                                     }
                                     {loggingIn &&
-                                        <div><h3>Logging in</h3></div>
+                                        <div>Logging in</div>
                                     }
                                     {badLogin &&
-                                        <div><h5>Something went wrong logging in, please try again</h5></div>
+                                        <div  className="wrong" >Username and/or password are incorrect</div>
                                     }
                                 </div>
                             </form>
-                            {/* <div className={styles.alertWrapper}>
-                                <Alert
-                                    className={styles.alert}
-                                    isOpen={this.state.alertVisible}>
-                                    <div className={"container container-fluid " + styles.alertContainer}>
-                                        <div className={"row " + styles.alertRow}>
-                                            <h2 className={styles.alertH2}>Login successful</h2>
-                                        </div>
-                                        <div className={"row " + styles.alertRow}>
-                                            <Link to="/">
-                                                <button className={styles.alertButton}>
-                                                    Continue to home page
-                                                        </button>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </Alert>
-                            </div> */}
                         </div>
+                    <div className='newAccountWrapper'>
+                        <Link to="/Newuser" >
+                            New Account?
+                        </Link>
                     </div>
-
-                    <div className="row">
-                        <div className="col signupButton ">
-                            <Link to="/Newuser"  className="createAccount">
-                                <h6 style={{color:'black'}} >New Account?</h6>
-                            </Link>
-                        </div>
-                    </div>
+                    
                 </div>
-            </div>
         )
     }
 }

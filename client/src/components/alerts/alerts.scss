@@ -1,0 +1,65 @@
+@import "../../styles/colors";
+
+.alertsWrapper {
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  margin-bottom: 7rem;
+}
+.alertsHeader {
+  margin-top: 1rem; 
+  letter-spacing: 0.5rem;
+  text-align: center;
+}
+
+
+.AlertsFormBox label {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: #222;
+  font-weight: lighter;
+  padding: 0.2rem 0px 0.2rem 0.5rem;
+
+}
+.AlertsFormBox input {            
+            padding: 10px 10px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid #cfcfcf;
+            background-color: $white; 
+}
+.AlertsFormBox input:focus {
+              border: 3px solid $aquamarine;
+              transition: 100ms linear;
+}
+.AlertsFormBox input::placeholder {
+            font-size: 1rem;
+            font-weight: lighter;
+            color: $color4;
+}
+.AlertsFormBox  input.error {
+            border: 1px solid red;
+}
+
+.alertsNewAlertButton {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: $aquamarine;
+  color: $white;
+  border: 2px solid $white;
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  font-size: 1.2rem;
+  font-weight: lighter;
+  letter-spacing: 1px;
+}
+
+.alertsNewAlertButton:hover  {
+  color: $aquamarine;
+  background-color: $white;
+  border: 2px solid $aquamarine;
+}
+
+.alertsNewAlertButton:focus {
+  outline: none;
+}

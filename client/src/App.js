@@ -13,10 +13,14 @@ import Pets from "./components/Pets/Pets";
 import Services from './components/Services/Services.js';
 import Alerts from "./components/alerts/Alerts";
 import API from "./api/alertsAPI";
+import Photos from "./components/Photos/Photos";
 
 // global scss file - import here then available to all sass files
 import "./styles/themes.scss";
 import Navbtn from './components/navbtn/Navbtn';
+
+import dBug from "./utilities/debug.js";
+const { wError, wDebug } = dBug("App");
 
 class  App extends React.Component {
   state = {
@@ -28,45 +32,71 @@ class  App extends React.Component {
     oldAlerts: []
   }
 
+  // user added alert - refetch
+  
+  newAlert = () => {
+    this.getAlerts()
+      .then (()=> {
+        wDebug("refetched alerts");
+      })
+      .catch((err) => {
+        wError("failed to refetch alerts");
+      })
+  }
+
+  // this should probably be part of API
+  getAlerts = () => {
+    return new Promise( (resolve, reject) => {
+      API.getAll()
+        .then(({ activeAlerts, oldAlerts }) => {
+          const active = (activeAlerts.length !== 0) ;
+          wDebug(`active ${active}`);
+          this.setState(
+            {
+              activeAlert: active,
+              activeAlerts: activeAlerts,
+              oldAlerts: oldAlerts
+            });
+          resolve();
+        })
+        .catch((err) => {
+          wError("App: Error accessing /api/alerts");
+          wError(err);
+          reject(err);
+        })
+    })
+  }
+
   // get alerts, create boolean "activeAlert", save to state
   // if a user is already logged in, get jwt and userData from localStorage, check that token is still valid
   componentDidMount() { 
+    wDebug("component did mount");
     // get alert data
-    API.getAll()
-      .then(({ activeAlerts, oldAlerts }) => {
-        let active = false;
-        if (activeAlerts.length !== 0) {
-          active = true;
-        }
-        this.setState(
-          {
-            activeAlert: active,
-            activeAlerts: activeAlerts,
-            oldAlerts: oldAlerts
-          });
-      })
-      .catch((err) => {
-        console.log("App: Error accessing /api/alerts");
-        console.log(err);
-      })
-      .finally ( () => {
-        // whether the alert data get succeeds or fails, check out authorization
-        if (localStorage.getItem("myNeighborhoodJwt") === null) {
-          console.log("No stored session information");
-        }
-        else {
-          axios.get("/api/pingtoken",
-            {
-              headers: {
-                "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
-              }
-            }
-          )
+      this.getAlerts()
+        .then( () => {
+          // getAlerts function has done all the work
+        })
+        .catch ((err) => {
+          // getAlerts already printed error messages
+        })
+        .finally( () => {
+          // whether the alert data get succeeds or fails, check out authorization
+          if (localStorage.getItem("myNeighborhoodJwt") === null) {
+            wDebug("No stored session information");
+            return;
+          }
+          else {
+            // check that token hasn't expired
+            axios.get("/api/pingtoken",
+              {
+                headers: {
+                  "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
+                }
+              })
             .then((result) => {
-              console.log(result.data);
-              if (result.data.jwValid) {
+              if (result.data.jwtValid) {
                 const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
-                console.log("Found stored session information for user " + userData.userName);
+                wDebug("Found stored session information for user " + userData.userName);
                 this.setState({
                   jwt: localStorage.getItem("myNeighborhoodJwt"),
                   userData: userData,
@@ -77,40 +107,55 @@ class  App extends React.Component {
                 // saved token was invalid, delete from localStorage
                 localStorage.removeItem("myNeighborhoodUserData");
                 localStorage.removeItem("myNeighborhoodJwt");
-                console.log("Removed expired authentication token");
+                wDebug("Removed expired authentication token");
               }
-
-
             })
-            .catch((err) => {
-              console.log("App: Error accessing /api/pingtemplate");
-              console.log(err);
+            .catch((error) => {
+              wDebug("Error returned from axios GET .api/pingtoken");
+              // not sure whether to delete user token
             })
         }
-      })
-    
+      }) 
   }
 
   // this is called by login and register routes so that state in App can be updated
   validUser = (jwt, userData) => {
-    localStorage.setItem("myNeighborhoodUserData", userData);
+    wDebug("validUser");
+    let temp= JSON.stringify(userData);
+    console.log(temp);
+    localStorage.setItem("myNeighborhoodUserData", JSON.stringify(userData));
     localStorage.setItem("myNeighborhoodJwt", jwt);
+    // wDebug("validUser2");
     this.setState({
       jwt: jwt,
       userData: userData,
       authorizedUser: true
     });
-    console.log("App: Changed user data");
+    wDebug("App: Changed user data");
   } 
+
+  // remove localStorage for user and change state
+  logout = () => {
+    localStorage.removeItem("myNeighborhoodUserData");
+    localStorage.removeItem("myNeighborhoodJwt");
+    wDebug("Log out user");
+    this.setState({
+      jwt: "",
+      userData: {},
+      authorizedUser: false
+    });
+
+  }
 
   render() {
     
     return (
-      <Router>
+      <Router id="turn">
         {/* Nav displays current user (or login button) and alerts flag */}
         <Nav 
+          logoutFn={this.logout}
           authorizedUser={this.state.authorizedUser} 
-          activeAlert={this.state.activeAlert}
+          
           userName={`${this.state.userData.firstName} ${this.state.userData.lastName}`}/>
         <Switch>
           <Route exact path='/' component={Home} />
@@ -129,6 +174,7 @@ class  App extends React.Component {
               authorizedUser={this.state.authorizedUser}
               currentAlerts={this.state.activeAlerts} 
               previousAlerts={this.state.oldAlerts}
+              newAlert={this.newAlert}
               />}
           />
           <Route path='/Recomendations' component={Recomendations} />
@@ -136,10 +182,13 @@ class  App extends React.Component {
           <Route path='/LocalInfo' component={LocalInfo} />
           <Route path='/Pets' component={Pets} />
           <Route path='/Services' component={Services} />
-       
-          
+          <Route Path='/Photos' component={Photos} />          
         </Switch>
-        <Navbtn authorizedUser={this.state.authorizedUser} />
+
+        <Navbtn 
+          authorizedUser={this.state.authorizedUser}
+          activeAlert={this.state.activeAlert}
+        />
         
       </Router>
     );

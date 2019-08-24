@@ -1,0 +1,32 @@
+@import "../../styles/colors";
+
+.pet-wrapper {
+    margin-bottom: 2rem;
+
+    .petcard-wrapper {
+        margin-bottom: 2rem;
+    }
+        p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+
+        }
+            #pet-one {
+                color: $color3;
+                background-color: $color6;
+            }
+
+            #pet-two {
+                color: $color3;
+                background-color: $color6;
+            }
+            #pet-three {
+                color: $color3;
+                background-color: $color6;
+            }
+            #pet-four {
+                color: $color3;
+                background-color: $color6;
+            }
+
+}

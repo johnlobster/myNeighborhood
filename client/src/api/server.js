@@ -1,6 +1,6 @@
 import axios from "axios";
 import dBug from "../utilities/debug.js";
-const { wError, wInfo, wDebug, wObj } = dBug("server API");
+const { wError, wDebug } = dBug("server API");
 
 // this is the API that connects to the server. Maybe server.js isn't the best name ...
 export default {
