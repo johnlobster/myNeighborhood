@@ -125,7 +125,7 @@ class Alerts extends React.Component {
                                         className="form-control"
                                         id="title"
                                         type="text"
-                                        placeholder="Title for new alert"
+                                        placeholder=""
                                         name="title"
                                         value={this.state.title}
                                         onChange={this.handleInputChange}
@@ -135,7 +135,7 @@ class Alerts extends React.Component {
                                         className="form-control"
                                         id="message"
                                         type="text"
-                                        placeholder="Message for new alert"
+                                        placeholder=""
                                         name="message"
                                         value={this.state.message}
                                         onChange={this.handleInputChange}
@@ -145,7 +145,7 @@ class Alerts extends React.Component {
                                         className="form-control"
                                         id="expires"
                                         type="text"
-                                        placeholder="Expiry time in hours"
+                                        placeholder=""
                                         name="expires"
                                         value={this.state.expires}
                                         onChange={this.handleInputChange}

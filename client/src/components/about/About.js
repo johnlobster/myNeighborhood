@@ -23,10 +23,10 @@ function About() {
             <Card.Body>
                 <Card.Title>Eddson Blanco</Card.Title>
                 <Card.Text>
-                I'm from Caracas, Venezuela and I immigrated to the US 4 years ago. I consider myself a creative, driven and very social person.<p>In my spare time, you can catch me on the dance floor dancing Salsa, traveling or playing video games</p>  
+                I'm from Caracas, Venezuela and I immigrated to the US 2015. I consider myself a creative, driven and very social person.<p>In my spare time, you can catch me on the dance floor dancing Salsa, traveling or playing video games</p>  
                 </Card.Text>
                 <div style={{display:'flex',  }}>
-                <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://linkedin.com/in/eddson-blanco-94a919168/"><i className="fab fa-linkedin"></i> </a>
+                <a   style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://linkedin.com/in/eddson-blanco-94a919168/"><i className="fab fa-linkedin"></i> </a>
                 <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://github.com/Eddsonblanco"><i className="fab fa-github-square"></i></a>
                 </div>
             </Card.Body>
@@ -40,7 +40,7 @@ function About() {
                     
                 </Card.Text>
                 <div style={{display:'flex',  }}>
-                        <a target="_blank" style={{ fontSize: '2rem', color: 'rgba(133, 183, 59, 1)', marginRight: '1rem' }} href="https://linkedin.com/in/john-webster-3444851/"><i className="fab fa-linkedin"></i> </a>
+                <a target="_blank" style={{ fontSize: '2rem', color: 'rgba(133, 183, 59, 1)', marginRight: '1rem' }} href="https://linkedin.com/in/john-webster-3444851/"><i className="fab fa-linkedin"></i> </a>
                 <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://github.com/johnlobster"><i className="fab fa-github-square"></i></a>
                 </div>
             </Card.Body>
@@ -60,7 +60,7 @@ function About() {
             </Card.Body>
         </Card>
 
-        <Card  style={{ width: '20rem', margin:'auto',marginBottom:'2rem' }}>
+        <Card  style={{ width: '20rem', margin:'auto',marginBottom:'4rem' }}>
             <Card.Img variant="top" src="https://files.slack.com/files-pri/TEMR3PG85-FMCJFLBQR/039x.jpg" />
             <Card.Body>
                 <Card.Title>Rob Ross</Card.Title>

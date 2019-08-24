@@ -150,7 +150,7 @@ class  App extends React.Component {
   render() {
     
     return (
-      <Router>
+      <Router id="turn">
         {/* Nav displays current user (or login button) and alerts flag */}
         <Nav 
           logoutFn={this.logout}

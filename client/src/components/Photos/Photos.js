@@ -45,14 +45,14 @@ class Photos extends Component {
     };
     return (
       <div className="photo-container">
-          <h1>Lost & Found</h1>
+          <h1 className="lost-title">Lost & Found</h1>
         <div className="photo-wrapper">
         <div className="photo-box">
           <p style={{textAlign:'center'}}>Let us help you find your item
-            <textarea name="" id="comment-box" cols="60" rows="10" placeholder="Description"></textarea>
+            <textarea name="" id="comment-box" cols="60" rows="2" placeholder="Description"></textarea>
           </p>
           {/* <p>Name: {this.state.firstName} </p> */}
-          <button style={{display:'flex'}} id="" onClick={this.showWidget}>Upload picture</button>
+          <button id="btn-upload" onClick={this.showWidget}>Upload picture</button>
           <br />
           {imgDisplay}
           

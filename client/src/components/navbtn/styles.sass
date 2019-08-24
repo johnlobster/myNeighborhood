@@ -4,12 +4,13 @@
  
 
 
-.dropdown-menu.show
+.show
   width: 100%
   color: $color1
+  
   @media screen and (min-width: 650px) 
-    margin-left: 75%
-    max-width: 500px
+    margin-left: 40%
+    max-width: 400px
   
 
 
@@ -20,6 +21,7 @@ li
       font-size: 1.5rem
       font-weight: 900
       text-align: right
+      margin-top: 1rem
       
       i
         color: $color1
@@ -33,19 +35,18 @@ li
 
 
 #nav
-  
   text-align: left
   background-color: $color1
+  display: flex
+  justify-content: space-between
 
 .navAlertBox
         background-color: transparent
-        margin-left: 0.5rem
-        margin-top: 0.5rem
         display: inline-block
-        // height: 2.5rem
-
-// .navAlertLink
-        // font-size: 2rem
+        font-size: 2rem
+        padding: 0.3rem
+        display: flex
+        align-items: center
 
 
 .navAlertLink:focus
@@ -53,10 +54,12 @@ li
 
 
 .navAlertIcon 
+        
         color: red
+        padding: 0.1rem 0.5rem
         animation-timing-function: linear
         animation-name: alertFlasher
-        animation-duration: 1.5s
+        animation-duration: 1s
         animation-iteration-count: infinite
 
         

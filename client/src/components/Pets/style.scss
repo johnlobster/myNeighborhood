@@ -2,6 +2,9 @@
 
 .pet-wrapper {
     margin-bottom: 2rem;
+    width: 90%;
+    margin: auto;
+    max-width: 750px;
 
     .petcard-wrapper {
         margin-bottom: 2rem;
@@ -34,4 +37,10 @@
                 background-color: $color6;
             }
 
+}
+
+.petName{
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.1rem
 }
