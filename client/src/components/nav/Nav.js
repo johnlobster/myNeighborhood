@@ -6,10 +6,6 @@ import logo from '../../images/mnlogo.png'
 
 function Nav(props) {
 
-    function clickMe() {
-        console.log("I got clicked");
-    }
-
     return (
         <nav >
             <div className="NavHeaderBox">
@@ -25,19 +21,6 @@ function Nav(props) {
                 </span>
             )}
             </div>
-        {/* If alert is active, show red triangle. This uses a relative position */}
-        {props.activeAlert &&
-            <div className="navAlertBox">
-                <span>
-                    <Link to="Alerts" onClick={clickMe} >
-                        <div className="navAlertLink">
-                            <i className="fas fa-exclamation-triangle fa-2x navAlertIcon" />
-                        </div>
-                    </Link>
-                </span>  
-            </div>
-        }
-            
         </nav>
 
 

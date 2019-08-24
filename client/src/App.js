@@ -158,7 +158,10 @@ class  App extends React.Component {
        
           
         </Switch>
-        <Navbtn authorizedUser={this.state.authorizedUser} />
+        <Navbtn 
+          authorizedUser={this.state.authorizedUser}
+          activeAlert={this.state.activeAlert}
+        />
         
       </Router>
     );
