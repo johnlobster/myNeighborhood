@@ -40,16 +40,14 @@ export default {
   },
   newAlert: (alertData, jwt) => {
     return new Promise((resolve, reject) => {
-      axios.post("/api/alerts",
+      axios.post("/api/alerts", alertData,
         {
-          data: alertData,
           headers: {
             "authorization": `Bearer ${jwt}`
           }
-        }
-      )
+        })
         .then((dbResult) => {
-          wDebug("Valid data returned");
+          // wDebug("Valid data returned");
           resolve(dbResult);
         })
         .catch((error) => {
