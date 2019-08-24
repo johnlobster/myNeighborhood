@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-.env
 # 
 this file is used as a .env file for dbSeed, so don't want it in repo
 scripts/heroku_mongodb_dot_env
