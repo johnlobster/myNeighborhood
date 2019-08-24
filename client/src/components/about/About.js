@@ -4,6 +4,7 @@ import './style.sass';
 import eddson from '../../images/eddson2.jpg';
 import diego from '../../images/diego.jpg';
 import john from '../../images/john.jpg';
+import rob from '../../images/rob.jpg';
 
 
 
@@ -61,7 +62,7 @@ function About() {
         </Card>
 
         <Card  style={{ width: '20rem', margin:'auto',marginBottom:'4rem' }}>
-            <Card.Img variant="top" src="https://files.slack.com/files-pri/TEMR3PG85-FMCJFLBQR/039x.jpg" />
+            <Card.Img variant="top" src={rob} />
             <Card.Body>
                 <Card.Title>Rob Ross</Card.Title>
                 <Card.Text>
