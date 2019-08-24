@@ -22,7 +22,7 @@ router.use(function (req, res, next) {
       })
       .catch((err) => {
         // jwt code returns error for invalid jwt, so don't print out these errors
-        // wError("Invalid JWT (should this be an error ?)");
+        wDebug("Invalid JWT");
         // wError(err);
         req.authorized = false;
         next();
