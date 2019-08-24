@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import { Card } from 'react-bootstrap';
+import cat from "../../images/cat.jpg";
  
 function Pets() {
     return (
@@ -44,13 +45,78 @@ function Pets() {
                 </Card.Body>
             </Card>
             <Card id="pet-four" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
-                <Card.Img variant="top" src="https://images.unsplash.com/photo-1562362336-65efec5a264a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80" />
+                <Card.Img variant="top" src="https://images.unsplash.com/photo-1562362228-80b828fd62e8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
                 <Card.Body>
-                    <Card.Title>Tim</Card.Title>
+                    <Card.Title>Doug</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: Austin
+                        Owner: Stephanie
                         (530)555-5555
                         Loves kisses
+                </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card id="pet-three" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+                <Card.Img variant="top" src="https://images.unsplash.com/photo-1559214369-a6b1d7919865?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
+                <Card.Body>
+                    <Card.Title>Tissues</Card.Title>
+                    <Card.Text style={{fontSize:'0.7rem'}}>
+                        Owner: Mr. Jenkins
+                        Phone: (530)555-5555
+                        Caution: Very cute
+                </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card id="pet-three" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+                <Card.Img variant="top" src="https://images.unsplash.com/photo-1533567767427-38bb7cbc0409?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
+                <Card.Body>
+                    <Card.Title>Malfoy</Card.Title>
+                    <Card.Text style={{fontSize:'0.7rem'}}>
+                        Owner: John
+                        Phone: (530)555-5555
+                        Caution: Very cute
+                </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card id="pet-three" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+                <Card.Img variant="top" src="https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
+                <Card.Body>
+                    <Card.Title>Rufus</Card.Title>
+                    <Card.Text style={{fontSize:'0.7rem'}}>
+                        Owner: Haffed
+                        Phone: (530)555-5555
+                        Caution: Very cute
+                </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card id="pet-three" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+                <Card.Img variant="top" src={cat} />
+                <Card.Body>
+                    <Card.Title>Skittles</Card.Title>
+                    <Card.Text style={{fontSize:'0.7rem'}}>
+                        Owner: Austin
+                        Phone: (530)555-5555
+                        Stray cat, leave alone
+                </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card id="pet-three" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+                <Card.Img variant="top" src="https://images.unsplash.com/photo-1533738699159-d0c68059bb61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
+                <Card.Body>
+                    <Card.Title>Miller</Card.Title>
+                    <Card.Text style={{fontSize:'0.7rem'}}>
+                        Owner: Kelen
+                        Phone: (530)555-5555
+                        Caution: Very cute
+                </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card id="pet-three" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
+                <Card.Img variant="top" src="https://images.unsplash.com/photo-1452570053594-1b985d6ea890?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
+                <Card.Body>
+                    <Card.Title>Ben</Card.Title>
+                    <Card.Text style={{fontSize:'0.7rem'}}>
+                        Owner: Marie Bland
+                        Gives back sass
                 </Card.Text>
                 </Card.Body>
             </Card>

@@ -147,7 +147,7 @@ class  App extends React.Component {
         <Nav 
           logoutFn={this.logout}
           authorizedUser={this.state.authorizedUser} 
-          activeAlert={this.state.activeAlert}
+          
           userName={`${this.state.userData.firstName} ${this.state.userData.lastName}`}/>
         <Switch>
           <Route exact path='/' component={Home} />
