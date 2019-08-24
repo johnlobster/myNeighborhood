@@ -9,7 +9,7 @@ function Pets() {
             <div style={{ display: 'flex', textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', width: '80%', margin: 'auto', fontSize: '0.8rem'}}>
                 <p>Have you seen me? Please contact my owner.</p>
             </div>
-            <div className="petcard-wrapper" style={{ display: 'flex', flexWrap: 'wrap'}}>
+            <div className="petcard-wrapper" style={{ display: 'flex', flexWrap: 'wrap', marginBottom:"4rem"}}>
             <Card style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
                 <Card.Img variant="top" src="https://images.unsplash.com/photo-1517423568366-8b83523034fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80" />
                 <Card.Body>

@@ -26,7 +26,7 @@ function About() {
                 I'm from Caracas, Venezuela and I immigrated to the US 4 years ago. I consider myself a creative, driven and very social person.<p>In my spare time, you can catch me on the dance floor dancing Salsa, traveling or playing video games</p>  
                 </Card.Text>
                 <div style={{display:'flex',  }}>
-                <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://linkedin.com/in/eddson-blanco-94a919168/"><i className="fab fa-linkedin"></i> </a>
+                <a   style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://linkedin.com/in/eddson-blanco-94a919168/"><i className="fab fa-linkedin"></i> </a>
                 <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://github.com/Eddsonblanco"><i className="fab fa-github-square"></i></a>
                 </div>
             </Card.Body>
