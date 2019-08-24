@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './styles.sass';
-import { Link, Redirect  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import api from "../../api/server";
 import { } from 'react-router-dom';
 

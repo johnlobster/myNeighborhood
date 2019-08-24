@@ -8,6 +8,14 @@ function Navbtn(props) {
   return (
       
       <div id="nav" className="col fixed-bottom ">
+        {/* If alert is active, show red triangle. This uses a relative position */}
+        {props.activeAlert &&
+            <span className="navAlertBox">
+              <Link to="/Alerts" className="navAlertLink">
+                  <i className="fas fa-exclamation-triangle fa-2x navAlertIcon" />
+              </Link>
+            </span>
+        }
           <li className="nav-item dropdown">
             <Link className="nav-link" to="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i id="bars-menu" className="fa fa-bars" aria-hidden="true"></i>

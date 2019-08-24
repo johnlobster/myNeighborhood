@@ -1,10 +1,7 @@
 import React from 'react';
 // import './style.sass';
-import { Link } from 'react-router-dom';
 import axios from "axios";
 import Card from '../Card/Card'
-import cheerio from "cheerio";
-import API from '../../api/server';
 import  "./news.scss";
 
 
@@ -32,10 +29,7 @@ class LocalInfo extends React.Component {
 
     }
 
-    handleclick = () => {
-        console.log("click")
-        console.log(this)
-    }
+
 
     handleNewArticle = () => {
         let count = this.state.article_count + 1;
