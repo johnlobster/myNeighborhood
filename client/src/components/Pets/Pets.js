@@ -7,8 +7,8 @@ function Pets() {
     return (
         <div className="pet-wrapper" style={{ display: 'flex', flexDirection: 'column', }}>
             <h1 style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '1rem' }}>Pets in the neighborhood</h1>
-            <div style={{ display: 'flex', textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', width: '80%', margin: 'auto', fontSize: '0.8rem'}}>
-                <p>Have you seen me? Please contact my owner.</p>
+            <div style={{ display: 'flex', textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', width: '80%', margin: 'auto', fontSize: '0.8rem', maxWidth: '400px'}}>
+                <p className="pet-title">Have you seen me? Please contact my owner.</p>
             </div>
             <div className="petcard-wrapper" style={{ display: 'flex', flexWrap: 'wrap'}}>
             <Card id="pet-one" style={{ width: '10rem', margin: 'auto', marginBottom: '1rem' }}>
@@ -17,7 +17,7 @@ function Pets() {
                     <Card.Title>Spunky</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
                         Owner: Eddson
-                        (530)555-5555
+                        Phone: 555-5555
                         Approach with caution
                 </Card.Text>
                 </Card.Body>
@@ -27,8 +27,8 @@ function Pets() {
                 <Card.Body>
                     <Card.Title>Coscu</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: Jo
-                        (530)555-5555
+                        Owner: Jo<br></br>
+                        Phone: 555-5555
                         Responds to Kitty
                 </Card.Text>
                 </Card.Body>
@@ -39,7 +39,7 @@ function Pets() {
                     <Card.Title>Scrappy</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
                         Owner: Shane
-                        Phone: (530)555-5555
+                        Phone: 555-5555
                         Caution: Very cute
                 </Card.Text>
                 </Card.Body>
@@ -50,7 +50,7 @@ function Pets() {
                     <Card.Title>Doug</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
                         Owner: Stephanie
-                        (530)555-5555
+                        Phone: 555-5555
                         Loves kisses
                 </Card.Text>
                 </Card.Body>
@@ -61,8 +61,8 @@ function Pets() {
                     <Card.Title>Tissues</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
                         Owner: Mr. Jenkins
-                        Phone: (530)555-5555
-                        Caution: Very cute
+                        Phone: 555-5555
+                        Very loud
                 </Card.Text>
                 </Card.Body>
             </Card>
@@ -71,9 +71,9 @@ function Pets() {
                 <Card.Body>
                     <Card.Title>Malfoy</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: John
-                        Phone: (530)555-5555
-                        Caution: Very cute
+                        Owner: John<br></br>
+                        Phone: 555-5555
+                        Loves cuddling
                 </Card.Text>
                 </Card.Body>
             </Card>
@@ -83,8 +83,8 @@ function Pets() {
                     <Card.Title>Rufus</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
                         Owner: Haffed
-                        Phone: (530)555-5555
-                        Caution: Very cute
+                        Known to have rabies
+                        
                 </Card.Text>
                 </Card.Body>
             </Card>
@@ -93,8 +93,7 @@ function Pets() {
                 <Card.Body>
                     <Card.Title>Skittles</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: Austin
-                        Phone: (530)555-5555
+                        Owner: Austin<br></br>
                         Stray cat, leave alone
                 </Card.Text>
                 </Card.Body>
@@ -104,9 +103,9 @@ function Pets() {
                 <Card.Body>
                     <Card.Title>Miller</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: Kelen
-                        Phone: (530)555-5555
-                        Caution: Very cute
+                        Owner: Kelen<br></br>
+                        Phone: 555-5555
+                        Sweetest cat on the block
                 </Card.Text>
                 </Card.Body>
             </Card>
@@ -115,8 +114,8 @@ function Pets() {
                 <Card.Body>
                     <Card.Title>Ben</Card.Title>
                     <Card.Text style={{fontSize:'0.7rem'}}>
-                        Owner: Marie Bland
-                        Gives back sass
+                        Owner: Unknown
+                        Has a sailor-mouth
                 </Card.Text>
                 </Card.Body>
             </Card>
