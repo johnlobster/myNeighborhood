@@ -35,7 +35,7 @@ class  App extends React.Component {
   // user added alert - refetch
   
   newAlert = () => {
-    this.getAlerts
+    this.getAlerts()
       .then (()=> {
         wDebug("refetched alerts");
       })
@@ -43,12 +43,14 @@ class  App extends React.Component {
         wError("failed to refetch alerts");
       })
   }
+
   // this should probably be part of API
   getAlerts = () => {
     return new Promise( (resolve, reject) => {
       API.getAll()
         .then(({ activeAlerts, oldAlerts }) => {
           const active = (activeAlerts.length !== 0) ;
+          wDebug(`active ${active}`);
           this.setState(
             {
               activeAlert: active,
@@ -68,12 +70,20 @@ class  App extends React.Component {
   // get alerts, create boolean "activeAlert", save to state
   // if a user is already logged in, get jwt and userData from localStorage, check that token is still valid
   componentDidMount() { 
+    wDebug("component did mount");
     // get alert data
       this.getAlerts()
         .then( () => {
+          // getAlerts function has done all the work
+        })
+        .catch ((err) => {
+          // getAlerts already printed error messages
+        })
+        .finally( () => {
           // whether the alert data get succeeds or fails, check out authorization
           if (localStorage.getItem("myNeighborhoodJwt") === null) {
             wDebug("No stored session information");
+            return;
           }
           else {
             // check that token hasn't expired
@@ -82,11 +92,9 @@ class  App extends React.Component {
                 headers: {
                   "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
                 }
-              }
-            )
+              })
             .then((result) => {
-              wDebug(result.data);
-              if (result.data.jwValid) {
+              if (result.data.jwtValid) {
                 const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
                 wDebug("Found stored session information for user " + userData.userName);
                 this.setState({
@@ -102,12 +110,12 @@ class  App extends React.Component {
                 wDebug("Removed expired authentication token");
               }
             })
-          }
-        })
-        .catch ((err) => {
-          wError("App: Error accessing /api/pingtemplate");
-          wError(err);
-        })
+            .catch((error) => {
+              wDebug("Error returned from axios GET .api/pingtoken");
+              // not sure whether to delete user token
+            })
+        }
+      }) 
   }
 
   // this is called by login and register routes so that state in App can be updated
@@ -174,10 +182,9 @@ class  App extends React.Component {
           <Route path='/LocalInfo' component={LocalInfo} />
           <Route path='/Pets' component={Pets} />
           <Route path='/Services' component={Services} />
-          <Route Path='/Photos' component={Photos} />
-       
-          
+          <Route Path='/Photos' component={Photos} />          
         </Switch>
+
         <Navbtn 
           authorizedUser={this.state.authorizedUser}
           activeAlert={this.state.activeAlert}

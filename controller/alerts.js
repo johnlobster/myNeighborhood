@@ -1,5 +1,6 @@
 const db = require("../models");
 const { wError, wInfo, wDebug, wObj } = require("../scripts/debug")("alerts");
+const moment = require("moment");
 
 module.exports = {
   newAlert: function (req, res) { // POST a new alert
@@ -18,7 +19,7 @@ module.exports = {
       wDebug("user name, title or expiresDate missing, return 401");
       res.status(401).json({ message: "Missing user name, title or expires date"});
     } else {
-      req.body.createdDate = new Date;
+      req.body.createdDate = moment();
       db.Alert
         .create(req.body)
         .then((dbResult) => {
@@ -27,7 +28,7 @@ module.exports = {
         .catch((err) => {
           wError("registration generated error");
           res.status(500).json({ message: "server error, could not save new alert"});
-          wObj(err);
+          // wObj(err);
         })
       }
   },

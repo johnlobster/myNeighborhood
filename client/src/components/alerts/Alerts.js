@@ -48,7 +48,7 @@ class Alerts extends React.Component {
         else {
             const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
             const jwt = localStorage.getItem("myNeighborhoodJwt");
-            wDebug("jwt = ", jwt);
+            // wDebug(`jwt = ${jwt}`);
             let alertData = {
                 userName: userData.userName,
                 title: this.state.title,
