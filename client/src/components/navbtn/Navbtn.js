@@ -22,7 +22,7 @@ function Navbtn(props) {
             </Link>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item text-right" to="/Services">Services<i className="fa fa-tools"></i></Link>
-              <Link className="dropdown-item text-right" to="/Lostandfound">Lost & found<i className="fa fa-key" aria-hidden="true"></i></Link>
+              <Link className="dropdown-item text-right" to="/Photo">Lost & found<i className="fa fa-key" aria-hidden="true"></i></Link>
               <Link className="dropdown-item text-right" to="/Pets">Pets <i className="fa fa-paw" aria-hidden="true"></i></Link>
               <Link className="dropdown-item text-right" to="/Alerts">Alerts<i className="fa fa-exclamation-triangle" aria-hidden="true"></i></Link>
               <Link className="dropdown-item text-right" to="/LocalInfo">News<i className="fa fa-newspaper-o" aria-hidden="true"></i></Link>
