@@ -45,18 +45,21 @@ class Photos extends Component {
     };
     return (
       <div className="photo-container">
-          <h1>Photo</h1>
+          <h1>Lost & Found</h1>
         <div className="photo-wrapper">
         <div className="photo-box">
-          <p>Name: {this.state.firstName} </p>
-          <button id="photoButton" onClick={this.showWidget}>Upload picture</button>
+          <p style={{textAlign:'center'}}>Let us help you find your item
+            <textarea name="" id="comment-box" cols="60" rows="10" placeholder="Description"></textarea>
+          </p>
+          {/* <p>Name: {this.state.firstName} </p> */}
+          <button style={{display:'flex'}} id="" onClick={this.showWidget}>Upload picture</button>
           <br />
           {imgDisplay}
           
           <br />
           
         </div>
-        <a href={this.state.url}>This is the image URL: {this.state.url}</a>
+        {/* <a href={this.state.url}>This is the image URL: {this.state.url}</a> */}
 </div>
       </div>
     );
