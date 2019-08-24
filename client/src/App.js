@@ -32,40 +32,58 @@ class  App extends React.Component {
     oldAlerts: []
   }
 
+  // user added alert - refetch
+  
+  newAlert = () => {
+    this.getAlerts
+      .then (()=> {
+        wDebug("refetched alerts");
+      })
+      .catch((err) => {
+        wError("failed to refetch alerts");
+      })
+  }
+  // this should probably be part of API
+  getAlerts = () => {
+    return new Promise( (resolve, reject) => {
+      API.getAll()
+        .then(({ activeAlerts, oldAlerts }) => {
+          const active = (activeAlerts.length !== 0) ;
+          this.setState(
+            {
+              activeAlert: active,
+              activeAlerts: activeAlerts,
+              oldAlerts: oldAlerts
+            });
+          resolve();
+        })
+        .catch((err) => {
+          wError("App: Error accessing /api/alerts");
+          wError(err);
+          reject(err);
+        })
+    })
+  }
+
   // get alerts, create boolean "activeAlert", save to state
   // if a user is already logged in, get jwt and userData from localStorage, check that token is still valid
   componentDidMount() { 
     // get alert data
-    API.getAll()
-      .then(({ activeAlerts, oldAlerts }) => {
-        let active = false;
-        if (activeAlerts.length !== 0) {
-          active = true;
-        }
-        this.setState(
-          {
-            activeAlert: active,
-            activeAlerts: activeAlerts,
-            oldAlerts: oldAlerts
-          });
-      })
-      .catch((err) => {
-        wError("App: Error accessing /api/alerts");
-        wError(err);
-      })
-      .finally ( () => {
-        // whether the alert data get succeeds or fails, check out authorization
-        if (localStorage.getItem("myNeighborhoodJwt") === null) {
-          wDebug("No stored session information");
-        }
-        else {
-          axios.get("/api/pingtoken",
-            {
-              headers: {
-                "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
+      this.getAlerts()
+        .then( () => {
+          // whether the alert data get succeeds or fails, check out authorization
+          if (localStorage.getItem("myNeighborhoodJwt") === null) {
+            wDebug("No stored session information");
+          }
+          else {
+            // check that token hasn't expired
+            axios.get("/api/pingtoken",
+              {
+                headers: {
+                  "authorization": `Bearer ${localStorage.getItem("myNeighborhoodJwt")}`
+                }
               }
-            }
-          )
+            )
             .then((result) => {
               wDebug(result.data);
               if (result.data.jwValid) {
@@ -83,22 +101,23 @@ class  App extends React.Component {
                 localStorage.removeItem("myNeighborhoodJwt");
                 wDebug("Removed expired authentication token");
               }
-
-
             })
-            .catch((err) => {
-              wError("App: Error accessing /api/pingtemplate");
-              wError(err);
-            })
-        }
-      })
-    
+          }
+        })
+        .catch ((err) => {
+          wError("App: Error accessing /api/pingtemplate");
+          wError(err);
+        })
   }
 
   // this is called by login and register routes so that state in App can be updated
   validUser = (jwt, userData) => {
-    localStorage.setItem("myNeighborhoodUserData", userData);
+    wDebug("validUser");
+    let temp= JSON.stringify(userData);
+    console.log(temp);
+    localStorage.setItem("myNeighborhoodUserData", JSON.stringify(userData));
     localStorage.setItem("myNeighborhoodJwt", jwt);
+    // wDebug("validUser2");
     this.setState({
       jwt: jwt,
       userData: userData,
@@ -147,6 +166,7 @@ class  App extends React.Component {
               authorizedUser={this.state.authorizedUser}
               currentAlerts={this.state.activeAlerts} 
               previousAlerts={this.state.oldAlerts}
+              newAlert={this.newAlert}
               />}
           />
           <Route path='/Recomendations' component={Recomendations} />

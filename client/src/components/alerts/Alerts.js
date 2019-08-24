@@ -7,7 +7,7 @@ import AlertItem from "./AlertItem";
 import "./alerts.scss";
 import api from "../../api/alertsAPI";
 import dBug from "../../utilities/debug.js";
-const { wError } = dBug("Alerts component");
+const { wError, wDebug } = dBug("Alerts component");
 
 /* 
 alert displays
@@ -40,35 +40,37 @@ class Alerts extends React.Component {
     // When the form is submitted, prevent the default event and POST to /api/alerts (returns promise)
     handleFormSubmit = event => {
         event.preventDefault();
-        if ((this.state.title.length === 0) || (this.state.expires.length === 0)) {
+        if ( this.state.title.length === 0) {
             // respond to user about invalid search
-            wError("Pressed submit without title or expiry date filled in");
+            wError("Alert must have a title");
             // TODO - need to show proper user feedback on this
         }
         else {
             const userData = JSON.parse(localStorage.getItem("myNeighborhoodUserData"));
+            const jwt = localStorage.getItem("myNeighborhoodJwt");
+            wDebug("jwt = ", jwt);
             let alertData = {
                 userName: userData.userName,
-                jwt: localStorage.getItem("myNeighborhoodJwt"),
                 title: this.state.title,
                 message: this.state.message,
                 expiresDate: moment().add(parseFloat(this.state.expires), "hours").toDate()
             }   
-            api.newAlert(alertData)
+            api.newAlert(alertData, jwt)
             .then( (result) => {
-                //
+                this.props.newAlert();
             })
             .catch( (error) => {
-                //
+                wError("Bad return from POST to /api/alerts");
             })
         }
     }
 
 
-    // show alert form
+    // show alert input form
     newAlert = () => {
         this.setState({inputState: "input"});
     }
+
     render() {
         
         // create booleans to use for status box as can't use an if statement inside render 
@@ -138,8 +140,6 @@ class Alerts extends React.Component {
                                         value={this.state.message}
                                         onChange={this.handleInputChange}
                                     />
-                                </div>
-                                <div className="form-group">
                                     <label htmlFor="expires">Expires</label>
                                     <input
                                         className="form-control"
@@ -151,7 +151,7 @@ class Alerts extends React.Component {
                                         onChange={this.handleInputChange}
                                     />
                                 </div>
-                                <div className="createAccount">
+                                <div>
                                     <button 
                                         className="alertsNewAlertButton"
                                         onClick={this.handleFormSubmit}>

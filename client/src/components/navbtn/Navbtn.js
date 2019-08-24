@@ -10,8 +10,8 @@ function Navbtn(props) {
       <div id="nav" className="col fixed-bottom ">
         {/* If alert is active, show red triangle. This uses a relative position */}
         {props.activeAlert &&
-            <span class="navAlertBox">
-              <Link to="/Alerts" class="navAlertLink">
+            <span className="navAlertBox">
+              <Link to="/Alerts" className="navAlertLink">
                   <i className="fas fa-exclamation-triangle fa-2x navAlertIcon" />
               </Link>
             </span>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from "./Login.module.scss";
 import api from "../../api/server";
 import dBug from "../../utilities/debug.js";
-const { wError, wInfo, wDebug } = dBug("Login");
+const { wError, wDebug } = dBug("Login");
 
 class Login extends React.Component {
     state= {
@@ -57,16 +57,18 @@ class Login extends React.Component {
             // I think handleInput change should prevent this so would never be reached
         }
         else {
-            wDebug(`Form submit user name ${this.state.userName} password ${this.state.password}`);
+            wDebug(`Form submit user name ${this.state.userName}`);
             this.setState({ loginState: "loggingIn" }); // this can remove search button and put it a loader of some kind
             api.login(this.state.userName, this.state.password)
                 .then(({ jwt, userData }) => {
-                    wInfo(`User ${this.state.userName} logged in successfully`);
+                    wDebug(`User ${this.state.userName} logged in successfully`);
+                    console.log(userData);
                     this.props.authUser(jwt, userData); // changes state in App parent component
                     // pop up alert - successful login
-                    this.setState({alertVisible: true});
+                    // this.setState({alertVisible: true});
                     // alert dismiss button will redirect to home page
-                    this.props.history.push('/')
+                    // this.props.history.push('/')
+                    
                 })
                 .catch((response) => {
                     if (response.status === 204) {
