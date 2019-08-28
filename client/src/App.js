@@ -21,6 +21,7 @@ import Navbtn from './components/navbtn/Navbtn';
 
 import dBug from "./utilities/debug.js";
 const { wError, wDebug } = dBug("App");
+require('dotenv').config();
 
 class  App extends React.Component {
   state = {
