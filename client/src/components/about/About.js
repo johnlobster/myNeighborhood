@@ -41,7 +41,7 @@ function About() {
                     
                 </Card.Text>
                 <div style={{display:'flex',  }}>
-                <a target="_blank" style={{ fontSize: '2rem', color: 'rgba(133, 183, 59, 1)', marginRight: '1rem' }} href="https://linkedin.com/in/john-webster-3444851/"><i className="fab fa-linkedin"></i> </a>
+                <a target="_blank" style={{ fontSize: '2rem', color: 'rgba(133, 183, 59, 1)', marginRight: '1rem' }} href="https://linkedin.com/in/JohnWWebster/"><i className="fab fa-linkedin"></i> </a>
                 <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://github.com/johnlobster"><i className="fab fa-github-square"></i></a>
                 </div>
             </Card.Body>
