@@ -12,12 +12,12 @@ class Photos extends Component {
     url: ""
   };
   showWidget = () => {
-    console.log(process.env.REACT_APP_CLOUDINARY_CLOUD_NAME)
+    console.log(process.env.CLOUDINARY_CLOUD_NAME)
     console.log("env", process.env)
     let widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-        uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+        cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+        uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
 
         sources: ["local", "camera"]
       },
