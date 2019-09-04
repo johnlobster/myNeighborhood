@@ -11,7 +11,7 @@
 scripts/heroku_mongodb_dot_env
 # same as above for client
 client/node_modules
-client/.env
+
 
 # testing
 /coverage
