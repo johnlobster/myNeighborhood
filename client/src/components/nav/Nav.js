@@ -12,7 +12,7 @@ function Nav(props) {
                 <a href='/'> <img alt="LOGO" src={logo} /></a>
             {/* Display either user name or a login button */}
             {props.authorizedUser ? (
-                <span>Welcome: {props.userName}</span>
+                <span onClick={props.logoutFn}>Welcome: {props.userName}</span>
             ) : (
                 <span>
                     <Link className="NavLink" to="/login">
