@@ -41,7 +41,7 @@ function About() {
                     
                 </Card.Text>
                 <div style={{display:'flex',  }}>
-                <a target="_blank" style={{ fontSize: '2rem', color: 'rgba(133, 183, 59, 1)', marginRight: '1rem' }} href="https://linkedin.com/in/john-webster-3444851/"><i className="fab fa-linkedin"></i> </a>
+                <a target="_blank" style={{ fontSize: '2rem', color: 'rgba(133, 183, 59, 1)', marginRight: '1rem' }} href="https://linkedin.com/in/JohnWWebster/"><i className="fab fa-linkedin"></i> </a>
                 <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://github.com/johnlobster"><i className="fab fa-github-square"></i></a>
                 </div>
             </Card.Body>
@@ -66,8 +66,7 @@ function About() {
             <Card.Body>
                 <Card.Title>Rob Ross</Card.Title>
                 <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    A native Californian, I am drawn to all things technology.  I consider myself to be a compulsive volunteer for causes I believe in.  When I am not tinkering with technology, you will likely find me spending time with friends and family.  I have held a private pilot license for 20 years and love to take extended weekends to place I can fly.
                 </Card.Text>
                 <div style={{display:'flex',  }}>
                 <a target="_blank" style={{fontSize:'2rem',color:'rgba(133, 183, 59, 1)', marginRight:'1rem'  }} href="https://www.linkedin.com/in/thinksmartrob/"><i className="fab fa-linkedin"></i> </a>
