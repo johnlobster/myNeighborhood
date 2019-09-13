@@ -1,5 +1,12 @@
 # myNeighborhood
 
+## Contributors
+
+* Rob Ross
+* Eddson Blanco
+* Diego Solorio
+* John Webster
+
 ## Set up development environment
 
 Setup
